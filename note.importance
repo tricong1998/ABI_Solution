@@ -1,0 +1,14 @@
+1, With git:
+- Don't push any references (libraries) which can be sync automatically by nuget.
+- Don't push any changes with file .gitignore unless you was familiar on working with it.
+- Don't push any file in .gitignore like *.log, Bin/Debug/, etc. (by default, these files will not be staged, unless you modified .gitignore file)
+
+2, Some extension for Visual Studio (save my life):
+  - color for output window: https://marketplace.visualstudio.com/items?itemName=MikeWard-AnnArbor.VSColorOutput
+  - inheritance viewer: https://marketplace.visualstudio.com/items?itemName=munyabe.TypeHierarchyViewer
+  - template for new class (sth like @author, @date, etc.): https://marketplace.visualstudio.com/items?itemName=StefanWenig.LicenseHeaderManager
+  in order to install extension, there are 2 ways:
+    + Tool -> Extensions & Updates -> Search what you want and follow the instruction
+	+ search by Google or https://marketplace.visualstudio.com directly, download and simply click the file (*.vsix), follow the guide
+ 
+# Update new here

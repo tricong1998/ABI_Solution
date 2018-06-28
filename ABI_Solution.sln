@@ -1,0 +1,48 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.27428.2037
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ABI", "ABI\ABI.csproj", "{A0F92923-CDFD-45FE-B43F-2296BCDDA8F2}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ABITests", "ABITests\ABITests.csproj", "{5C0A4B35-B009-4F38-B729-067D6B406ED3}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Related", "Related", "{681576B5-B24B-4BEA-B07C-0E4C8BAEFA08}"
+	ProjectSection(SolutionItems) = preProject
+		Related\VanBanGoc_03.2014.TT.BTTTT.pdf = Related\VanBanGoc_03.2014.TT.BTTTT.pdf
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "ICDL", "ICDL", "{6961E081-68A0-4E8B-A7CD-76E3DF8E0DCA}"
+	ProjectSection(SolutionItems) = preProject
+		Related\ICDL\Computer essentials.doc = Related\ICDL\Computer essentials.doc
+		Related\ICDL\Online essentials.doc = Related\ICDL\Online essentials.doc
+		Related\ICDL\Presentation OK.doc = Related\ICDL\Presentation OK.doc
+		Related\ICDL\Spreadsheet Processing OK.doc = Related\ICDL\Spreadsheet Processing OK.doc
+		Related\ICDL\Word Processing OK.doc = Related\ICDL\Word Processing OK.doc
+	EndProjectSection
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{A0F92923-CDFD-45FE-B43F-2296BCDDA8F2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A0F92923-CDFD-45FE-B43F-2296BCDDA8F2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A0F92923-CDFD-45FE-B43F-2296BCDDA8F2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A0F92923-CDFD-45FE-B43F-2296BCDDA8F2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5C0A4B35-B009-4F38-B729-067D6B406ED3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5C0A4B35-B009-4F38-B729-067D6B406ED3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5C0A4B35-B009-4F38-B729-067D6B406ED3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5C0A4B35-B009-4F38-B729-067D6B406ED3}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{6961E081-68A0-4E8B-A7CD-76E3DF8E0DCA} = {681576B5-B24B-4BEA-B07C-0E4C8BAEFA08}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {EC119F21-8AB6-408B-B521-8398CD1D0397}
+	EndGlobalSection
+EndGlobal
