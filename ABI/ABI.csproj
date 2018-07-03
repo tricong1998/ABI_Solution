@@ -76,6 +76,8 @@
     <Compile Include="Model\IQuestion.cs" />
     <Compile Include="Model\IResult.cs" />
     <Compile Include="Model\ScoreResult.cs" />
+    <Compile Include="Model\Word\ABIW_Border.cs" />
+    <Compile Include="Model\Word\ABIW_Cell.cs" />
     <Compile Include="Model\Word\ABIW_Table.cs" />
     <Compile Include="Model\Word\WordCompareQuestion.cs" />
     <Compile Include="Utilities\Utils.cs" />
