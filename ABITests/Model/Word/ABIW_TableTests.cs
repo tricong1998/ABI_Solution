@@ -23,8 +23,8 @@ namespace ABI.Tests
             Range range = document.Range();
             Tables tables = range.Tables;
             Table t = tables[1];
-            
 
+            document.Sections[0].Range.Paragraphs[1].
             Range range_new = document_new.Range();
             Tables tables_new = range_new.Tables;
             Table t_new = tables_new[1];

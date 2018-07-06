@@ -59,6 +59,7 @@ namespace ABI.Model.Word
         }
 
         // Compare attributes of 2 cells
+        // replace $otherobject by ABIW_Cell
         public IComparisonResult CompareCellAttributes(object other)
         {
             if (other is ABIW_Cell otherCell)
@@ -81,6 +82,12 @@ namespace ABI.Model.Word
             }
             else
                 return new ComparisonResult(ComparisonResultIndicate.not_equal);
+        }
+
+        // replace above function
+        public static IComparisonResult Compare2CellAttributes(ABIW_Cell cell1, ABIW_Cell cell2)
+        {
+
         }
 
         // Compare borders of 2 cells. Borders are top-border, bottom-border, right-border, left border.  
