@@ -10,7 +10,10 @@ namespace ABI
     public class ABIW_Section : IComparison
     {
         private Section section;
-
+        public ABIW_Section(Section section)
+        {
+            this.Section = section;
+        }
         public Section Section
         {
             get
@@ -27,7 +30,9 @@ namespace ABI
         {
             if (other is ABIW_Section otherSec)
             {
-                if (checkEqualPageSetup (section.Range.PageSetup, otherSec.section.Range.PageSetup))
+                if (checkEqualPageSetup (section.PageSetup, otherSec.section.PageSetup)
+                    && checkEqualBorders (section.Borders, otherSec.section.Borders)
+                    )
                 {
                     return new ComparisonResult(ComparisonResultIndicate.equal);
                 }
@@ -41,6 +46,19 @@ namespace ABI
             }
             else
                 return new ComparisonResult(ComparisonResultIndicate.not_equal);
+        }
+        public bool checkEqualBorders(Borders border1, Borders border2)
+        {
+            ABIW_Borders aBIW_Borders1 = new ABIW_Borders(border1);
+            ABIW_Borders aBIW_Borders2 = new ABIW_Borders(border2);
+            if (aBIW_Borders1.Compare(aBIW_Borders2).Result == ComparisonResultIndicate.equal)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
         }
         public bool checkEqualPageSetup(PageSetup pageSetup1, PageSetup pageSetup2)
         {

@@ -13,7 +13,6 @@ namespace ABI
     public class ABIW_Range : IComparison
     {
         private Range range;
-
         public Range Range
         {
             get
@@ -26,10 +25,9 @@ namespace ABI
                 range = value;
             }
         }
-
         public IComparisonResult Compare(object other)
-        {
+        {          
             throw new NotImplementedException();
-        }
+        }        
     }
 }

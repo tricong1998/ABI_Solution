@@ -16,7 +16,10 @@ namespace ABI
     public class ABIW_Font : IComparison
     {
         private Font font;
-
+        public ABIW_Font( Font font)
+        {
+            this.font = font;
+        }
         public Font Font
         {
             get
