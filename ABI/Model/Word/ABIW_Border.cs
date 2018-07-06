@@ -8,7 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Microsoft.Office.Interop.Word;
 
-namespace ABI.Model.Word
+namespace ABI
 {
     /// <summary>
     /// represent for a border of an object

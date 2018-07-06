@@ -14,6 +14,11 @@ namespace ABI
     {
         private Paragraph paragraph;
 
+        public ABIW_Paragraph(Paragraph paragraph)
+        {
+            this.paragraph = paragraph;
+        }
+
         public Paragraph Paragraph
         {
             get
@@ -36,6 +41,14 @@ namespace ABI
         {
             if (other is ABIW_Paragraph otherPara)
             {
+                if(checkEqualParagraph(paragraph, otherPara.paragraph))
+                {
+                    return new ComparisonResult(ComparisonResultIndicate.equal);
+                }
+                else
+                {
+                    return new ComparisonResult(ComparisonResultIndicate.not_equal);
+                }
                 // compare $this vs $otherPara
                 // and replace the below exception with a return statement
                 throw new NotImplementedException();
@@ -43,5 +56,32 @@ namespace ABI
             else
                 return new ComparisonResult(ComparisonResultIndicate.not_equal);
         }
+        public bool checkEqualParagraph(Paragraph paragraph1,
+            Paragraph paragraph2)
+        {
+            ABIW_Borders borders1 = new ABIW_Borders(paragraph1.Borders);
+            ABIW_Borders borders2 = new ABIW_Borders(paragraph2.Borders);
+            if (paragraph1.Alignment == paragraph2.Alignment
+                && paragraph1.LeftIndent == paragraph2.LeftIndent
+                && paragraph1.RightIndent == paragraph2.RightIndent
+                && paragraph1.FirstLineIndent == paragraph2.FirstLineIndent
+                && paragraph1.MirrorIndents == paragraph2.MirrorIndents
+                && paragraph1.LineSpacingRule == paragraph2.LineSpacingRule
+                && paragraph1.SpaceAfter == paragraph2.SpaceAfter
+                && paragraph1.SpaceBefore == paragraph2.SpaceBefore
+                && paragraph1.LineSpacing == paragraph2.LineSpacing
+                //&& borders1.Compare(borders2).Result == ComparisonResultIndicate.equal
+                )
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+
+
+
     }
 }

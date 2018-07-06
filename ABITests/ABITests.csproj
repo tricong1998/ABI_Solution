@@ -69,6 +69,7 @@
     <Compile Include="Model\Excel\ABIE_FontTests.cs" />
     <Compile Include="Model\Word\ABIW_DocumentTests.cs" />
     <Compile Include="Model\Word\ABIW_TableTests.cs" />
+    <Compile Include="Model\Word\ABIW_ParagraphTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

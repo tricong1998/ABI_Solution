@@ -33,8 +33,8 @@ namespace ABI
         }
 
         public IComparisonResult Compare(object other)
-        {
+        {          
             throw new NotImplementedException();
-        }
+        }        
     }
 }
