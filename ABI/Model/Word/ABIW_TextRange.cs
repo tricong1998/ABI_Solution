@@ -30,57 +30,38 @@ namespace ABI
         {
             if (other is ABIW_TextRange otherRange)
             {
-                if (range.Text == otherRange.range.Text)
+                if (range.Text.Equals( otherRange.range.Text) )
                 {
-                    if (range.Sections.Count == otherRange.range.Sections.Count)
+                    if (range.Paragraphs.Count == otherRange.range.Paragraphs.Count)
                     {
-                        for (int i = 1; i <= range.Sections.Count; i++)
+                        for (int j = 1; j <= range.Paragraphs.Count; j++)
                         {
-                            ABIW_Section section1 = new ABIW_Section(range.Sections[i]);
-                            ABIW_Section section2 = new ABIW_Section(otherRange.Range.Sections[i]);
-                            if (section1.Compare(section2).Result == ComparisonResultIndicate.not_equal)
+                            ABIW_Paragraph paragraph1 = new ABIW_Paragraph(range.Paragraphs[j]);
+                            ABIW_Paragraph paragraph2 = new ABIW_Paragraph(otherRange.range.Paragraphs[j]);
+                            if (paragraph1.Compare(paragraph2).Result == ComparisonResultIndicate.not_equal)
                             {
                                 return new ComparisonResult(ComparisonResultIndicate.not_equal);
                             }
                             else
                             {
-                                if (section1.Section.Range.Paragraphs.Count == section2.Section.Range.Paragraphs.Count)
+                                List<Range> customRangesCorrect = classifyRange2(range.Parent, paragraph1.Paragraph.Range);
+                                List<Range> customRangesAnswer = classifyRange2(otherRange.range.Parent, paragraph2.Paragraph.Range);
+                                if (customRangesCorrect.Count() == customRangesAnswer.Count())
                                 {
-                                    for (int j = 1; j <= section1.Section.Range.Paragraphs.Count; j++)
+                                    for (int k = 0; k < customRangesCorrect.Count(); k++)
                                     {
-                                        ABIW_Paragraph paragraph1 = new ABIW_Paragraph(section1.Section.Range.Paragraphs[j]);
-                                        ABIW_Paragraph paragraph2 = new ABIW_Paragraph(section2.Section.Range.Paragraphs[j]);
-                                        if (paragraph1.Compare(paragraph2).Result == ComparisonResultIndicate.not_equal)
+                                        ABIW_Font font1 = new ABIW_Font(customRangesCorrect[k].Font);
+                                        ABIW_Font font2 = new ABIW_Font(customRangesAnswer[k].Font);
+                                        ABIW_Borders borders1 = new ABIW_Borders(customRangesCorrect[k].Borders);
+                                        ABIW_Borders borders2 = new ABIW_Borders(customRangesAnswer[k].Borders);
+                                        if (font1.Compare(font2).Result == ComparisonResultIndicate.not_equal
+                                            //|| borders1.Compare(borders2).Result == ComparisonResultIndicate.not_equal
+                                            )
                                         {
                                             return new ComparisonResult(ComparisonResultIndicate.not_equal);
                                         }
-                                        else
-                                        {
-                                            List<Range> customRangesCorrect = classifyRange2(section1.Section.Parent, paragraph1.Paragraph.Range);
-                                            List<Range> customRangesAnswer = classifyRange2(section2.Section.Parent, paragraph2.Paragraph.Range);
-                                            if (customRangesCorrect.Count() == customRangesAnswer.Count())
-                                            {
-                                                for (int k = 0; k < customRangesCorrect.Count(); k++)
-                                                {
-                                                    ABIW_Font font1 = new ABIW_Font(customRangesCorrect[k].Font);
-                                                    ABIW_Font font2 = new ABIW_Font(customRangesAnswer[k].Font);
-                                                    ABIW_Borders borders1 = new ABIW_Borders(customRangesCorrect[k].Borders);
-                                                    ABIW_Borders borders2 = new ABIW_Borders(customRangesAnswer[k].Borders);
-                                                    if (font1.Compare(font2).Result == ComparisonResultIndicate.not_equal
-                                                        || borders1.Compare(borders2).Result == ComparisonResultIndicate.not_equal
-                                                        )
-                                                    {
-                                                        return new ComparisonResult(ComparisonResultIndicate.not_equal);
-                                                    }
-                                                }
-                                                return new ComparisonResult(ComparisonResultIndicate.equal);
-                                            }
-                                            else
-                                            {
-                                                return new ComparisonResult(ComparisonResultIndicate.not_equal);
-                                            }
-                                        }
                                     }
+                                    return new ComparisonResult(ComparisonResultIndicate.equal);
                                 }
                                 else
                                 {
@@ -93,6 +74,7 @@ namespace ABI
                     {
                         return new ComparisonResult(ComparisonResultIndicate.not_equal);
                     }
+
                 }
                 else
                 {
@@ -122,10 +104,10 @@ namespace ABI
                     && range.Font.Outline != valueFalse
                     && (int)range.Font.StylisticSet != valueFalse
                     && (int)range.Font.Ligatures != valueFalse
-                    && range.Borders.DistanceFromBottom != valueFalse
-                    && range.Borders.DistanceFromLeft != valueFalse
-                    && range.Borders.DistanceFromRight != valueFalse
-                    && range.Borders.DistanceFromTop != valueFalse
+                    //&& range.Borders.DistanceFromBottom != valueFalse
+                    //&& range.Borders.DistanceFromLeft != valueFalse
+                    //&& range.Borders.DistanceFromRight != valueFalse
+                    //&& range.Borders.DistanceFromTop != valueFalse
                     )
             {
                 return true;

@@ -41,11 +41,13 @@ namespace ABI
         {
             if (other is ABIW_Border otherBorder)
             {
-                if (border.LineStyle == otherBorder.Border.LineStyle
-                    && border.LineWidth == otherBorder.Border.LineWidth
-                    && border.Color == otherBorder.Border.Color
-                    && border.ColorIndex == otherBorder.Border.ColorIndex
-                    && border.Visible == otherBorder.Border.Visible)
+                CompareObject compareObject = new CompareObject();
+                if (compareObject.compareTwoObject( border.LineStyle , otherBorder.Border.LineStyle)
+                    && compareObject.compareTwoObject(border.LineWidth , otherBorder.Border.LineWidth)
+                    && compareObject.compareTwoObject(border.Color , otherBorder.Border.Color)
+                    && compareObject.compareTwoObject(border.ColorIndex , otherBorder.Border.ColorIndex)
+                    && compareObject.compareTwoObject(border.Visible , otherBorder.Border.Visible)
+                    )
                 {
                     return new ComparisonResult(ComparisonResultIndicate.equal);
                 }
