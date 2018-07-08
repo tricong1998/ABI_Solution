@@ -35,6 +35,7 @@ namespace ABI
                     if (range.Sections.Count == otherRange.range.Sections.Count)
                     {
                         for (int i = 1; i <= range.Sections.Count; i++)
+
                         {
                             ABIW_Section section1 = new ABIW_Section(range.Sections[i]);
                             ABIW_Section section2 = new ABIW_Section(otherRange.Range.Sections[i]);
