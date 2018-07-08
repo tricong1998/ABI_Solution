@@ -87,7 +87,7 @@ namespace ABI.Model.Word
         // replace above function
         public static IComparisonResult Compare2CellAttributes(ABIW_Cell cell1, ABIW_Cell cell2)
         {
-
+            throw new NotImplementedException();
         }
 
         // Compare borders of 2 cells. Borders are top-border, bottom-border, right-border, left border.  
