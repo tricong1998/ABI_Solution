@@ -8,7 +8,7 @@ using Microsoft.Office.Interop.Word;
 
 namespace ABI
 {
-    class ABIW_TextRange : IComparison
+    public class ABIW_TextRange : IComparison
     {
         private Range range;
         public ABIW_TextRange (Range range)
