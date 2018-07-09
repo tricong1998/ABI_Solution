@@ -30,8 +30,11 @@ namespace ABI
         {
             if (other is ABIW_Section otherSec)
             {
+                ABIW_Range range1 = new ABIW_Range(section.Range);
+                ABIW_Range range2 = new ABIW_Range(otherSec.section.Range);
                 if (checkEqualPageSetup (section.PageSetup, otherSec.section.PageSetup)
                     && checkEqualBorders (section.Borders, otherSec.section.Borders)
+                    && range1.Compare(range2).Result == ComparisonResultIndicate.equal 
                     )
                 {
                     return new ComparisonResult(ComparisonResultIndicate.equal);
@@ -62,12 +65,13 @@ namespace ABI
         }
         public bool checkEqualPageSetup(PageSetup pageSetup1, PageSetup pageSetup2)
         {
-            if (pageSetup1.LeftMargin == pageSetup2.LeftMargin
-                && pageSetup1.RightMargin == pageSetup2.RightMargin
-                && pageSetup1.BottomMargin == pageSetup2.BottomMargin
-                && pageSetup1.TopMargin == pageSetup2.TopMargin
-                && pageSetup1.PageHeight == pageSetup2.PageHeight
-                && pageSetup1.PageWidth == pageSetup2.PageWidth
+            CompareObject compareObject = new CompareObject();
+            if (compareObject.compareTwoObject( pageSetup1.LeftMargin , pageSetup2.LeftMargin)
+                && compareObject.compareTwoObject(pageSetup1.RightMargin , pageSetup2.RightMargin)
+                && compareObject.compareTwoObject(pageSetup1.BottomMargin , pageSetup2.BottomMargin)
+                && compareObject.compareTwoObject(pageSetup1.TopMargin , pageSetup2.TopMargin)
+                && compareObject.compareTwoObject(pageSetup1.PageHeight , pageSetup2.PageHeight)
+                && compareObject.compareTwoObject(pageSetup1.PageWidth , pageSetup2.PageWidth)
                 )
             {
                 return true;

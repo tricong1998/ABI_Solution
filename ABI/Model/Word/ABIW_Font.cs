@@ -54,18 +54,41 @@ namespace ABI
             throw new NotImplementedException();
         }
         public bool checkEqualFont(Font font1, Font font2)
-        {          
-            if (font1.Bold == font2.Bold
-                && font1.Italic == font2.Italic
-                && font1.Size == font2.Size
-                && font1.Name.ToString() == font2.Name.ToString()
-                && font1.Color == font2.Color
-                && font1.StrikeThrough == font2.StrikeThrough
-                && font1.UnderlineColor == font2.UnderlineColor
-                && font1.Underline == font2.Underline                
-                && font1.Parent.HighlightColorIndex == font2.Parent.HighlightColorIndex
+        {
+            CompareObject compareObject = new CompareObject();
+            if (compareObject.compareTwoObject( font1.Bold , font2.Bold)
+                && compareObject.compareTwoObject(font1.Italic , font2.Italic)
+                && compareObject.compareTwoObject(font1.Size , font2.Size)
+                && compareObject.compareTwoObject(font1.Name, font2.Name)
+                && compareObject.compareTwoObject(font1.Color , font2.Color)
+                && compareObject.compareTwoObject(font1.StrikeThrough, font2.StrikeThrough)
+                && compareObject.compareTwoObject(font1.UnderlineColor , font2.UnderlineColor)
+                && compareObject.compareTwoObject(font1.Underline , font2.Underline)
+                && compareObject.compareTwoObject(font1.Parent.HighlightColorIndex , font2.Parent.HighlightColorIndex)
                 //&& checkTextEffect(range1, range2)
                )
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+        public static bool compareTwoObject(object o1, object o2)
+        {
+            if (o1 != null && o2 != null)
+            {
+                if (o1.Equals(o2))
+                {
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
+            }
+            else if (o1 == null && o2 == null)
             {
                 return true;
             }
