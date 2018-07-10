@@ -24,7 +24,7 @@ namespace ABI.Model.Word
         public ABIW_FootNotes(Footnotes footnotes)
         {
             this.footnotes = footnotes;
-            this.rangeParent = footnotes.Parent();
+            this.rangeParent = footnotes.Parent;
             this.footnoteOptions = rangeParent.FootnoteOptions;
         }
 
