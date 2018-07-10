@@ -24,8 +24,8 @@ namespace ABI
         public ABIW_FootNotes(Footnotes footnotes)
         {
             this.footnotes = footnotes;
-            this.RangeParent = footnotes.Parent;
-            this.FootnoteOptions = RangeParent.FootnoteOptions;
+            this.rangeParent = footnotes.Parent;
+            this.footnoteOptions = rangeParent.FootnoteOptions;
         }
 
         public Footnotes Footnotes { get => footnotes; set => footnotes = value; }
