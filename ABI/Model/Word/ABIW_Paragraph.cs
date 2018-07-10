@@ -61,16 +61,17 @@ namespace ABI
         {
             ABIW_Borders borders1 = new ABIW_Borders(paragraph1.Borders);
             ABIW_Borders borders2 = new ABIW_Borders(paragraph2.Borders);
-            if (paragraph1.Alignment == paragraph2.Alignment
-                && paragraph1.LeftIndent == paragraph2.LeftIndent
-                && paragraph1.RightIndent == paragraph2.RightIndent
-                && paragraph1.FirstLineIndent == paragraph2.FirstLineIndent
-                && paragraph1.MirrorIndents == paragraph2.MirrorIndents
-                && paragraph1.LineSpacingRule == paragraph2.LineSpacingRule
-                && paragraph1.SpaceAfter == paragraph2.SpaceAfter
-                && paragraph1.SpaceBefore == paragraph2.SpaceBefore
-                && paragraph1.LineSpacing == paragraph2.LineSpacing
-                //&& borders1.Compare(borders2).Result == ComparisonResultIndicate.equal
+            CompareObject compareObject = new CompareObject();
+            if (compareObject.compareTwoObject(paragraph1.Alignment , paragraph2.Alignment)
+                && compareObject.compareTwoObject(paragraph1.LeftIndent , paragraph2.LeftIndent)
+                && compareObject.compareTwoObject(paragraph1.RightIndent , paragraph2.RightIndent)
+                && compareObject.compareTwoObject(paragraph1.FirstLineIndent , paragraph2.FirstLineIndent)
+                && compareObject.compareTwoObject(paragraph1.MirrorIndents , paragraph2.MirrorIndents)
+                && compareObject.compareTwoObject(paragraph1.LineSpacingRule , paragraph2.LineSpacingRule)
+                && compareObject.compareTwoObject(paragraph1.SpaceAfter , paragraph2.SpaceAfter)
+                && compareObject.compareTwoObject(paragraph1.SpaceBefore , paragraph2.SpaceBefore)
+                && compareObject.compareTwoObject(paragraph1.LineSpacing , paragraph2.LineSpacing)
+                && borders1.Compare(borders2).Result == ComparisonResultIndicate.equal
                 )
             {
                 return true;
