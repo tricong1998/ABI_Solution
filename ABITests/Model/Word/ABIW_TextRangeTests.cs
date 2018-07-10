@@ -18,8 +18,9 @@ namespace ABI.Tests
         public void classifyRange2Test()
         {
             Application application = new Application();
-            Document document = application.Documents.Open(@"E:\path2 - Copy.docx");
-            Document document2 = application.Documents.Open(@"E:\path2.docx");
+            Document document = application.Documents.Open(@"G:\abi\word_module\Word_Table\doc1.docx");
+            Document document2 = application.Documents.Open(@"G:\abi\word_module\Word_Table\doc2.docx");
+            application.Visible = true;
             ABIW_TextRange a = new ABIW_TextRange(document.Range());
             ABIW_TextRange a2 = new ABIW_TextRange(document2.Range());
             //List<Range> ranges = new List<Range>();

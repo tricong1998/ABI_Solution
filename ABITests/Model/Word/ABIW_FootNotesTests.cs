@@ -25,7 +25,7 @@ namespace ABI.Tests
 
             Footnotes footnotes1 = range1.Footnotes;
             Footnotes footnotes2 = range2.Footnotes;
-            Range r = footnotes1[1].Range;
+            
 
             ABIW_FootNotes aBIW_FootNotes1 = new ABIW_FootNotes(footnotes1);
             ABIW_FootNotes aBIW_FootNotes2 = new ABIW_FootNotes(footnotes2);
