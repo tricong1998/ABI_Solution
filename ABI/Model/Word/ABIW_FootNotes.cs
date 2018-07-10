@@ -55,8 +55,8 @@ namespace ABI
                 {
                     Footnote footnote = this.footnotes[i];
                     Footnote otherFootnote = otherFootnotes.footnotes[i];
-                    ABIW_TextRange footnoteRange = new ABIW_TextRange(footnote.Range);
-                    ABIW_TextRange oFootnoteRange = new ABIW_TextRange(otherFootnote.Range);
+                    ABIW_TextRangePro footnoteRange = new ABIW_TextRangePro(footnote.Range);
+                    ABIW_TextRangePro oFootnoteRange = new ABIW_TextRangePro(otherFootnote.Range);
                     
                     if (footnoteRange.Compare(oFootnoteRange).Result == ComparisonResultIndicate.equal)
                     {

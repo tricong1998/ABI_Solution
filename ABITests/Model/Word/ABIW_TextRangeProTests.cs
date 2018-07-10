@@ -16,8 +16,8 @@ namespace ABI.Tests
         public void CompareTest()
         {
             Application application = new Application();
-            Document document = application.Documents.Open(@"G:\abi\word_module\Word_Table\doc5.docx");
-            Document document2 = application.Documents.Open(@"G:\abi\word_module\Word_Table\doc6.docx");
+            Document document = application.Documents.Open(@"G:\abi\word_module\Word_Table\doc3.docx");
+            Document document2 = application.Documents.Open(@"G:\abi\word_module\Word_Table\doc4.docx");
             application.Visible = true;
 
             Range range = document.Range();
