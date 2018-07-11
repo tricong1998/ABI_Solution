@@ -3,6 +3,7 @@
 // created on 12:03 PM 2018/6/26
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.IO;
 using System.IO.Compression;
 using System.Linq;
@@ -96,6 +97,19 @@ namespace ABI
             if (Directory.Exists(re))
                 Directory.Delete(re, true);
             Directory.CreateDirectory(re);
+            return re;
+        }
+
+        public static ObservableCollection<T> ConvertListToObservableCollection<T> (List<T> input)
+        {
+            return new ObservableCollection<T>(input);
+        }
+
+        public static ObservableCollection<QuestionVisual> ConvertListQuestions(List<IQuestion> input)
+        {
+            ObservableCollection<QuestionVisual> re = new ObservableCollection<QuestionVisual>();
+            foreach (var question in input)
+                re.Add(new QuestionVisual(question));
             return re;
         }
     }

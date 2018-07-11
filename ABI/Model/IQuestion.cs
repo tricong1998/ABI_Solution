@@ -15,5 +15,8 @@ namespace ABI
     public interface IQuestion
     {
         IResult Submit(IAnswer answer);
+        int Index { get; set; }
+        string TextContent { get; set; }
+        string HtmlContent { get; set; }
     }
 }
