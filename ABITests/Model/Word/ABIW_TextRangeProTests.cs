@@ -15,6 +15,7 @@ namespace ABI.Tests
         [TestMethod()]
         public void CompareTest()
         {
+
             Application application = new Application();
             Document document = application.Documents.Open(@"G:\abi\word_module\Word_Table\doc3.docx");
             Document document2 = application.Documents.Open(@"G:\abi\word_module\Word_Table\doc4.docx");
