@@ -23,12 +23,11 @@
                           DisplayMemberPath="Name"
                           ItemsSource="{Binding}" SelectionChanged="question_selection_SelectionChanged">
                 </ComboBox>
-                
             </StackPanel>
             <StackPanel Grid.Row="1" Orientation="Horizontal">
                 <Button Content="Skip" Style="{StaticResource button_style}"/>
                 <Button Content="Reset" Style="{StaticResource button_style}"/>
-                <Button Content="Submit" Style="{StaticResource button_style}" Click="Button_Click"/>
+                <Button Content="Submit" Style="{StaticResource button_style}" Click="Button_Submit_Click"/>
             </StackPanel>
         </Grid>
 

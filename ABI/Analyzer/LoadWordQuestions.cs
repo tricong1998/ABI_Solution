@@ -12,6 +12,10 @@ namespace ABI
 {
     public class LoadWordQuestions : LoadQuestions
     {
+        /// <summary>
+        /// current load all questions from db, handle later
+        /// </summary>
+        /// <returns></returns>
         public List<IQuestion> Load()
         {
             SqlConnection conn = Initialize();
@@ -37,9 +41,16 @@ namespace ABI
                     re.Add(question);
                 }
             }
+            conn.Close();
             return re;
         }
 
+        /// <summary>
+        /// @Cong implement here, consider to define new Question type (extend AbstractQuestion)
+        /// maybe need more params, you can add new by yourself
+        /// </summary>
+        /// <param name="type_l2"></param>
+        /// <returns></returns>
         public IQuestion Convert(int type_l2)
         {
             return new CompareWFileQuestion();

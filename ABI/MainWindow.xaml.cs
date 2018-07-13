@@ -72,9 +72,14 @@ namespace ABI
         }
         #endregion
 
-        private void Button_Click(object sender, RoutedEventArgs e)
+        private void Button_Submit_Click(object sender, RoutedEventArgs e)
         {
             // submit answer here
+            int index = question_selection.SelectedIndex; //index of current question
+            IAnswer answer = PackageAnswer(exam.QAPairs[index].Question);
+            exam.QAPairs[index].Answer = answer;
+
+            CheckFinishToSubmitAll();
         }
 
         private void question_selection_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -84,5 +89,40 @@ namespace ABI
 
             // update ui here
         }
+
+        #region common actions
+        /// <summary>
+        /// return appropriate answer (type) based-on question type
+        /// </summary>
+        /// <param name="question"></param>
+        /// <returns></returns>
+        public IAnswer PackageAnswer(IQuestion question)
+        {
+            // @Cong implement here
+            // e.g., if (question is CompareWFileQuestion) return new CompareWFileAnswer
+            throw new NotImplementedException();
+        }
+
+        public void CheckFinishToSubmitAll()
+        {
+            bool done = true;
+            foreach (IQAPair pair in exam.QAPairs)
+            {
+                if (pair.Answer == null)
+                {
+                    done = false;
+                    break;
+                }
+            }
+            if (done)
+            {
+                foreach (IQAPair pair in exam.QAPairs)
+                {
+                    IResult currentResult = pair.Question.Submit(pair.Answer);
+                }
+                // implement total result here
+            }
+        }
+        #endregion
     }
 }

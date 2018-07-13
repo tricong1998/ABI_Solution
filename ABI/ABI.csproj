@@ -71,6 +71,7 @@
     </ApplicationDefinition>
     <Compile Include="Analyzer\LoadQuestions.cs" />
     <Compile Include="Analyzer\LoadWordQuestions.cs" />
+    <Compile Include="Controller\Word\CompareWFont.cs" />
     <Compile Include="Model\ABIExam.cs" />
     <Compile Include="Model\ABIQAPair.cs" />
     <Compile Include="Model\AbstractAnswer.cs" />
