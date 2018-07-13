@@ -79,6 +79,7 @@
     <Compile Include="Model\ScoreResult.cs" />
     <Compile Include="Model\Word\ABIW_Border.cs" />
     <Compile Include="Model\Word\ABIW_Cell.cs" />
+    <Compile Include="Model\Word\ABIW_Endnotes.cs" />
     <Compile Include="Model\Word\ABIW_FootNotes.cs" />
     <Compile Include="Model\Word\ABIW_Section.cs" />
     <Compile Include="Model\Word\ABIW_Table.cs" />
