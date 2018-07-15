@@ -27,6 +27,7 @@ namespace ABI
         public const string UTF8_HEADER = "<meta http-equiv='Content-Type' content='text/html;charset=UTF-8'>";
         #region attributes
         ABIExam exam;
+        System.Windows.Forms.Screen screen;
         #endregion
 
         public MainWindow()
@@ -35,6 +36,7 @@ namespace ABI
             InitializeComponent();
             web_question.NavigateToString("<h1>Question 1</h1>");
             InitAnExam();
+            
         }
 
         #region util function
@@ -58,11 +60,14 @@ namespace ABI
         #region controls' events
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
-            System.Windows.Forms.Screen screen = System.Windows.Forms.Screen.FromHandle(
+            screen = System.Windows.Forms.Screen.FromHandle(
                 new System.Windows.Interop.WindowInteropHelper(this).Handle);
             this.Left = 0;
             this.Width = screen.Bounds.Width;
             this.Top = screen.Bounds.Height - this.Height;
+            //new OpenDocument().Open(
+            //    @"C:\Users\duongtd\Desktop\DuongTD_ThanhTich_v1.1.doc",
+            //    new Rect(new Point(0, 0), new Size(screen.Bounds.Width, screen.Bounds.Height - this.Height)));
         }
 
         private void Window_Deactivated(object sender, EventArgs e)
