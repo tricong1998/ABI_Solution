@@ -90,7 +90,6 @@
     <Compile Include="Model\AbstractQuestion.cs" />
     <Compile Include="Model\AbstractResult.cs" />
     <Compile Include="Model\BinResult.cs" />
-    <Compile Include="Model\Excel\ABIE_Border.cs" />
     <Compile Include="Model\Excel\ABIE_Font.cs" />
     <Compile Include="Model\Excel\ABIE_Paragraph.cs" />
     <Compile Include="Model\Excel\ABIE_Range.cs" />

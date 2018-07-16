@@ -40,8 +40,9 @@ namespace ABI.Model.Excel
             if (other is ABIE_WorkSheet otherWorksheet)
             {
                 if (worksheet.Name == otherWorksheet.worksheet.Name
-                    && this.PageSetupCompare(otherWorksheet).Result == ComparisonResultIndicate.equal
-                    && this.FreezeRowCompare(otherWorksheet).Result == ComparisonResultIndicate.equal)
+                    && this.XlPageSetupCompare(otherWorksheet).Result == ComparisonResultIndicate.equal
+                    && this.XlFreezeRowCompare(otherWorksheet).Result == ComparisonResultIndicate.equal
+                    && this.XlSizeRowColumnCompare(otherWorksheet).Result == ComparisonResultIndicate.equal)
                 {
                     return new ComparisonResult(ComparisonResultIndicate.equal);
                 }
@@ -50,7 +51,7 @@ namespace ABI.Model.Excel
             else return new ComparisonResult(ComparisonResultIndicate.not_equal);
             throw new NotImplementedException();
         }
-        public IComparisonResult PageSetupCompare(object other)
+        public IComparisonResult XlPageSetupCompare(object other)
         {
             if (other is ABIE_WorkSheet otherWorksheet)
             {
@@ -66,12 +67,34 @@ namespace ABI.Model.Excel
             else return new ComparisonResult(ComparisonResultIndicate.not_equal);
             throw new NotImplementedException();
         }
-        public IComparisonResult FreezeRowCompare(object other)
+        public IComparisonResult XlFreezeRowCompare(object other)
         {
             if (other is ABIE_WorkSheet otherWorksheet)
             {
                 if (worksheet.Application.ActiveWindow.SplitRow == otherWorksheet.worksheet.Application.ActiveWindow.SplitRow
                     && worksheet.Application.ActiveWindow.FreezePanes == otherWorksheet.worksheet.Application.ActiveWindow.FreezePanes)
+                {
+                    return new ComparisonResult(ComparisonResultIndicate.equal);
+                }
+                else return new ComparisonResult(ComparisonResultIndicate.not_equal);
+            }
+            else return new ComparisonResult(ComparisonResultIndicate.not_equal);
+            throw new NotImplementedException();
+        }
+        public IComparisonResult XlSortCompare(object other)
+        {
+            if(other is ABIE_WorkSheet otherWorksheet)
+            {
+                
+            }
+            throw new NotImplementedException();
+        }
+        public IComparisonResult XlSizeRowColumnCompare(object other)
+        {
+            if (other is ABIE_WorkSheet otherWorksheet)
+            {
+                if (worksheet.UsedRange.EntireRow.Height == otherWorksheet.worksheet.UsedRange.EntireRow.Height
+                    && worksheet.UsedRange.EntireRow.Width == otherWorksheet.worksheet.UsedRange.EntireRow.Width)
                 {
                     return new ComparisonResult(ComparisonResultIndicate.equal);
                 }
