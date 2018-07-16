@@ -71,6 +71,7 @@
     </ApplicationDefinition>
     <Compile Include="Analyzer\LoadQuestions.cs" />
     <Compile Include="Analyzer\LoadWordQuestions.cs" />
+    <Compile Include="Controller\OpenDocument.cs" />
     <Compile Include="Controller\Word\CompareWFont.cs" />
     <Compile Include="Model\ABIExam.cs" />
     <Compile Include="Model\ABIQAPair.cs" />
@@ -149,7 +150,6 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
-    <None Include="Logs\project.log" />
     <None Include="packages.config" />
     <None Include="project.info" />
     <None Include="Properties\Settings.settings">
@@ -160,6 +160,8 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="Logs\" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
