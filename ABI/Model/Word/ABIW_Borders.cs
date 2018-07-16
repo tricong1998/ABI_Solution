@@ -14,6 +14,7 @@ namespace ABI
         private ABIW_Border wBorderBottom;
         private ABIW_Border wBorderLeft;
         private ABIW_Border wBorderRight;
+
         public ABIW_Borders(Borders borders)
         {
             this.borders = borders;
@@ -22,6 +23,7 @@ namespace ABI
             this.wBorderLeft = new ABIW_Border(borders[WdBorderType.wdBorderLeft]);
             this.wBorderRight = new ABIW_Border(borders[WdBorderType.wdBorderRight]);
         }
+
         public Borders Borders { get => borders; set => borders = value; }
         internal ABIW_Border WBorderTop { get => wBorderTop; set => wBorderTop = value; }
         internal ABIW_Border WBorderBottom { get => wBorderBottom; set => wBorderBottom = value; }
@@ -50,7 +52,6 @@ namespace ABI
             {
                 return new ComparisonResult(ComparisonResultIndicate.not_equal);
             }
-            throw new NotImplementedException();
         }
     }
 }
