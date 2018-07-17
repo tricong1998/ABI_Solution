@@ -47,7 +47,7 @@ namespace ABI.Model.Word
                 if (this.CompareCellAttributes(otherCell).Result == ComparisonResultIndicate.equal
                     && this.CompareCellBorders(otherCell).Result == ComparisonResultIndicate.equal)
                 {
-                    string r3 = "OK";
+                //    string r3 = "OK";
                     return new ComparisonResult(ComparisonResultIndicate.equal);
                 }
                 else
@@ -73,7 +73,7 @@ namespace ABI.Model.Word
                     && Cell.RightPadding == otherCell.Cell.RightPadding
                     && Cell.LeftPadding == otherCell.Cell.LeftPadding)
                 {
-                    string r1 = "OK"; 
+                //    string r1 = "OK"; 
                     return new ComparisonResult(ComparisonResultIndicate.equal);
                 }
                 else
@@ -101,7 +101,7 @@ namespace ABI.Model.Word
                     && wBorderRight.Compare(otherCell.wBorderRight).Result == ComparisonResultIndicate.equal
                     && wBorderLeft.Compare(otherCell.WBorderLeft).Result == ComparisonResultIndicate.equal)
                 {
-                    string r2 = "OK";
+                //    string r2 = "OK";
                     return new ComparisonResult(ComparisonResultIndicate.equal);
                 }
                 else

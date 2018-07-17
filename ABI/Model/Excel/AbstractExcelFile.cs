@@ -11,5 +11,6 @@ namespace ABI
 {
     public abstract class AbstractExcelFile : AbstractFile, IExcelFile
     {
+
     }
 }

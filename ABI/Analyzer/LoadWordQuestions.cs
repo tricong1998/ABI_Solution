@@ -35,6 +35,8 @@ namespace ABI
                     string question_file = reader[6] as string;
                     string answer_file = reader[7] as string;
                     var question = Convert(type_l2);
+                    question.CorrectAnswer = answer_file;
+                    question.Question = question_file;                    
                     question.Index = index;
                     question.HtmlContent = html_content;
                     index++;
@@ -51,9 +53,17 @@ namespace ABI
         /// </summary>
         /// <param name="type_l2"></param>
         /// <returns></returns>
-        public IQuestion Convert(int type_l2)
+        public AbstractQuestion Convert(int type_l2)
         {
-            return new CompareWFileQuestion();
+            switch (type_l2)
+            {
+                case 9:
+                    CompareWFileQuestion q = new CompareWFileQuestion();
+                    q.Type_l2 = type_l2;
+                    return q;
+                default:
+                    return new CompareWFileQuestion();
+            }
         }
     }
 }
