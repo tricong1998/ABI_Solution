@@ -105,7 +105,21 @@ namespace ABI
         {
             // @Cong implement here
             // e.g., if (question is CompareWFileQuestion) return new CompareWFileAnswer
-            throw new NotImplementedException();
+            IAnswer re = null;
+            if (question is CompareWFileQuestion)
+            {
+                re = new CompareWFileAnswer();
+                ((CompareWFileAnswer)re).File = file_submiss;
+                // save path to file answer here
+            }
+            else if (question is OpenWFileQuestion)
+            {
+                re = new OpenWFileAnswer();
+                ((OpenWFileAnswer)re).file_to_open = "";
+            }
+            // .. so on
+            return re;
+            //throw new NotImplementedException();
         }
 
         public void CheckFinishToSubmitAll()
@@ -121,12 +135,26 @@ namespace ABI
             }
             if (done)
             {
-                foreach (IQAPair pair in exam.QAPairs)
-                {
-                    IResult currentResult = pair.Question.Submit(pair.Answer);
-                }
-                // implement total result here
+                SubmitAll();
             }
+        }
+
+        public void SubmitAll()
+        {
+            foreach (IQAPair pair in exam.QAPairs)
+            {
+                IQuestion question = pair.Question;
+                if (question is OpenFileQuestion)
+                {
+                    // call to OpenWFile.CheckOpened(question.file_to_open);
+                }
+                if (question is CompareWFileQuestion)
+                {
+                    if (question.type_l2 == )
+                        // call to CompareWFont.Compare()
+                }
+            }
+            // implement total result here
         }
         #endregion
     }
