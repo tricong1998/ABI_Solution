@@ -107,17 +107,17 @@ namespace ABI
             // @Cong implement here
             // e.g., if (question is CompareWFileQuestion) return new CompareWFileAnswer
             IAnswer re = null;
-            if (question is CompareWFileQuestion)
+            if (question is CompareWFileQuestion curQuestion)
             {
                 re = new CompareWFileAnswer();
-                ((CompareWFileAnswer)re).File = file_submiss;
+                ((CompareWFileAnswer)re).CorrectAnswer.Path = 
                 // save path to file answer here
             }
-            else if (question is OpenWFileQuestion)
-            {
-                re = new OpenWFileAnswer();
-                ((OpenWFileAnswer)re).file_to_open = "";
-            }
+            //else if (question is OpenWFileQuestion)
+            //{
+            //    re = new OpenWFileAnswer();
+            //    ((OpenWFileAnswer)re).file_to_open = "";
+            //}
             // .. so on
             return re;
             //throw new NotImplementedException();
@@ -152,11 +152,11 @@ namespace ABI
                 if (question is CompareWFileQuestion questionCur)
                 {         
                     Word.Application application = new Word.Application();
-                    Word.Document anwser = application.Documents.Open(questionCur);
-                    Word.Document correctAnwser = application.Documents.Open();
+                    Word.Document anwser = application.Documents.Open(questionCur.Question);
+                    Word.Document correctAnwser = application.Documents.Open(questionCur.CorrectAnswer);
                     ABIW_Document document1 = new ABIW_Document(anwser);
                     ABIW_Document document2 = new ABIW_Document(correctAnwser);
-                    switch (question.type_l2)
+                    switch (questionCur.Type_l2)
                     {
                         case 9:
                             CompareWFont compare = new CompareWFont();
