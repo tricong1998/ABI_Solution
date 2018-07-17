@@ -18,7 +18,7 @@ namespace ABI
         /// <param name="anwser"></param>
         /// <param name="submission"></param>
         /// <returns></returns>
-        public IResult Compare(IWordFile anwser, IWordFile submission)
+        public IResult Compare(ABIW_Document anwser, ABIW_Document submission)
         {
             throw new NotImplementedException();
         }
