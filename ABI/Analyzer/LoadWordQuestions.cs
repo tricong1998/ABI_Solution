@@ -46,7 +46,7 @@ namespace ABI
         }
 
         /// <summary>
-        /// @Cong implement here, consider to define new Question type (extend AbstractQuestion)
+        /// @Hoang implement here, consider to define new Question type (extend AbstractQuestion)
         /// maybe need more params, you can add new by yourself
         /// </summary>
         /// <param name="type_l2"></param>

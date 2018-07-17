@@ -93,6 +93,8 @@
     <Compile Include="Analyzer\LoadWordQuestions.cs" />
     <Compile Include="Controller\OpenDocument.cs" />
     <Compile Include="Controller\Word\CompareWFont.cs" />
+    <Compile Include="Controller\Word\OpenWFile.cs" />
+    <Compile Include="Controller\Word\SaveAsWFile.cs" />
     <Compile Include="Model\ABIExam.cs" />
     <Compile Include="Model\ABIQAPair.cs" />
     <Compile Include="Model\AbstractAnswer.cs" />
