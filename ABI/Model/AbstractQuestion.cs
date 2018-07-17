@@ -56,13 +56,12 @@ namespace ABI
         }
 
         public string Question { get => question; set => question = value; }
-        public string CorrectAnswer { get => correctAnswer; set => correctAnswer = value; }
-
-        protected int index;
-        private string question;
-        private string correctAnswer;
+        public string Answer { get => answer; set => answer = value; }
+        protected string question;
+        protected string answer;
+        protected int index;       
         public abstract IResult Submit(IAnswer answer);
 
-        protected string htmlContent;
+        protected string htmlsContent;
     }
 }

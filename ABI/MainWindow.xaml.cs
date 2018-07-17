@@ -107,10 +107,10 @@ namespace ABI
             // @Cong implement here
             // e.g., if (question is CompareWFileQuestion) return new CompareWFileAnswer
             IAnswer re = null;
-            if (question is CompareWFileQuestion curQuestion)
+            if (question is CompareWFileQuestion)
             {
                 re = new CompareWFileAnswer();
-                ((CompareWFileAnswer)re).CorrectAnswer.Path = 
+                ((CompareWFileAnswer)re).CorrectAnswer.Path = question.Answer;
                 // save path to file answer here
             }
             //else if (question is OpenWFileQuestion)
@@ -153,7 +153,7 @@ namespace ABI
                 {         
                     Word.Application application = new Word.Application();
                     Word.Document anwser = application.Documents.Open(questionCur.Question);
-                    Word.Document correctAnwser = application.Documents.Open(questionCur.CorrectAnswer);
+                    Word.Document correctAnwser = application.Documents.Open(questionCur.Answer);
                     ABIW_Document document1 = new ABIW_Document(anwser);
                     ABIW_Document document2 = new ABIW_Document(correctAnwser);
                     switch (questionCur.Type_l2)
