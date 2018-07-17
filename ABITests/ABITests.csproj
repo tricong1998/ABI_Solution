@@ -67,8 +67,11 @@
     <Otherwise />
   </Choose>
   <ItemGroup>
+    <Compile Include="Model\Excel\ABIE_ParagraphTests.cs" />
     <Compile Include="Model\Excel\ABIE_RangeTests.cs" />
     <Compile Include="Model\Excel\ABIE_WorkBookTests.cs" />
+    <Compile Include="Model\Word\ABIW_TableTests.cs" />
+    <Compile Include="Model\Word\ABIW_ParagraphTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -102,9 +105,7 @@
       <EmbedInteropTypes>True</EmbedInteropTypes>
     </COMReference>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Model\Word\" />
-  </ItemGroup>
+  <ItemGroup />
   <Choose>
     <When Condition="'$(VisualStudioVersion)' == '10.0' And '$(IsCodedUITest)' == 'True'">
       <ItemGroup>

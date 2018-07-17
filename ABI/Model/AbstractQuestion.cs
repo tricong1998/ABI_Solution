@@ -14,21 +14,51 @@ namespace ABI
     /// </summary>
     public abstract class AbstractQuestion : IQuestion
     {
-        private string title;
+        protected string textContent;
 
-        public string Title
+        public string TextContent
         {
             get
             {
-                return title;
+                return textContent;
             }
 
             set
             {
-                title = value;
+                textContent = value;
             }
         }
 
+        public int Index
+        {
+            get
+            {
+                return index;
+            }
+
+            set
+            {
+                index = value;
+            }
+        }
+
+        public string HtmlContent
+        {
+            get
+            {
+                return htmlContent;
+            }
+
+            set
+            {
+                htmlContent = value;
+            }
+        }
+
+        protected int index;
+
         public abstract IResult Submit(IAnswer answer);
+
+        protected string htmlContent;
     }
 }

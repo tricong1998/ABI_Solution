@@ -12,7 +12,7 @@ namespace ABI
     /// <summary>
     /// represent for pass/fail result
     /// </summary>
-    public class BinResult
+    public class BinResult : AbstractResult
     {
         private bool state;
 

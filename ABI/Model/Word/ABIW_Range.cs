@@ -14,6 +14,11 @@ namespace ABI
     {
         private Range range;
 
+        public ABIW_Range(Range range)
+        {
+            this.range = range;
+        }
+
         public Range Range
         {
             get
@@ -28,8 +33,8 @@ namespace ABI
         }
 
         public IComparisonResult Compare(object other)
-        {
+        {          
             throw new NotImplementedException();
-        }
+        }        
     }
 }

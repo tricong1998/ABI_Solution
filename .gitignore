@@ -10,3 +10,4 @@ Release/
 /packages
 /.vs/
 *.log
+/ABI/Logs/

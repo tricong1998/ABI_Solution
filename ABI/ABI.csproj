@@ -69,6 +69,8 @@
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Core" />
@@ -87,8 +89,22 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Analyzer\LoadQuestions.cs" />
+    <Compile Include="Analyzer\LoadWordQuestions.cs" />
+    <Compile Include="Controller\OpenDocument.cs" />
+    <Compile Include="Controller\Word\CompareWFont.cs" />
+    <Compile Include="Model\ABIExam.cs" />
+    <Compile Include="Model\ABIQAPair.cs" />
+    <Compile Include="Model\AbstractAnswer.cs" />
+    <Compile Include="Model\AbstractQAPair.cs" />
     <Compile Include="Model\AbstractQuestion.cs" />
     <Compile Include="Model\AbstractResult.cs" />
+    <Compile Include="Model\Answer\Word\CloseWFileAnswer.cs" />
+    <Compile Include="Model\Answer\Word\CompareWFileAnswer.cs" />
+    <Compile Include="Model\Answer\Word\CreateWFileAnswer.cs" />
+    <Compile Include="Model\Answer\Word\DeleteWFileAnswer.cs" />
+    <Compile Include="Model\Answer\Word\OpenWFileAnswer.cs" />
+    <Compile Include="Model\Answer\Word\SaveAsWFileAnswer.cs" />
     <Compile Include="Model\BinResult.cs" />
     <Compile Include="Model\Excel\ABIE_Font.cs" />
     <Compile Include="Model\Excel\ABIE_Paragraph.cs" />
@@ -97,11 +113,21 @@
     <Compile Include="Model\Excel\ABIE_WorkSheet.cs" />
     <Compile Include="Model\IAnswer.cs" />
     <Compile Include="Model\IComparisonResult.cs" />
+    <Compile Include="Model\IExam.cs" />
+    <Compile Include="Model\IQAPair.cs" />
     <Compile Include="Model\IQuestion.cs" />
     <Compile Include="Model\IResult.cs" />
+    <Compile Include="Model\Question\OpenFileQuestion.cs" />
+    <Compile Include="Model\Question\Word\CompareWFileQuestion.cs" />
     <Compile Include="Model\ScoreResult.cs" />
+    <Compile Include="Model\View\QuestionVisual.cs" />
+    <Compile Include="Model\Word\ABIW_Border.cs" />
+    <Compile Include="Model\Word\ABIW_Cell.cs" />
+    <Compile Include="Model\Word\ABIW_FootNotes.cs" />
+    <Compile Include="Model\Word\ABIW_Section.cs" />
     <Compile Include="Model\Word\ABIW_Table.cs" />
-    <Compile Include="Model\Word\WordCompareQuestion.cs" />
+    <Compile Include="Model\Word\ABIW_Borders.cs" />
+    <Compile Include="Model\Word\ABIW_TextRange.cs" />
     <Compile Include="Utilities\Utils.cs" />
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
@@ -148,7 +174,6 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
-    <None Include="Logs\project.log" />
     <None Include="packages.config" />
     <None Include="project.info" />
     <None Include="Properties\Settings.settings">
@@ -160,7 +185,7 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Analyzer\" />
+    <Folder Include="Logs\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

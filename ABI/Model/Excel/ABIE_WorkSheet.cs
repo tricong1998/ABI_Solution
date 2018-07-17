@@ -22,11 +22,17 @@ namespace ABI.Model.Excel
         private ABIE_Paragraph xlLeftMargin;
         private ABIE_Paragraph xlBotMargin;
         private ABIE_Paragraph xlRightMargin;
+        private ABIE_Paragraph xlLeftHeader;
+        private ABIE_Paragraph xlCenterHeader;
+        private ABIE_Paragraph xlRightHeader;
+        private ABIE_Paragraph xlLeftFooter;
+        private ABIE_Paragraph xlCenterFooter;
+        private ABIE_Paragraph xlRightFooter;
 
         public ABIE_WorkSheet(Worksheet worksheet)
         {
             this.Worksheet = worksheet;
-        //    this.xlTopMargin = new ABIE_Paragraph(worksheet.PageSetup[]);
+
         }
 
         public Worksheet Worksheet { get => worksheet; set => worksheet = value; }
@@ -34,6 +40,12 @@ namespace ABI.Model.Excel
         internal ABIE_Paragraph XlLeftMargin { get => xlLeftMargin; set => xlLeftMargin = value; }
         internal ABIE_Paragraph XlBotMargin { get => xlBotMargin; set => xlBotMargin = value; }
         internal ABIE_Paragraph XlRightMargin { get => xlRightMargin; set => xlRightMargin = value; }
+        internal ABIE_Paragraph XlLeftHeader { get => xlLeftHeader; set => xlLeftHeader = value; }
+        internal ABIE_Paragraph XlCenterHeader { get => xlCenterHeader; set => xlCenterHeader = value; }
+        internal ABIE_Paragraph XlRightHeader { get => xlRightHeader; set => xlRightHeader = value; }
+        internal ABIE_Paragraph XlLeftFooter { get => xlLeftFooter; set => xlLeftFooter = value; }
+        internal ABIE_Paragraph XlCenterFooter { get => xlCenterFooter; set => xlCenterFooter = value; }
+        internal ABIE_Paragraph XlRightFooter { get => xlRightFooter; set => xlRightFooter = value; }
 
         public IComparisonResult Compare(object other)
         {
@@ -58,7 +70,13 @@ namespace ABI.Model.Excel
                 if (xlTopMargin.Compare(otherWorksheet.xlTopMargin).Result == ComparisonResultIndicate.equal
                     && xlLeftMargin.Compare(otherWorksheet.xlLeftMargin).Result == ComparisonResultIndicate.equal
                     && xlBotMargin.Compare(otherWorksheet.xlBotMargin).Result == ComparisonResultIndicate.equal
-                    && xlRightMargin.Compare(otherWorksheet.xlRightMargin).Result == ComparisonResultIndicate.equal)
+                    && xlRightMargin.Compare(otherWorksheet.xlRightMargin).Result == ComparisonResultIndicate.equal
+                    && xlLeftHeader.Compare(otherWorksheet.xlLeftHeader).Result == ComparisonResultIndicate.equal
+                    && xlCenterHeader.Compare(otherWorksheet.xlCenterHeader).Result == ComparisonResultIndicate.equal
+                    && xlRightHeader.Compare(otherWorksheet.xlRightHeader).Result == ComparisonResultIndicate.equal
+                    && xlLeftFooter.Compare(otherWorksheet.xlLeftFooter).Result == ComparisonResultIndicate.equal
+                    && xlCenterFooter.Compare(otherWorksheet.xlCenterFooter).Result == ComparisonResultIndicate.equal
+                    && xlRightFooter.Compare(otherWorksheet.xlRightFooter).Result == ComparisonResultIndicate.equal)
                 {
                     return new ComparisonResult(ComparisonResultIndicate.equal);
                 }

@@ -31,7 +31,11 @@ namespace ABI.Model.Excel
                     && pageSetup.HeaderMargin == otherPageSetup.pageSetup.HeaderMargin
                     && pageSetup.FooterMargin == otherPageSetup.pageSetup.FooterMargin
                     && pageSetup.LeftHeader == otherPageSetup.pageSetup.LeftHeader
-                    && pageSetup.CenterFooter == otherPageSetup.pageSetup.CenterFooter)
+                    && pageSetup.CenterHeader == otherPageSetup.pageSetup.CenterHeader
+                    && pageSetup.RightHeader == otherPageSetup.pageSetup.RightHeader
+                    && pageSetup.LeftFooter == otherPageSetup.pageSetup.LeftFooter
+                    && pageSetup.CenterFooter == otherPageSetup.pageSetup.CenterFooter
+                    && pageSetup.RightFooter == otherPageSetup.pageSetup.RightFooter)
                 {
                     return new ComparisonResult(ComparisonResultIndicate.equal);
                 }
