@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using Word = Microsoft.Office.Interop.Word;
 
 namespace ABI
 {
@@ -148,9 +149,22 @@ namespace ABI
                 {
                     // call to OpenWFile.CheckOpened(question.file_to_open);
                 }
-                if (question is CompareWFileQuestion)
-                {
-                    if (question.type_l2 == )
+                if (question is CompareWFileQuestion questionCur)
+                {         
+                    Word.Application application = new Word.Application();
+                    Word.Document anwser = application.Documents.Open(questionCur);
+                    Word.Document correctAnwser = application.Documents.Open();
+                    ABIW_Document document1 = new ABIW_Document(anwser);
+                    ABIW_Document document2 = new ABIW_Document(correctAnwser);
+                    switch (question.type_l2)
+                    {
+                        case 9:
+                            CompareWFont compare = new CompareWFont();
+                            compare.Compare(document1, document2);
+                            break;
+                        default:
+                            break;
+                    }
                         // call to CompareWFont.Compare()
                 }
             }
