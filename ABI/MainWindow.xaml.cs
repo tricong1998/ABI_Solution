@@ -65,9 +65,9 @@ namespace ABI
             this.Left = 0;
             this.Width = screen.Bounds.Width;
             this.Top = screen.Bounds.Height - this.Height;
-            //new OpenDocument().Open(
-            //    @"C:\Users\duongtd\Desktop\DuongTD_ThanhTich_v1.1.doc",
-            //    new Rect(new Point(0, 0), new Size(screen.Bounds.Width, screen.Bounds.Height - this.Height)));
+            new OpenDocument().Open(
+              @"C:\Users\phamv\Desktop\TKB.xlsx",
+              new Rect(new Point(0, 0), new Size(screen.Bounds.Width, screen.Bounds.Height - this.Height)));
         }
 
         private void Window_Deactivated(object sender, EventArgs e)
