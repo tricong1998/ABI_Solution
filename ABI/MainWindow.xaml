@@ -1,34 +1,41 @@
-﻿<Window x:Class="ABI.MainWindow"
+﻿<Window
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:ABI"
         xmlns:self="clr-namespace:ABI"
+        xmlns:MyUserControl="clr-namespace:ABI.MyUserControl" x:Class="ABI.MainWindow"
         mc:Ignorable="d"
-        Title="MainWindow" Height="180" Width="Auto" Loaded="Window_Loaded" Deactivated="Window_Deactivated">
-    <Grid>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="7*"/>
-            <ColumnDefinition Width="3*"/>
-        </Grid.ColumnDefinitions>
-        <WebBrowser Grid.Column="0" Name="web_question"/>
-        <Grid Grid.Column="1">
-            <Grid.RowDefinitions>
-                <RowDefinition Height="*"/>
-                <RowDefinition Height="3*"/>
-            </Grid.RowDefinitions>
-            <StackPanel Grid.Row="0" Orientation="Horizontal">
-                <ComboBox Width ="80" Margin="5" Name="question_selection" 
+        Title="MainWindow" Loaded="Window_Loaded" Deactivated="Window_Deactivated" Width="500">
+    <Grid Margin="0,3,0,0">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="7*"/>
+            <RowDefinition Height="3*"/>
+        </Grid.RowDefinitions>
+        <MyUserControl:Word_UC x:Name="word_uc" Grid.Row="0" Margin="0" BorderBrush="{DynamicResource {x:Static SystemColors.HighlightBrushKey}}" />
+        <Grid Grid.Row="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="7*"/>
+                <ColumnDefinition Width="3*"/>
+            </Grid.ColumnDefinitions>
+            <WebBrowser Grid.Column="0" x:Name="web_question"/>
+            <Grid Grid.Column="1">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="3*"/>
+                </Grid.RowDefinitions>
+                <StackPanel Grid.Row="0" Orientation="Horizontal">
+                    <ComboBox Width ="80" Margin="5" x:Name="question_selection" 
                           DisplayMemberPath="Name"
-                          ItemsSource="{Binding}" SelectionChanged="question_selection_SelectionChanged">
-                </ComboBox>
-            </StackPanel>
-            <StackPanel Grid.Row="1" Orientation="Horizontal">
-                <Button Content="Skip" Style="{StaticResource button_style}"/>
-                <Button Content="Reset" Style="{StaticResource button_style}"/>
-                <Button Content="Submit" Style="{StaticResource button_style}" Click="Button_Submit_Click"/>
-            </StackPanel>
+                          ItemsSource="{Binding}" SelectionChanged="question_selection_SelectionChanged"/>
+                </StackPanel>
+                <StackPanel Grid.Row="1" Orientation="Horizontal">
+                    <Button Content="Skip" Style="{StaticResource button_style}"/>
+                    <Button Content="Reset" Style="{StaticResource button_style}"/>
+                    <Button Content="Submit" Style="{StaticResource button_style}" Click="Button_Submit_Click"/>
+                </StackPanel>
+            </Grid>
         </Grid>
 
     </Grid>

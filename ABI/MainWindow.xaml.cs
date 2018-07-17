@@ -61,12 +61,17 @@ namespace ABI
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
             screen = System.Windows.Forms.Screen.FromHandle(
-                new System.Windows.Interop.WindowInteropHelper(this).Handle);
-            this.Left = 0;
-            this.Width = screen.Bounds.Width;
-            this.Top = screen.Bounds.Height - this.Height;
+            new System.Windows.Interop.WindowInteropHelper(this).Handle);
+            //this.Left = 0;
+            //this.Width = screen.Bounds.Width;
+            //this.Top = screen.Bounds.Height - this.Height;
+            int w = (int)word_uc.ActualWidth;
+            int h = (int)word_uc.ActualHeight;
+            Thickness x = word_uc.Margin;
+            word_uc.OpenDocument(@"G:\abi\word_module\Word_Table\doc1.docx");
+            
             //new OpenDocument().Open(
-            //    @"C:\Users\duongtd\Desktop\DuongTD_ThanhTich_v1.1.doc",
+            //    @"G:\abi\word_module\Word_Table\doc1.docx",
             //    new Rect(new Point(0, 0), new Size(screen.Bounds.Width, screen.Bounds.Height - this.Height)));
         }
 
@@ -97,7 +102,7 @@ namespace ABI
 
         #region common actions
         /// <summary>
-        /// return appropriate answer (type) based-on question type
+        /// return appropriate answer (type) based-on question type (lưu lại những câu hỏi đã submit)
         /// </summary>
         /// <param name="question"></param>
         /// <returns></returns>
@@ -108,7 +113,7 @@ namespace ABI
             throw new NotImplementedException();
         }
 
-        public void CheckFinishToSubmitAll()
+        public void CheckFinishToSubmitAll() 
         {
             bool done = true;
             foreach (IQAPair pair in exam.QAPairs)

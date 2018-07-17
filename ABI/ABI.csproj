@@ -72,7 +72,9 @@
     <Compile Include="Analyzer\LoadQuestions.cs" />
     <Compile Include="Analyzer\LoadWordQuestions.cs" />
     <Compile Include="Controller\OpenDocument.cs" />
+    <Compile Include="Controller\Word\CompareTextRange.cs" />
     <Compile Include="Controller\Word\CompareWFont.cs" />
+    <Compile Include="Controller\Word\CompareWParagraph.cs" />
     <Compile Include="Model\ABIExam.cs" />
     <Compile Include="Model\ABIQAPair.cs" />
     <Compile Include="Model\AbstractAnswer.cs" />
@@ -107,7 +109,9 @@
     <Compile Include="Model\Word\ABIW_Borders.cs" />
     <Compile Include="Model\Word\ABIW_TextRange.cs" />
     <Compile Include="Model\Word\ABIW_TextRangePro.cs" />
-    <Compile Include="Model\Word\WordCompareQuestion.cs" />
+    <Compile Include="MyUserControl\Word_UC.xaml.cs">
+      <DependentUpon>Word_UC.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Utilities\Utils.cs" />
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
@@ -121,6 +125,10 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="MyUserControl\Word_UC.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Model\ComparisonResult.cs" />
