@@ -68,6 +68,7 @@
   <ItemGroup>
     <Compile Include="Model\Word\ABIW_DocumentTests.cs" />
     <Compile Include="Model\Word\ABIW_EndnotesTests.cs" />
+    <Compile Include="Model\Word\ABIW_FontTests.cs" />
     <Compile Include="Model\Word\ABIW_FootNotesTests.cs" />
     <Compile Include="Model\Word\ABIW_TableTests.cs" />
     <Compile Include="Model\Word\ABIW_ParagraphTests.cs" />

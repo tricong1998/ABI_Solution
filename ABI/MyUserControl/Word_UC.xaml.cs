@@ -95,6 +95,7 @@ namespace ABI.MyUserControl
             word = new Word.Application();
             
             word.Visible = true;
+            
             wordWnd = FindWindow("Opusapp", null);
 
             if (word != null && word.Documents != null)
