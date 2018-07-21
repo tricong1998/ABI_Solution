@@ -8,7 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Microsoft.Office.Interop.Word;
 
-namespace ABI.Model.Word
+namespace ABI
 {
     /// <summary>
     /// represent for a cell in a table
@@ -44,10 +44,9 @@ namespace ABI.Model.Word
         {
             if (other is ABIW_Cell otherCell)
             {
-                if (this.CompareCellAttributes(otherCell).Result == ComparisonResultIndicate.equal
-                    && this.CompareCellBorders(otherCell).Result == ComparisonResultIndicate.equal)
+                if (CompareCellAttributes(this, otherCell).Result == ComparisonResultIndicate.equal
+                    && CompareCellBorders(this, otherCell).Result == ComparisonResultIndicate.equal)
                 {
-                //    string r3 = "OK";
                     return new ComparisonResult(ComparisonResultIndicate.equal);
                 }
                 else
@@ -59,57 +58,35 @@ namespace ABI.Model.Word
         }
 
         // Compare attributes of 2 cells
-        // replace $otherobject by ABIW_Cell
-        public IComparisonResult CompareCellAttributes(object other)
+        public static IComparisonResult CompareCellAttributes(ABIW_Cell wcell1, ABIW_Cell wcell2)
         {
-            if (other is ABIW_Cell otherCell)
+            if (wcell1.cell.Shading.ForegroundPatternColor == wcell2.cell.Shading.ForegroundPatternColor
+                    && wcell1.cell.Shading.ForegroundPatternColorIndex == wcell2.cell.Shading.ForegroundPatternColorIndex
+                    && wcell1.cell.Shading.BackgroundPatternColor == wcell2.cell.Shading.BackgroundPatternColor
+                    && wcell1.cell.Shading.BackgroundPatternColorIndex == wcell2.cell.Shading.BackgroundPatternColorIndex
+                    && wcell1.cell.Width == wcell2.cell.Width
+                    && wcell1.cell.Height == wcell2.cell.Height
+                    && wcell1.cell.RightPadding == wcell2.cell.RightPadding
+                    && wcell1.cell.LeftPadding == wcell2.cell.LeftPadding)
             {
-                if (Cell.Shading.ForegroundPatternColor == otherCell.Cell.Shading.ForegroundPatternColor
-                    && Cell.Shading.ForegroundPatternColorIndex == otherCell.Cell.Shading.ForegroundPatternColorIndex
-                    && Cell.Shading.BackgroundPatternColor == otherCell.Cell.Shading.BackgroundPatternColor
-                    && Cell.Shading.BackgroundPatternColorIndex == otherCell.Cell.Shading.BackgroundPatternColorIndex
-                    && Cell.Width == otherCell.Cell.Width
-                    && Cell.Height == otherCell.Cell.Height
-                    && Cell.RightPadding == otherCell.Cell.RightPadding
-                    && Cell.LeftPadding == otherCell.Cell.LeftPadding)
-                {
-                //    string r1 = "OK"; 
-                    return new ComparisonResult(ComparisonResultIndicate.equal);
-                }
-                else
-                    return new ComparisonResult(ComparisonResultIndicate.not_equal);
-                throw new NotImplementedException();
+                return new ComparisonResult(ComparisonResultIndicate.equal);
             }
             else
                 return new ComparisonResult(ComparisonResultIndicate.not_equal);
-        }
-
-        // replace above function
-        public static IComparisonResult Compare2CellAttributes(ABIW_Cell cell1, ABIW_Cell cell2)
-        {
-            throw new NotImplementedException();
         }
 
         // Compare borders of 2 cells. Borders are top-border, bottom-border, right-border, left border.  
-        public IComparisonResult CompareCellBorders(object other)
+        public static IComparisonResult CompareCellBorders(ABIW_Cell wcell1, ABIW_Cell wcell2)
         {
-            if (other is ABIW_Cell otherCell)
-            {   
-                
-                if (wBorderTop.Compare(otherCell.wBorderTop).Result == ComparisonResultIndicate.equal
-                    && wBorderBottom.Compare(otherCell.wBorderBottom).Result == ComparisonResultIndicate.equal
-                    && wBorderRight.Compare(otherCell.wBorderRight).Result == ComparisonResultIndicate.equal
-                    && wBorderLeft.Compare(otherCell.WBorderLeft).Result == ComparisonResultIndicate.equal)
+                if (wcell1.wBorderTop.Compare(wcell2.wBorderTop).Result == ComparisonResultIndicate.equal
+                    && wcell1.wBorderBottom.Compare(wcell2.wBorderBottom).Result == ComparisonResultIndicate.equal
+                    && wcell1.wBorderRight.Compare(wcell2.wBorderRight).Result == ComparisonResultIndicate.equal
+                    && wcell1.wBorderLeft.Compare(wcell2.WBorderLeft).Result == ComparisonResultIndicate.equal)
                 {
-                //    string r2 = "OK";
                     return new ComparisonResult(ComparisonResultIndicate.equal);
                 }
                 else
                     return new ComparisonResult(ComparisonResultIndicate.not_equal);
-                throw new NotImplementedException();
-            }
-            else
-                return new ComparisonResult(ComparisonResultIndicate.not_equal);
         }
     }
 }

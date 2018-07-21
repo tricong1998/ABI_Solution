@@ -72,6 +72,8 @@
     <Compile Include="Model\Excel\ABIE_WorkBookTests.cs" />
     <Compile Include="Model\Word\ABIW_TableTests.cs" />
     <Compile Include="Model\Word\ABIW_ParagraphTests.cs" />
+    <Compile Include="Model\Word\ABIW_TextRangeProTests.cs" />
+    <Compile Include="Model\Word\ABIW_TextRangeTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

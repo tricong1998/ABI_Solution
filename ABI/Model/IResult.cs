@@ -11,5 +11,6 @@ namespace ABI
 {
     public interface IResult
     {
+        
     }
 }
