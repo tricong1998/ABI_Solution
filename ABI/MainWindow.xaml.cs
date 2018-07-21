@@ -142,6 +142,7 @@ namespace ABI
 
         public void SubmitAll()
         {
+            int score = 0;
             foreach (IQAPair pair in exam.QAPairs)
             {
                 IQuestion question = pair.Question;
@@ -155,11 +156,13 @@ namespace ABI
                     Word.Document anwser = application.Documents.Open(questionCur.Question);
                     Word.Document correctAnwser = application.Documents.Open(questionCur.Answer);
                     ABIW_Document document1 = new ABIW_Document(anwser);
-                    ABIW_Document document2 = new ABIW_Document(correctAnwser);
+                    ABIW_Document document2 = new ABIW_Document(correctAnwser);                    
                     switch (questionCur.Type_l2)
                     {
                         case 9:
+
                             CompareWFont compare = new CompareWFont();
+                            ComparisonResultIndicate resultIndicate = new ComparisonResultIndicate();
                             compare.Compare(document1, document2);
                             break;
                         default:
