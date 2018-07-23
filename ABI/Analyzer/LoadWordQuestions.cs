@@ -60,12 +60,26 @@ namespace ABI
             switch (type_l2)
             {
                 case 1:
+                case 2:
+                case 3:
                     question = new CompareWFileOpen();
                     break;
-                case 2:
+                case 24:
                     question = new CompareWFileClose();
                     break;
                 case 9:
+                case 10:
+                case 11:
+                case 12:
+                case 13:
+                case 14:
+                case 15:
+                case 16:
+                case 17:
+                case 18:
+                case 19:
+                case 20:
+                case 21:
                     question = new CompareWFileQuestion();
                     break;  
             }
