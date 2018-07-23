@@ -39,6 +39,7 @@ namespace ABI
                     question.Question = question_file;                    
                     question.Index = index;
                     question.HtmlContent = html_content;
+                    question.Type_l2 = type_l2;
                     index++;
                     re.Add(question);
                 }
@@ -55,15 +56,20 @@ namespace ABI
         /// <returns></returns>
         public IQuestion Convert(int type_l2)
         {
+            IQuestion question = null;
             switch (type_l2)
             {
+                case 1:
+                    question = new CompareWFileOpen();
+                    break;
+                case 2:
+                    question = new CompareWFileClose();
+                    break;
                 case 9:
-                    CompareWFileQuestion q = new CompareWFileQuestion();
-                    q.Type_l2 = type_l2;
-                    return q;
-                default:
-                    return new CompareWFileQuestion();
+                    question = new CompareWFileQuestion();
+                    break;  
             }
+            return question;
         }
     }
 }
