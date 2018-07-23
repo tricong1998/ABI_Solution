@@ -18,5 +18,8 @@ namespace ABI
         int Index { get; set; }
         string TextContent { get; set; }
         string HtmlContent { get; set; }
+        string Answer { get; set; }
+        string Question { get; set; }
+        int Type_l2 { get; set; }
     }
 }
