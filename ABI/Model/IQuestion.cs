@@ -15,10 +15,7 @@ namespace ABI
     public interface IQuestion
     {
         string Question { get; set ; }
-        string Answer { get ; set ; }
-
-        
-      
+        string Answer { get ; set ; }              
         IResult Submit(IAnswer answer);
         int Index { get; set; }
         string TextContent { get; set; }

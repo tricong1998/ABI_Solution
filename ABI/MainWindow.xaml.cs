@@ -164,8 +164,7 @@ namespace ABI
                     ABIW_Document document2 = new ABIW_Document(correctAnwser);                    
                     switch (questionCur.Type_l2)
                     {
-                        case 9:
-
+                        case 9 : case 10 : case 11 : case 12 : case 13 : case 14:
                             CompareWFont compare = new CompareWFont();
                             ComparisonResultIndicate resultIndicate = new ComparisonResultIndicate();
                             compare.Compare(document1, document2);
