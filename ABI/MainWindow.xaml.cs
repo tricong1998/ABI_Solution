@@ -89,7 +89,6 @@ namespace ABI
             int index = question_selection.SelectedIndex; //index of current question
             IAnswer answer = PackageAnswer(exam.QAPairs[index].Question);
             exam.QAPairs[index].Answer = answer;
-
             CheckFinishToSubmitAll();
         }
 
@@ -118,11 +117,16 @@ namespace ABI
                 ((CompareWFileAnswer)re).CorrectAnswer.Path = question.Answer;
                 // save path to file answer here
             }
-            //else if (question is OpenWFileQuestion)
-            //{
-            //    re = new OpenWFileAnswer();
-            //    ((OpenWFileAnswer)re).file_to_open = "";
-            //}
+            else if (question is OpenFileQuestion)
+            {
+                re = new OpenWFileAnswer();
+                ((OpenWFileAnswer)re).File.Path = question.Question;
+            }
+            else if (question is CompareWFileClose)
+            {
+                re = new CloseWFileAnswer();
+                ((CloseWFileAnswer)re).File.Path = question.Question;
+            }
             // .. so on
             return re;
             //throw new NotImplementedException();
