@@ -58,12 +58,12 @@ namespace ABI
         {
             get
             {
-                return htmlContent;
+                return htmlsContent;
             }
 
             set
             {
-                htmlContent = value;
+                htmlsContent = value;
             }
         }
 

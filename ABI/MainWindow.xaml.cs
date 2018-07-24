@@ -29,6 +29,7 @@ namespace ABI
         #region attributes
         ABIExam exam;
         System.Windows.Forms.Screen screen;
+        
         #endregion
 
         public MainWindow()
@@ -54,6 +55,7 @@ namespace ABI
             var itemSource = Utils.ConvertListQuestions(questions);
             //itemSource[0].IsSelected = true;
             DataContext = itemSource;
+
             question_selection.SelectedIndex = 0;
             web_question.NavigateToString(UTF8_HEADER + _QAPairs[0].Question.HtmlContent);
         }
@@ -70,7 +72,13 @@ namespace ABI
             int w = (int)word_uc.ActualWidth;
             int h = (int)word_uc.ActualHeight;
             Thickness x = word_uc.Margin;
-            word_uc.OpenDocument(@"E:\1 - Copy.docx");            
+            //foreach (ABIQAPair qa in exam.QAPairs)
+            //{
+            //    word_uc.OpenDocument(qa.Question.Question);
+            //}
+            //word_uc.OpenDocument(exam.QAPairs[question_selection.SelectedIndex].Question.Question);
+            
+            //word_uc.word.Visible = false;
             //new OpenDocument().Open(
             //    @"G:\abi\word_module\Word_Table\doc1.docx",
             //    new Rect(new Point(0, 0), new Size(screen.Bounds.Width, screen.Bounds.Height - this.Height)));
@@ -92,10 +100,26 @@ namespace ABI
             CheckFinishToSubmitAll();
         }
 
+        int a = 0;
         private void question_selection_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             var _new = e.AddedItems[0] as QuestionVisual;
             web_question.NavigateToString(UTF8_HEADER + _new.Question.HtmlContent);
+            int index = question_selection.SelectedIndex;
+
+            //word_uc.Save(word_uc.document);
+            //word_uc.Close(word_uc.document);
+            if (a==0)
+            {
+                word_uc.OpenDocument(exam.QAPairs[index].Question.Question);
+                a+=1;
+            }
+            else
+            {
+                word_uc.Save();
+                word_uc.Close();
+                word_uc.OpenDocument(exam.QAPairs[index].Question.Question);
+            }
 
             // update ui here
         }
@@ -209,5 +233,14 @@ namespace ABI
             MessageBox.Show("Score: "+score);
         }
         #endregion
+
+        private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
+        {
+           
+                word_uc.Save();
+                word_uc.Close();
+           
+                word_uc.Quit();
+        }
     }
 }
