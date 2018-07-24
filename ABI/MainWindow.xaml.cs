@@ -111,14 +111,14 @@ namespace ABI
             //word_uc.Close(word_uc.document);
             if (a==0)
             {
-                word_uc.OpenDocument(exam.QAPairs[index].Question.Question);
+                word_uc.OpenDocument(exam.QAPairs[index].Question.Answer);
                 a+=1;
             }
             else
             {
                 word_uc.Save();
                 word_uc.Close();
-                word_uc.OpenDocument(exam.QAPairs[index].Question.Question);
+                word_uc.OpenDocument(exam.QAPairs[index].Question.Answer);
             }
 
             // update ui here
@@ -191,6 +191,7 @@ namespace ABI
                 {
                     word_uc.Save();
                     word_uc.Close();
+                    word_uc.Quit();
                     Word.Application application = new Word.Application();
                     Word.Document anwser = application.Documents.Open(questionCur.CorrectAnswer);
                     try
@@ -214,8 +215,14 @@ namespace ABI
                                 }
                                 //pair.Question = question;
                                 break;
-                            //case 16 : case 17 : case 18 :  case 19 : case 21:
-                            //    compareWp
+                            case 16 : case 17 : case 18 :  case 19 : case 21:
+                                CompareWParagraph compareWParagraph = new CompareWParagraph();
+                                if (((ComparisonResult)compareWParagraph.Compare(document1, document2)).Result == ComparisonResultIndicate.equal)
+                                {
+                                    question.Correct = true;
+                                    score++;
+                                }
+                                break;
                         }
                         anwser.Close();
                         correctAnwser.Close();

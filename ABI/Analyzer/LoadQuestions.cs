@@ -13,7 +13,7 @@ namespace ABI
     public abstract class LoadQuestions
     {
         public const string CONNECTION_STRING = @"Data Source=DESKTOP-R7EB7OG\SQLEXPRESS;Initial Catalog=abi_db;Integrated Security=True";
-        public const string CONNECTION_STRING_Duong = @"Data Source=DESKTOP-AJ9UQOS;Initial Catalog=abi_db;Integrated Security=True";
+        public const string CONNECTION_STRING_Duong = @"Data Source=35.198.229.219;Initial Catalog=abi_db;User ID=SA;Password=Abi_rd320";
 
         SqlConnection conn;
 
