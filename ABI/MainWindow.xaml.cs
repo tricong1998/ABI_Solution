@@ -151,7 +151,6 @@ namespace ABI
 
         public void SubmitAll()
         {
-            int score = 0;
             foreach (IQAPair pair in exam.QAPairs)
             {
                 IQuestion question = pair.Question;
@@ -170,11 +169,17 @@ namespace ABI
                     {
                         case 9 : case 10 : case 11 : case 12 : case 13 : case 14:
                             CompareWFont compare = new CompareWFont();
-                            ComparisonResultIndicate resultIndicate = new ComparisonResultIndicate();
-                            compare.Compare(document1, document2);
+                            if(compare.Compare(document1, document2) == new ComparisonResult(ComparisonResultIndicate.equal))
+                            {
+                                question.Correct = true;
+                            }
+                            pair.Question = question;
                             break;
-                        default:
-                            break;
+                        case 16 : case 17 : case 18 :  case 19 : case 21:
+
+
+
+                            
                     }
                         // call to CompareWFont.Compare()
                 }

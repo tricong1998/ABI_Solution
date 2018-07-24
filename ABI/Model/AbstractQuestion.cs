@@ -71,7 +71,7 @@ namespace ABI
         public string Answer { get => answer; set => answer = value; }
         public bool Correct { get => correct; set => correct = value; }
 
-        private bool correct = false;
+        protected bool correct = false;
         protected string question;
         protected string answer;
         protected int index;
