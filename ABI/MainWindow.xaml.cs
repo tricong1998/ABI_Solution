@@ -151,6 +151,7 @@ namespace ABI
 
         public void SubmitAll()
         {
+            exam.Score.Score = 0;
             foreach (IQAPair pair in exam.QAPairs)
             {
                 IQuestion question = pair.Question;
@@ -174,17 +175,15 @@ namespace ABI
                                 question.Correct = true;
                             }
                             pair.Question = question;
+                            exam.Score.Score++;
                             break;
-                        case 16 : case 17 : case 18 :  case 19 : case 21:
-
-
-
-                            
+                        //case 16 : case 17 : case 18 :  case 19 : case 21:
                     }
                         // call to CompareWFont.Compare()
                 }
             }
             // implement total result here
+            MessageBox.Show("Score: "+exam.Score.Score);
         }
         #endregion
     }

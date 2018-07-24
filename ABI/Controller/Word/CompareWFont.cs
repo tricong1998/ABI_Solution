@@ -23,7 +23,7 @@ namespace ABI
         public IResult Compare(ABIW_Document answer, ABIW_Document submission)
         {
             ABIW_Font answerFont = new ABIW_Font(answer.Document.Range().Font);
-            ABIW_Font submissFont = new ABIW_Font(answer.Document.Range().Font);
+            ABIW_Font submissFont = new ABIW_Font(submission.Document.Range().Font);
 
             if (answerFont.Compare(submissFont).Result == ComparisonResultIndicate.equal)
             {
