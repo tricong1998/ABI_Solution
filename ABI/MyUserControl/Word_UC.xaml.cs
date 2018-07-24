@@ -16,6 +16,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using Microsoft.Office.Interop.Word;
+using System.Diagnostics;
 
 namespace ABI.MyUserControl
 {
@@ -125,6 +126,63 @@ namespace ABI.MyUserControl
         private void UserControl_SizeChanged(object sender, SizeChangedEventArgs e)
         {
             MoveWindow(wordWnd, (int)this.Margin.Left, (int)this.Margin.Top, (int)this.ActualWidth, (int)this.ActualHeight, true);
+        }
+        // close file
+        public void Close()
+        {
+            try
+            {
+                if (document != null)
+                {
+                    try
+                    {
+                        document.Close();
+                    }
+                    catch (Exception ex)
+                    {
+                        Debug.WriteLine(ex);
+                    }
+                }
+
+                if (word != null)
+                {
+                    try
+                    {
+                        word.Quit();
+                    }
+                    catch (Exception ex)
+                    {
+                        Debug.WriteLine(ex);
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine(ex);
+            }
+        }
+
+        // save file
+        public void Save()
+        {
+            try
+            {
+                if (document != null)
+                {
+                    try
+                    {
+                        document.Save();
+                    }
+                    catch (Exception ex)
+                    {
+                        Debug.WriteLine(ex);
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine(ex);
+            }
         }
     }
 }

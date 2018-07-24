@@ -55,6 +55,7 @@ namespace ABI
             //itemSource[0].IsSelected = true;
             DataContext = itemSource;
             question_selection.SelectedIndex = 0;
+            web_question.NavigateToString(UTF8_HEADER + _QAPairs[0].Question.HtmlContent);
         }
         #endregion
 
@@ -69,8 +70,7 @@ namespace ABI
             int w = (int)word_uc.ActualWidth;
             int h = (int)word_uc.ActualHeight;
             Thickness x = word_uc.Margin;
-            word_uc.OpenDocument(@"G:\abi\word_module\Word_Table\doc1.docx");
-            
+            word_uc.OpenDocument(@"E:\1 - Copy.docx");            
             //new OpenDocument().Open(
             //    @"G:\abi\word_module\Word_Table\doc1.docx",
             //    new Rect(new Point(0, 0), new Size(screen.Bounds.Width, screen.Bounds.Height - this.Height)));
@@ -114,18 +114,22 @@ namespace ABI
             if (question is CompareWFileQuestion)
             {
                 re = new CompareWFileAnswer();
-                ((CompareWFileAnswer)re).CorrectAnswer.Path = question.Answer;
+               // ((CompareWFileAnswer)re).CorrectAnswer.Path = question.Answer;
                 // save path to file answer here
             }
-            else if (question is OpenFileQuestion)
+            else if (question is OpenFileQuestion openFileQuestion)
             {
                 re = new OpenWFileAnswer();
-                ((OpenWFileAnswer)re).File.Path = question.Question;
+                ((OpenWFileAnswer)re).File = new ABI_WFile()
+                {
+                    Path = question.Answer
+                };
+               // ((OpenWFileAnswer)re).File.Path = question.Question;
             }
             else if (question is CompareWFileClose)
             {
                 re = new CloseWFileAnswer();
-                ((CloseWFileAnswer)re).File.Path = question.Question;
+              //  ((CloseWFileAnswer)re).File.Path = question.Question;
             }
             // .. so on
             return re;
@@ -151,7 +155,7 @@ namespace ABI
 
         public void SubmitAll()
         {
-            exam.Score.Score = 0;
+            int score = 0;
             foreach (IQAPair pair in exam.QAPairs)
             {
                 IQuestion question = pair.Question;
@@ -159,31 +163,50 @@ namespace ABI
                 {
                     // call to OpenWFile.CheckOpened(question.file_to_open);
                 }
-                if (question is CompareWFileQuestion questionCur)
-                {         
+                else if (question is CompareWFileQuestion questionCur)
+                {
+                    word_uc.Save();
+                    word_uc.Close();
                     Word.Application application = new Word.Application();
-                    Word.Document anwser = application.Documents.Open(questionCur.Question);
-                    Word.Document correctAnwser = application.Documents.Open(questionCur.Answer);
-                    ABIW_Document document1 = new ABIW_Document(anwser);
-                    ABIW_Document document2 = new ABIW_Document(correctAnwser);                    
-                    switch (questionCur.Type_l2)
+                    Word.Document anwser = application.Documents.Open(questionCur.CorrectAnswer);
+                    try
                     {
-                        case 9 : case 10 : case 11 : case 12 : case 13 : case 14:
-                            CompareWFont compare = new CompareWFont();
-                            if(compare.Compare(document1, document2) == new ComparisonResult(ComparisonResultIndicate.equal))
-                            {
-                                question.Correct = true;
-                            }
-                            pair.Question = question;
-                            exam.Score.Score++;
-                            break;
-                        //case 16 : case 17 : case 18 :  case 19 : case 21:
+                        Word.Document correctAnwser = application.Documents.Open(questionCur.Answer);
+                        ABIW_Document document1 = new ABIW_Document(anwser);
+                        ABIW_Document document2 = new ABIW_Document(correctAnwser);
+                        switch (questionCur.Type_l2)
+                        {
+                            case 9:
+                            case 10:
+                            case 11:
+                            case 12:
+                            case 13:
+                            case 14:
+                                CompareWFont compare = new CompareWFont();
+                                if (((ComparisonResult)compare.Compare(document1, document2)).Result == ComparisonResultIndicate.equal)
+                                {
+                                    question.Correct = true;
+                                    score++;
+                                }
+                                //pair.Question = question;
+                                break;
+                            //case 16 : case 17 : case 18 :  case 19 : case 21:
+                            //    compareWp
+                        }
+                        anwser.Close();
+                        correctAnwser.Close();
+                        application.Quit();
                     }
+                    catch(Exception e)
+                    {
+
+                    }                  
                         // call to CompareWFont.Compare()
                 }
             }
+            //exam.Score = new ScoreResult(score);
             // implement total result here
-            MessageBox.Show("Score: "+exam.Score.Score);
+            MessageBox.Show("Score: "+score);
         }
         #endregion
     }

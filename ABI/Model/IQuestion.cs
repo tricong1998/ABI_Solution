@@ -13,8 +13,8 @@ namespace ABI
     /// all types of questions need to be implemented this interface
     /// </summary>
     public interface IQuestion
-    {
-        string Question { get; set ; }
+    {       
+        string CorrectAnswer { get; set ; }
         string Answer { get ; set ; }              
         IResult Submit(IAnswer answer);
         int Index { get; set; }

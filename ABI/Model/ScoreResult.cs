@@ -14,7 +14,7 @@ namespace ABI
     /// </summary>
     public class ScoreResult : AbstractResult
     {
-        private int score;
+        private int score = 0;
         private int maxScore = 10; // default = 10
 
         public ScoreResult(int score)

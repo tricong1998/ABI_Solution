@@ -67,6 +67,7 @@
     <Otherwise />
   </Choose>
   <ItemGroup>
+    <Compile Include="Controller\Word\CompareWFontTests.cs" />
     <Compile Include="Model\Excel\ABIE_ParagraphTests.cs" />
     <Compile Include="Model\Excel\ABIE_RangeTests.cs" />
     <Compile Include="Model\Excel\ABIE_WorkBookTests.cs" />

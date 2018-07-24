@@ -67,12 +67,12 @@ namespace ABI
             }
         }
 
-        public string Question { get => question; set => question = value; }
+        public string CorrectAnswer { get => correctAnswer; set => correctAnswer = value; }
         public string Answer { get => answer; set => answer = value; }
         public bool Correct { get => correct; set => correct = value; }
 
         protected bool correct = false;
-        protected string question;
+        protected string correctAnswer;
         protected string answer;
         protected int index;
         protected int type_l2;

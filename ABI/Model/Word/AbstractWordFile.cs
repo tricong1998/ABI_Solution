@@ -12,4 +12,8 @@ namespace ABI
     public abstract class AbstractWordFile : AbstractFile, IWordFile
     {
     }
+    public class ABI_WFile : AbstractWordFile
+    {
+
+    }
 }

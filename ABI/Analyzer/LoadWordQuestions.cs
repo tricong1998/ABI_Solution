@@ -36,7 +36,7 @@ namespace ABI
                     string answer_file = reader[7] as string;
                     var question = Convert(type_l2);
                     question.Answer = answer_file;
-                    question.Question = question_file;                    
+                    question.CorrectAnswer = question_file;                    
                     question.Index = index;
                     question.HtmlContent = html_content;
                     question.Type_l2 = type_l2;
