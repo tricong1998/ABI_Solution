@@ -35,15 +35,13 @@ namespace ABI
                     string question_file = reader[6] as string;
                     string answer_file = reader[7] as string;
                     var question = Convert(type_l2);
-                    if (question != null)
-                    {
-                        question.Answer = answer_file;
-                        question.Question = question_file;
-                        question.Index = index;
-                        question.HtmlContent = html_content;
-                        index++;
-                        re.Add(question);
-                    }
+                    question.Answer = answer_file;
+                    question.Question = question_file;                    
+                    question.Index = index;
+                    question.HtmlContent = html_content;
+                    question.Type_l2 = type_l2;
+                    index++;
+                    re.Add(question);
                 }
             }
             conn.Close();
@@ -58,15 +56,34 @@ namespace ABI
         /// <returns></returns>
         public IQuestion Convert(int type_l2)
         {
-            IQuestion re = null;
+            IQuestion question = null;
             switch (type_l2)
             {
-                case 9:
-                    re = new CompareWFileQuestion();
-                    //q.Type_l2 = type_l2;
+                case 1:
+                case 2:
+                case 3:
+                    question = new CompareWFileOpen();
                     break;
+                case 24:
+                    question = new CompareWFileClose();
+                    break;
+                case 9:
+                case 10:
+                case 11:
+                case 12:
+                case 13:
+                case 14:
+                case 15:
+                case 16:
+                case 17:
+                case 18:
+                case 19:
+                case 20:
+                case 21:
+                    question = new CompareWFileQuestion();
+                    break;  
             }
-            return re;
+            return question;
         }
     }
 }

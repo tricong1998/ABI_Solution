@@ -16,6 +16,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using Microsoft.Office.Interop.Word;
+using System.Diagnostics;
 
 namespace ABI.MyUserControl
 {
@@ -79,32 +80,42 @@ namespace ABI.MyUserControl
        );
         #endregion
 
-        Word.Application word = null;
+        public Word.Application word = null;
         public Document document;
+        //public List<Document> documents;
+        public string a;
         public static int wordWnd;
+        //public string path;
 
         public Word_UC()
         {
-            InitializeComponent();
-            //PresentationSource source = PresentationSource.FromVisual(this) as HwndSource;
             
+            //this.path = path;
+            //documents = new List<Document>();
+            a = "haha";
+            InitializeComponent();
+            word = new Word.Application();
+            word.Visible = true;
+            //PresentationSource source = PresentationSource.FromVisual(this) as HwndSource;
+
         }
 
         public void OpenDocument(string path)
         {
-            word = new Word.Application();
-            
-            word.Visible = true;
+            //Document d = new Document();
             
             wordWnd = FindWindow("Opusapp", null);
 
             if (word != null && word.Documents != null)
             {
                 document = word.Documents.Open(path);
+                
                 //word.Activate();
-                document.Activate();
+                //d.Activate();
                
             }
+
+            //documents.Add(d);
 
             HwndSource source = (HwndSource)HwndSource.FromVisual(this);
             IntPtr hWnd = source.Handle;
@@ -126,6 +137,74 @@ namespace ABI.MyUserControl
         private void UserControl_SizeChanged(object sender, SizeChangedEventArgs e)
         {
             MoveWindow(wordWnd, (int)this.Margin.Left, (int)this.Margin.Top, (int)this.ActualWidth, (int)this.ActualHeight, true);
+        }
+
+        // close file
+        public void Close()
+        {
+            try
+            {
+                if (document != null)
+                {
+                    try
+                    {
+                        document.Close();
+                    }
+                    catch (Exception ex)
+                    {
+                        Debug.WriteLine(ex);
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine(ex);
+            }
+        }
+
+        public void Quit()
+        {
+            try
+            {
+                if (word != null)
+                {
+                    try
+                    {
+                        word.Quit();
+                    }
+                    catch (Exception ex)
+                    {
+                        Debug.WriteLine(ex);
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine(ex);
+            }
+        }
+
+        // save file
+        public void Save()
+        {
+            try
+            {
+                if (document != null)
+                {
+                    try
+                    {
+                        document.Save();
+                    }
+                    catch (Exception ex)
+                    {
+                        Debug.WriteLine(ex);
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine(ex);
+            }
         }
     }
 }

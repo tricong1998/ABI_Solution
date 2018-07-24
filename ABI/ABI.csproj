@@ -123,7 +123,9 @@
     <Compile Include="Model\IQuestion.cs" />
     <Compile Include="Model\IResult.cs" />
     <Compile Include="Model\Question\OpenFileQuestion.cs" />
+    <Compile Include="Model\Question\Word\CompareWFileClose.cs" />
     <Compile Include="Model\Question\Word\CompareWFileQuestion.cs" />
+    <Compile Include="Model\Question\Word\CompareWFileOpen.cs" />
     <Compile Include="Model\ScoreResult.cs" />
     <Compile Include="Model\View\QuestionVisual.cs" />
     <Compile Include="Model\Word\ABIW_Border.cs" />
@@ -196,7 +198,9 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <None Include="App.config" />
+    <None Include="App.config">
+      <SubType>Designer</SubType>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Logs\" />

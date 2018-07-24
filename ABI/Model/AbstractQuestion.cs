@@ -41,6 +41,18 @@ namespace ABI
                 index = value;
             }
         }
+        public int Type_l2
+        {
+            get
+            {
+                return type_l2;
+            }
+
+            set
+            {
+                type_l2 = value;
+            }
+        }
 
         public string HtmlContent
         {
@@ -57,11 +69,15 @@ namespace ABI
 
         public string Question { get => question; set => question = value; }
         public string Answer { get => answer; set => answer = value; }
+        public bool Correct { get => correct; set => correct = value; }
+
+        private bool correct = false;
         protected string question;
         protected string answer;
-        protected int index;       
+        protected int index;
+        protected int type_l2;
+        protected string htmlContent;
         public abstract IResult Submit(IAnswer answer);
-
         protected string htmlsContent;
     }
 }
