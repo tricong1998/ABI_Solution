@@ -103,7 +103,7 @@ namespace ABI.MyUserControl
                 document = word.Documents.Open(path);
                 //word.Activate();
                 document.Activate();
-       
+               
             }
 
             HwndSource source = (HwndSource)HwndSource.FromVisual(this);

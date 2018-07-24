@@ -35,10 +35,15 @@ namespace ABI
                     string question_file = reader[6] as string;
                     string answer_file = reader[7] as string;
                     var question = Convert(type_l2);
-                    question.Index = index;
-                    question.HtmlContent = html_content;
-                    index++;
-                    re.Add(question);
+                    if (question != null)
+                    {
+                        question.Answer = answer_file;
+                        question.Question = question_file;
+                        question.Index = index;
+                        question.HtmlContent = html_content;
+                        index++;
+                        re.Add(question);
+                    }
                 }
             }
             conn.Close();
@@ -46,14 +51,22 @@ namespace ABI
         }
 
         /// <summary>
-        /// @Cong implement here, consider to define new Question type (extend AbstractQuestion)
+        /// @Hoang implement here, consider to define new Question type (extend AbstractQuestion)
         /// maybe need more params, you can add new by yourself
         /// </summary>
         /// <param name="type_l2"></param>
         /// <returns></returns>
         public IQuestion Convert(int type_l2)
         {
-            return new CompareWFileQuestion();
+            IQuestion re = null;
+            switch (type_l2)
+            {
+                case 9:
+                    re = new CompareWFileQuestion();
+                    //q.Type_l2 = type_l2;
+                    break;
+            }
+            return re;
         }
     }
 }

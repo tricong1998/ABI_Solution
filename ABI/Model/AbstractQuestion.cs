@@ -46,19 +46,22 @@ namespace ABI
         {
             get
             {
-                return htmlContent;
+                return htmlsContent;
             }
 
             set
             {
-                htmlContent = value;
+                htmlsContent = value;
             }
         }
 
-        protected int index;
-
+        public string Question { get => question; set => question = value; }
+        public string Answer { get => answer; set => answer = value; }
+        protected string question;
+        protected string answer;
+        protected int index;       
         public abstract IResult Submit(IAnswer answer);
 
-        protected string htmlContent;
+        protected string htmlsContent;
     }
 }

@@ -11,6 +11,10 @@ namespace ABI
 {
     public class CompareWFileQuestion : AbstractQuestion
     {
+        private int type_l2;
+
+        public int Type_l2 { get => type_l2; set => type_l2 = value; }
+
         public override IResult Submit(IAnswer answer)
         {
             throw new NotImplementedException();

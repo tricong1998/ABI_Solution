@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using Word = Microsoft.Office.Interop.Word;
 
 namespace ABI
 {
@@ -28,6 +29,7 @@ namespace ABI
         #region attributes
         ABIExam exam;
         System.Windows.Forms.Screen screen;
+
         #endregion
 
         public MainWindow()
@@ -68,7 +70,7 @@ namespace ABI
             int w = (int)word_uc.ActualWidth;
             int h = (int)word_uc.ActualHeight;
             Thickness x = word_uc.Margin;
-            word_uc.OpenDocument(@"G:\abi\word_module\Word_Table\doc1.docx");
+            word_uc.OpenDocument(exam.QAPairs[question_selection.SelectedIndex].Question.Question);
             
             //new OpenDocument().Open(
             //    @"G:\abi\word_module\Word_Table\doc1.docx",
@@ -110,7 +112,21 @@ namespace ABI
         {
             // @Cong implement here
             // e.g., if (question is CompareWFileQuestion) return new CompareWFileAnswer
-            throw new NotImplementedException();
+            IAnswer re = null;
+            if (question is CompareWFileQuestion)
+            {
+                re = new CompareWFileAnswer();
+                ((CompareWFileAnswer)re).CorrectAnswer.Path = question.Answer;
+                // save path to file answer here
+            }
+            //else if (question is OpenWFileQuestion)
+            //{
+            //    re = new OpenWFileAnswer();
+            //    ((OpenWFileAnswer)re).file_to_open = "";
+            //}
+            // .. so on
+            return re;
+            //throw new NotImplementedException();
         }
 
         public void CheckFinishToSubmitAll() 
@@ -126,12 +142,39 @@ namespace ABI
             }
             if (done)
             {
-                foreach (IQAPair pair in exam.QAPairs)
-                {
-                    IResult currentResult = pair.Question.Submit(pair.Answer);
-                }
-                // implement total result here
+                SubmitAll();
             }
+        }
+
+        public void SubmitAll()
+        {
+            foreach (IQAPair pair in exam.QAPairs)
+            {
+                IQuestion question = pair.Question;
+                if (question is OpenFileQuestion)
+                {
+                    // call to OpenWFile.CheckOpened(question.file_to_open);
+                }
+                if (question is CompareWFileQuestion questionCur)
+                {         
+                    Word.Application application = new Word.Application();
+                    Word.Document anwser = application.Documents.Open(questionCur.Question);
+                    Word.Document correctAnwser = application.Documents.Open(questionCur.Answer);
+                    ABIW_Document document1 = new ABIW_Document(anwser);
+                    ABIW_Document document2 = new ABIW_Document(correctAnwser);
+                    switch (questionCur.Type_l2)
+                    {
+                        case 9:
+                            CompareWFont compare = new CompareWFont();
+                            compare.Compare(document1, document2);
+                            break;
+                        default:
+                            break;
+                    }
+                        // call to CompareWFont.Compare()
+                }
+            }
+            // implement total result here
         }
         #endregion
     }

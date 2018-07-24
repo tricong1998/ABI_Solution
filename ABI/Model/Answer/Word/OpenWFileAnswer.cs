@@ -11,6 +11,6 @@ namespace ABI
 {
     public class OpenWFileAnswer : AbstractAnswer
     {
-
+        private string pathFile2Open;
     }
 }
