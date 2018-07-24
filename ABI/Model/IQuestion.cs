@@ -21,5 +21,6 @@ namespace ABI
         string TextContent { get; set; }
         string HtmlContent { get; set; }
         int Type_l2 { get; set; }
+        bool Correct { get; set; }
     }
 }
