@@ -41,7 +41,7 @@ namespace ABI
                 index = value;
             }
         }
-        public List<int> Type_l2
+        public int Type_l2
         {
             get
             {
@@ -107,7 +107,7 @@ namespace ABI
         }
 
         protected int index;
-        protected List<int> type_l2;
+        protected int type_l2;
         protected string htmlContent;
         protected string markdownContent;
         protected IFile file;

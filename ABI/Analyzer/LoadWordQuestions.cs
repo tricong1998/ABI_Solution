@@ -39,13 +39,13 @@ namespace ABI
                 while (reader.Read())
                 {
                     int id = (int)reader[ID_COLUMN];
-                    string raw_content = reader[RAW_CONTENT_COLUMN] == null ? null : (string)reader[RAW_CONTENT_COLUMN];
-                    string html_content = reader[HTML_CONTENT_COLUMN] == null ? null : (string)reader[HTML_CONTENT_COLUMN];
-                    string markdown_content = reader[MARKDOWN_CONTENT_COLUMN] == null ? null : (string)reader[MARKDOWN_CONTENT_COLUMN];
-                    string type_l2 = reader[TYPE_L2_COLUMN] == null ? null : (string)reader[TYPE_L2_COLUMN];
-                    string question_file = reader[QUESTION_FILE_COLUMN] == null ? null : (string)reader[QUESTION_FILE_COLUMN];
-                    string answer_file = reader[ANSWER_FILE_COLUMN] == null ? null : (string)reader[ANSWER_FILE_COLUMN];
-                    string description = reader[DESCRIPTION_COLUMN] == null ? null : (string)reader[DESCRIPTION_COLUMN];
+                    string raw_content = reader[RAW_CONTENT_COLUMN] as string;
+                    string html_content = reader[HTML_CONTENT_COLUMN] as string;
+                    string markdown_content = reader[MARKDOWN_CONTENT_COLUMN] as string;
+                    int type_l2 = (int)reader[TYPE_L2_COLUMN];
+                    string question_file = reader[QUESTION_FILE_COLUMN] as string;
+                    string answer_file = reader[ANSWER_FILE_COLUMN] as string;
+                    string description = reader[DESCRIPTION_COLUMN] as string;
                     var pair = Convert(id, raw_content, html_content, markdown_content, type_l2,
                         question_file, answer_file, description, index);
                     index++;
@@ -63,16 +63,12 @@ namespace ABI
         /// <param name="type_l2"></param>
         /// <returns></returns>
         public IQAPair Convert(int id, string raw_content, string html_content, string markdown_content, 
-            string type_l2, string question_file, string answer_file, string description, int index)
+            int type_l2, string question_file, string answer_file, string description, int index)
         {
             IQuestion question = null;
             IAnswer answer = null;
             IAnswer correctAnswer = new ABIAnswer();
-            List<int> listTypeL2 = type_l2.Split(',').Select(Int32.Parse).ToList();
-            // hard code
-            // TODO: handle multiple type l2
-            int typeL2Int = listTypeL2[0];
-            switch (typeL2Int)
+            switch (type_l2)
             {
                 case 1:
                 case 2:
@@ -112,7 +108,7 @@ namespace ABI
                 question.RawContent = raw_content;
                 question.MarkdownContent = markdown_content;
                 question.Description = description;
-                question.Type_l2 = listTypeL2;
+                question.Type_l2 = type_l2;
             }
             return new ABIQAPair(question, answer, correctAnswer);
         }

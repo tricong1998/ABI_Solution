@@ -18,7 +18,7 @@ using System.Windows.Shapes;
 using Microsoft.Office.Interop.Word;
 using System.Diagnostics;
 
-namespace ABI.MyUserControl
+namespace ABI
 {
     /// <summary>
     /// Interaction logic for Word_UC.xaml

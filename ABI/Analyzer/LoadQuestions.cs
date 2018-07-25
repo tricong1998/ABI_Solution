@@ -20,7 +20,9 @@ namespace ABI
         public SqlConnection Initialize()
         {
             conn = new SqlConnection();
-            conn.ConnectionString = GetConnectionString();
+            conn.ConnectionString =
+                CONNECTION_STRING;
+                //GetConnectionString();
             conn.Open();
             return conn;
         }

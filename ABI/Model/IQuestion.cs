@@ -21,7 +21,7 @@ namespace ABI
         string RawContent { get; set; }
         string MarkdownContent { get; set; }
         string HtmlContent { get; set; }
-        List<int> Type_l2 { get; set; }
+        int Type_l2 { get; set; }
         IFile File { get; set; }
         string Description { get; set; }
         //bool Correct { get; set; }

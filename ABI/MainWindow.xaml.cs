@@ -35,9 +35,6 @@ namespace ABI
         {
             log4net.Config.XmlConfigurator.Configure();
             InitializeComponent();
-            web_question.NavigateToString("<h1>Question 1</h1>");
-            InitAnExam();
-            
         }
 
         #region util function
@@ -61,14 +58,16 @@ namespace ABI
             //this.Left = 0;
             //this.Width = screen.Bounds.Width;
             //this.Top = screen.Bounds.Height - this.Height;
-            int w = (int)word_uc.ActualWidth;
-            int h = (int)word_uc.ActualHeight;
-            Thickness x = word_uc.Margin;
-            word_uc.OpenDocument(@"G:\abi\word_module\Word_Table\doc1.docx");
-            
+            //int w = (int)word_uc.ActualWidth;
+            //int h = (int)word_uc.ActualHeight;
+            //Thickness x = word_uc.Margin;
+            //word_uc.OpenDocument(@"G:\abi\word_module\Word_Table\doc1.docx");
+
             //new OpenDocument().Open(
             //    @"G:\abi\word_module\Word_Table\doc1.docx",
             //    new Rect(new Point(0, 0), new Size(screen.Bounds.Width, screen.Bounds.Height - this.Height)));
+
+            InitAnExam();
         }
 
         private void Window_Deactivated(object sender, EventArgs e)
@@ -135,8 +134,7 @@ namespace ABI
                     Word.Document correctAnwser = application.Documents.Open(pair.CorrectAnswer.File.Path);
                     ABIW_Document document1 = new ABIW_Document(anwser);
                     ABIW_Document document2 = new ABIW_Document(correctAnwser);
-                    // TODO: remove hard code here
-                    switch (questionCur.Type_l2[0])
+                    switch (questionCur.Type_l2)
                     {
                         case 9 : case 10 : case 11 : case 12 : case 13 : case 14:
                             CompareWFont compare = new CompareWFont();
@@ -154,5 +152,14 @@ namespace ABI
             MessageBox.Show("Score: " + exam.Score.Score);
         }
         #endregion
+
+        private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
+        {
+
+            word_uc.Save();
+            word_uc.Close();
+
+            word_uc.Quit();
+        }
     }
 }
