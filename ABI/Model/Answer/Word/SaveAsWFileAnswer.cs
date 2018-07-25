@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace ABI
 {
-    public class SaveAsWFileAnswer
+    public class SaveAsWFileAnswer : ABIAnswer
     {
     }
 }

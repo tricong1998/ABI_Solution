@@ -3,6 +3,7 @@
 // created on 5:36 PM 2018/7/10
 using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Data.SqlClient;
 using System.Linq;
 using System.Text;
@@ -12,36 +13,43 @@ namespace ABI
 {
     public class LoadWordQuestions : LoadQuestions
     {
+        public const int ID_COLUMN = 0;
+        public const int TITLE_COLUMN = 1;
+        public const int RAW_CONTENT_COLUMN = 2;
+        public const int HTML_CONTENT_COLUMN = 3;
+        public const int MARKDOWN_CONTENT_COLUMN = 4;
+        public const int TYPE_L2_COLUMN = 5;
+        public const int QUESTION_FILE_COLUMN = 6;
+        public const int ANSWER_FILE_COLUMN = 7;
+        public const int DESCRIPTION_COLUMN = 8;
+
         /// <summary>
         /// current load all questions from db, handle later
         /// </summary>
         /// <returns></returns>
-        public List<IQuestion> Load()
+        public List<IQAPair> Load()
         {
             SqlConnection conn = Initialize();
             SqlCommand command = new SqlCommand("SELECT * FROM question", conn);
-            List<IQuestion> re = new List<IQuestion>();
+            List<IQAPair> re = new List<IQAPair>();
             // Create new SqlDataReader object and read data from the command.
             using (SqlDataReader reader = command.ExecuteReader())
             {
                 int index = 1;
                 while (reader.Read())
                 {
-                    // write the data on to the screen
-                    int id = (int)reader[0];
-                    //string title = reader[0] as string;
-                    string html_content = reader[3] as string;
-                    int type_l2 = (int)reader[5];
-                    string question_file = reader[6] as string;
-                    string answer_file = reader[7] as string;
-                    var question = Convert(type_l2);
-                    question.Answer = answer_file;
-                    question.Question = question_file;                    
-                    question.Index = index;
-                    question.HtmlContent = html_content;
-                    question.Type_l2 = type_l2;
+                    int id = (int)reader[ID_COLUMN];
+                    string raw_content = reader[RAW_CONTENT_COLUMN] == null ? null : (string)reader[RAW_CONTENT_COLUMN];
+                    string html_content = reader[HTML_CONTENT_COLUMN] == null ? null : (string)reader[HTML_CONTENT_COLUMN];
+                    string markdown_content = reader[MARKDOWN_CONTENT_COLUMN] == null ? null : (string)reader[MARKDOWN_CONTENT_COLUMN];
+                    string type_l2 = reader[TYPE_L2_COLUMN] == null ? null : (string)reader[TYPE_L2_COLUMN];
+                    string question_file = reader[QUESTION_FILE_COLUMN] == null ? null : (string)reader[QUESTION_FILE_COLUMN];
+                    string answer_file = reader[ANSWER_FILE_COLUMN] == null ? null : (string)reader[ANSWER_FILE_COLUMN];
+                    string description = reader[DESCRIPTION_COLUMN] == null ? null : (string)reader[DESCRIPTION_COLUMN];
+                    var pair = Convert(id, raw_content, html_content, markdown_content, type_l2,
+                        question_file, answer_file, description, index);
                     index++;
-                    re.Add(question);
+                    re.Add(pair);
                 }
             }
             conn.Close();
@@ -54,18 +62,27 @@ namespace ABI
         /// </summary>
         /// <param name="type_l2"></param>
         /// <returns></returns>
-        public IQuestion Convert(int type_l2)
+        public IQAPair Convert(int id, string raw_content, string html_content, string markdown_content, 
+            string type_l2, string question_file, string answer_file, string description, int index)
         {
             IQuestion question = null;
-            switch (type_l2)
+            IAnswer answer = null;
+            IAnswer correctAnswer = new ABIAnswer();
+            List<int> listTypeL2 = type_l2.Split(',').Select(Int32.Parse).ToList();
+            // hard code
+            // TODO: handle multiple type l2
+            int typeL2Int = listTypeL2[0];
+            switch (typeL2Int)
             {
                 case 1:
                 case 2:
                 case 3:
-                    question = new CompareWFileOpen();
+                    question = new OpenWFileQuestion();
+                    answer = new OpenWFileAnswer();
                     break;
                 case 24:
-                    question = new CompareWFileClose();
+                    question = new CloseWFileQuestion();
+                    answer = new CloseWFileAnswer();
                     break;
                 case 9:
                 case 10:
@@ -81,9 +98,23 @@ namespace ABI
                 case 20:
                 case 21:
                     question = new CompareWFileQuestion();
+                    answer = new CompareWFileAnswer();
+                    if (answer_file != null)
+                        ((ABIAnswer)correctAnswer).File = new WordFile(answer_file);
                     break;  
             }
-            return question;
+            if (question_file != null)
+                question.File = new WordFile(question_file);
+            if (question != null)
+            {
+                question.Index = index;
+                question.HtmlContent = html_content;
+                question.RawContent = raw_content;
+                question.MarkdownContent = markdown_content;
+                question.Description = description;
+                question.Type_l2 = listTypeL2;
+            }
+            return new ABIQAPair(question, answer, correctAnswer);
         }
     }
 }

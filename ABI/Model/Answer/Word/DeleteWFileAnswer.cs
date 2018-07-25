@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace ABI
 {
-    public class DeleteWFileAnswer
+    public class DeleteWFileAnswer : ABIAnswer
     {
     }
 }

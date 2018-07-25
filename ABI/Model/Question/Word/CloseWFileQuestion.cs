@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace ABI
 {
-    class CompareWFileClose : AbstractQuestion
+    public class CloseWFileQuestion : AbstractQuestion
     {
         public override IResult Submit(IAnswer answer)
         {

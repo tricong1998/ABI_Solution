@@ -11,6 +11,6 @@ namespace ABI
 {
     public interface IAnswer
     {
-
+        IFile File { get; set; }
     }
 }

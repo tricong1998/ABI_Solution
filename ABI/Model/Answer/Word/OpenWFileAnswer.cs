@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace ABI
 {
-    public class OpenWFileAnswer : AbstractAnswer
+    public class OpenWFileAnswer : ABIAnswer
     {
         private string pathFile2Open;
     }

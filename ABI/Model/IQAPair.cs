@@ -13,5 +13,9 @@ namespace ABI
     {
         IQuestion Question { get; set; }
         IAnswer Answer { get; set; }
+
+        IAnswer CorrectAnswer { get; set; }
+
+        IResult Result { get; set; }
     }
 }

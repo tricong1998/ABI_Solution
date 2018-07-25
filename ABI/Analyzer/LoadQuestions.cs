@@ -3,6 +3,7 @@
 // created on 5:18 PM 2018/7/10
 using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Data.SqlClient;
 using System.Linq;
 using System.Text;
@@ -19,9 +20,17 @@ namespace ABI
         public SqlConnection Initialize()
         {
             conn = new SqlConnection();
-            conn.ConnectionString = CONNECTION_STRING_C;
+            conn.ConnectionString = GetConnectionString();
             conn.Open();
             return conn;
+        }
+
+        public static string GetConnectionString()
+        {
+            ConnectionStringSettingsCollection settings = ConfigurationManager.ConnectionStrings;
+            if (settings != null)
+                return settings[0].ConnectionString;
+            return null;
         }
 
         public void Close()

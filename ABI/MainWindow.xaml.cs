@@ -43,16 +43,11 @@ namespace ABI
         #region util function
         private void InitAnExam()
         {
-            exam = new ABIExam();
-            var questions = new LoadWordQuestions().Load();
-            var _QAPairs = new List<IQAPair>();
-            foreach (var question in questions)
+            exam = new ABIExam
             {
-                _QAPairs.Add(new ABIQAPair(question, null));
-            }
-            exam.QAPairs = _QAPairs;
-            var itemSource = Utils.ConvertListQuestions(questions);
-            //itemSource[0].IsSelected = true;
+                QAPairs = new LoadWordQuestions().Load()
+            };
+            var itemSource = Utils.ConvertListQuestions(exam.QAPairs);
             DataContext = itemSource;
             question_selection.SelectedIndex = 0;
         }
@@ -87,8 +82,7 @@ namespace ABI
         {
             // submit answer here
             int index = question_selection.SelectedIndex; //index of current question
-            IAnswer answer = PackageAnswer(exam.QAPairs[index].Question);
-            exam.QAPairs[index].Answer = answer;
+            UpdateAnswer(exam.QAPairs[index]);
             CheckFinishToSubmitAll();
         }
 
@@ -101,38 +95,13 @@ namespace ABI
         }
 
         #region common actions
-        /// <summary>
-        /// return appropriate answer (type) based-on question type (lưu lại những câu hỏi đã submit)
-        /// </summary>
-        /// <param name="question"></param>
-        /// <returns></returns>
-        public IAnswer PackageAnswer(IQuestion question)
+        // update answer here
+        public void UpdateAnswer(IQAPair qaPair)
         {
-            // @Cong implement here
-            // e.g., if (question is CompareWFileQuestion) return new CompareWFileAnswer
-            IAnswer re = null;
-            if (question is CompareWFileQuestion)
-            {
-                re = new CompareWFileAnswer();
-                ((CompareWFileAnswer)re).CorrectAnswer.Path = question.Answer;
-                // save path to file answer here
-            }
-            else if (question is OpenFileQuestion)
-            {
-                re = new OpenWFileAnswer();
-                ((OpenWFileAnswer)re).File.Path = question.Question;
-            }
-            else if (question is CompareWFileClose)
-            {
-                re = new CloseWFileAnswer();
-                ((CloseWFileAnswer)re).File.Path = question.Question;
-            }
-            // .. so on
-            return re;
-            //throw new NotImplementedException();
+            
         }
 
-        public void CheckFinishToSubmitAll() 
+        public void CheckFinishToSubmitAll()
         {
             bool done = true;
             foreach (IQAPair pair in exam.QAPairs)
@@ -155,27 +124,26 @@ namespace ABI
             foreach (IQAPair pair in exam.QAPairs)
             {
                 IQuestion question = pair.Question;
-                if (question is OpenFileQuestion)
+                if (question is OpenWFileQuestion)
                 {
                     // call to OpenWFile.CheckOpened(question.file_to_open);
                 }
                 if (question is CompareWFileQuestion questionCur)
                 {         
                     Word.Application application = new Word.Application();
-                    Word.Document anwser = application.Documents.Open(questionCur.Question);
-                    Word.Document correctAnwser = application.Documents.Open(questionCur.Answer);
+                    Word.Document anwser = application.Documents.Open(questionCur.File.Path);
+                    Word.Document correctAnwser = application.Documents.Open(pair.CorrectAnswer.File.Path);
                     ABIW_Document document1 = new ABIW_Document(anwser);
-                    ABIW_Document document2 = new ABIW_Document(correctAnwser);                    
-                    switch (questionCur.Type_l2)
+                    ABIW_Document document2 = new ABIW_Document(correctAnwser);
+                    // TODO: remove hard code here
+                    switch (questionCur.Type_l2[0])
                     {
                         case 9 : case 10 : case 11 : case 12 : case 13 : case 14:
                             CompareWFont compare = new CompareWFont();
-                            if(compare.Compare(document1, document2) == new ComparisonResult(ComparisonResultIndicate.equal))
-                            {
-                                question.Correct = true;
-                            }
-                            pair.Question = question;
-                            exam.Score.Score++;
+                            pair.Result = compare.Compare(document1, document2);
+                            if (pair.Result is ComparisonResult comparisonResult)
+                                if (comparisonResult.Result == ComparisonResultIndicate.equal)
+                                   exam.Score.Score++;
                             break;
                         //case 16 : case 17 : case 18 :  case 19 : case 21:
                     }
@@ -183,7 +151,7 @@ namespace ABI
                 }
             }
             // implement total result here
-            MessageBox.Show("Score: "+exam.Score.Score);
+            MessageBox.Show("Score: " + exam.Score.Score);
         }
         #endregion
     }

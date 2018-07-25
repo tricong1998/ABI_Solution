@@ -13,6 +13,8 @@ namespace ABI
     {
         protected IQuestion question;
         protected IAnswer answer;
+        protected IAnswer correctAnswer;
+        protected IResult result;
 
         public IAnswer Answer
         {
@@ -37,6 +39,32 @@ namespace ABI
             set
             {
                 question = value;
+            }
+        }
+
+        public IAnswer CorrectAnswer
+        {
+            get
+            {
+                return correctAnswer;
+            }
+
+            set
+            {
+                correctAnswer = value;
+            }
+        }
+
+        public IResult Result
+        {
+            get
+            {
+                return result;
+            }
+
+            set
+            {
+                result = value;
             }
         }
     }
