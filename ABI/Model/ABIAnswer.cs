@@ -12,4 +12,8 @@ namespace ABI
     public class ABIAnswer : AbstractAnswer
     {
     }
+    public class ABI_WFile : AbstractWordFile
+    {
+
+    }
 }
