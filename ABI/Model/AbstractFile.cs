@@ -14,5 +14,10 @@ namespace ABI
         protected string path;
 
         public string Path { get => path; set => path = value; }
+
+        protected AbstractFile(string path)
+        {
+            this.path = path;
+        }
     }
 }

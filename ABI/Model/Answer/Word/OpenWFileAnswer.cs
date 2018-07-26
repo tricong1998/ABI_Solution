@@ -1,6 +1,6 @@
 ﻿// Copyright (c) 2018 fit.uet.vnu.edu.vn
 // author @duongtd
-// created on 4:45 PM 2018/6/15
+// created on 5:57 PM 2018/7/10
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,7 +9,8 @@ using System.Threading.Tasks;
 
 namespace ABI
 {
-    public abstract class AbstractExcelFile : AbstractFile, IExcelFile
+    public class OpenWFileAnswer : ABIAnswer
     {
+        private string pathFile2Open;
     }
 }
