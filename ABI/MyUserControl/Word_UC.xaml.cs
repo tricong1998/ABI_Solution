@@ -71,8 +71,6 @@ namespace ABI.MyUserControl
         [DllImport("user32.dll", EntryPoint = "SetWindowPos")]
         static extern bool SetWindowPos(int hWnd, int hWndInsertAfter, int X, int Y, int cx, int cy, uint uFlags);
 
-        [DllImport("user32.dll")]
-        static extern bool SetForegroundWindow(int wnd);
         [DllImport("user32.dll", EntryPoint = "MoveWindow")]
         private static extern bool MoveWindow(
            int hWnd,

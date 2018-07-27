@@ -94,7 +94,6 @@ namespace ABI
 
         private void Button_Submit_Click(object sender, RoutedEventArgs e)
         {
-            // submit answer here
             int index = question_selection.SelectedIndex; //index of current question
             IAnswer answer = PackageAnswer(exam.QAPairs[index].Question);
             exam.QAPairs[index].Answer = answer;
@@ -102,28 +101,23 @@ namespace ABI
             CheckFinishToSubmitAll();
         }
 
-        int a = 0;
         private void question_selection_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             var _new = e.AddedItems[0] as QuestionVisual;
             web_question.NavigateToString(UTF8_HEADER + _new.Question.HtmlContent);
             int index = question_selection.SelectedIndex;
+            string path = exam.QAPairs[index].Question.Question;
 
-            //word_uc.Save(word_uc.document);
-            //word_uc.Close(word_uc.document);
-            if (a==0)
+            if (word_uc.document is null)
             {
-                word_uc.OpenDocument(exam.QAPairs[index].Question.Question);
-                a+=1;
+                word_uc.OpenDocument(path);
             }
             else
             {
-                //word_uc.Save(exam.QAPairs[index].Question.Question.File.Path);
-                //word_uc.Close(exam.QAPairs[index].Question.Question.File.Path);
-                word_uc.OpenDocument(exam.QAPairs[index].Question.Question);
+                word_uc.Save();
+                word_uc.Close();
+                word_uc.OpenDocument(path);
             }
-
-            // update ui here
         }
 
         #region common actions
