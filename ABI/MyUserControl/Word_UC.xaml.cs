@@ -82,56 +82,31 @@ namespace ABI.MyUserControl
 
         public Word.Application word = null;
         public Document document;
-        //public List<Document> documents;
-        public string a;
         public static int wordWnd;
-        //public string path;
 
         public Word_UC()
         {
-            
-            //this.path = path;
-            //documents = new List<Document>();
-            a = "haha";
             InitializeComponent();
             word = new Word.Application();
             word.Visible = true;
-            //PresentationSource source = PresentationSource.FromVisual(this) as HwndSource;
-
         }
 
         public void OpenDocument(string path)
-        {
-            //Document d = new Document();
-            
+        {   
             wordWnd = FindWindow("Opusapp", null);
 
             if (word != null && word.Documents != null)
             {
-                document = word.Documents.Open(path);
-                
-                //word.Activate();
-                //d.Activate();
-               
+                document = word.Documents.Open(path);    
             }
-
-            //documents.Add(d);
 
             HwndSource source = (HwndSource)HwndSource.FromVisual(this);
             IntPtr hWnd = source.Handle;
             int handle = hWnd.ToInt32();
-
-            //System.Windows.Point location = this.TranslatePoint(new System.Windows.Point(0, 0), (UIElement)VisualTreeHelper.GetParent(this));
             
             SetParent(wordWnd, handle);
 
             MoveWindow(wordWnd, (int) this.Margin.Left, (int) this.Margin.Top, (int)this.ActualWidth, (int) this.ActualHeight, true);
-            //SetLocation();
-        }
-
-        public void SetLocation()
-        {
-            //System.Windows.Point location = this.TranslatePoint(new System.Windows.Point(0, 0), (UIElement)VisualTreeHelper.GetParent(this));
         }
 
         private void UserControl_SizeChanged(object sender, SizeChangedEventArgs e)

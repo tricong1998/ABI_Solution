@@ -38,7 +38,6 @@ namespace ABI
             InitializeComponent();
             web_question.NavigateToString("<h1>Question 1</h1>");
             InitAnExam();
-            
         }
 
         #region util function
@@ -66,22 +65,6 @@ namespace ABI
         {
             screen = System.Windows.Forms.Screen.FromHandle(
             new System.Windows.Interop.WindowInteropHelper(this).Handle);
-            //this.Left = 0;
-            //this.Width = screen.Bounds.Width;
-            //this.Top = screen.Bounds.Height - this.Height;
-            int w = (int)word_uc.ActualWidth;
-            int h = (int)word_uc.ActualHeight;
-            Thickness x = word_uc.Margin;
-            //foreach (ABIQAPair qa in exam.QAPairs)
-            //{
-            //    word_uc.OpenDocument(qa.Question.Question);
-            //}
-            //word_uc.OpenDocument(exam.QAPairs[question_selection.SelectedIndex].Question.Question);
-            
-            //word_uc.word.Visible = false;
-            //new OpenDocument().Open(
-            //    @"G:\abi\word_module\Word_Table\doc1.docx",
-            //    new Rect(new Point(0, 0), new Size(screen.Bounds.Width, screen.Bounds.Height - this.Height)));
         }
 
         private void Window_Deactivated(object sender, EventArgs e)
@@ -93,7 +76,6 @@ namespace ABI
 
         private void Button_Submit_Click(object sender, RoutedEventArgs e)
         {
-            // submit answer here
             int index = question_selection.SelectedIndex; //index of current question
             IAnswer answer = PackageAnswer(exam.QAPairs[index].Question);
             exam.QAPairs[index].Answer = answer;
@@ -101,28 +83,23 @@ namespace ABI
             CheckFinishToSubmitAll();
         }
 
-        int a = 0;
         private void question_selection_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             var _new = e.AddedItems[0] as QuestionVisual;
             web_question.NavigateToString(UTF8_HEADER + _new.Question.HtmlContent);
             int index = question_selection.SelectedIndex;
+            string path = exam.QAPairs[index].Question.Question;
 
-            //word_uc.Save(word_uc.document);
-            //word_uc.Close(word_uc.document);
-            if (a==0)
+            if (word_uc.document is null)
             {
-                word_uc.OpenDocument(exam.QAPairs[index].Question.Question);
-                a+=1;
+                word_uc.OpenDocument(path);
             }
             else
             {
                 word_uc.Save();
                 word_uc.Close();
-                word_uc.OpenDocument(exam.QAPairs[index].Question.Question);
+                word_uc.OpenDocument(path);
             }
-
-            // update ui here
         }
 
         #region common actions
@@ -205,10 +182,8 @@ namespace ABI
 
         private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
         {
-           
                 word_uc.Save();
                 word_uc.Close();
-           
                 word_uc.Quit();
         }
     }
