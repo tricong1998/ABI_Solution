@@ -47,6 +47,7 @@ namespace ABI
             var itemSource = Utils.ConvertListQuestions(exam.QAPairs);
             DataContext = itemSource;
             question_selection.SelectedIndex = 0;
+            
         }
         #endregion
 
@@ -66,7 +67,7 @@ namespace ABI
             //new OpenDocument().Open(
             //    @"G:\abi\word_module\Word_Table\doc1.docx",
             //    new Rect(new Point(0, 0), new Size(screen.Bounds.Width, screen.Bounds.Height - this.Height)));
-
+            //word_uc.OpenDocument()
             InitAnExam();
         }
 
@@ -89,7 +90,7 @@ namespace ABI
         {
             var _new = e.AddedItems[0] as QuestionVisual;
             web_question.NavigateToString(UTF8_HEADER + _new.Question.HtmlContent);
-
+            word_uc.OpenDocument(_new.Question.File.Path);
             // update ui here
         }
 
@@ -119,18 +120,27 @@ namespace ABI
 
         public void SubmitAll()
         {
-            exam.Score.Score = 0;
+            if (exam.Score == null)
+            {
+                exam.Score = new ScoreResult(0);
+            }        
             foreach (IQAPair pair in exam.QAPairs)
             {
                 IQuestion question = pair.Question;
                 if (question is OpenWFileQuestion)
                 {
+                    OpenWFile openWFile = new OpenWFile();
+                    pair.Result = openWFile.CheckOpened(question.File.Path);
+                    if (pair.Result is ComparisonResult comparisonFont)
+                        if (comparisonFont.Result == ComparisonResultIndicate.equal)
+                            exam.Score.Score++;
                     // call to OpenWFile.CheckOpened(question.file_to_open);
                 }
-                if (question is CompareWFileQuestion questionCur)
+                else if (question is CompareWFileQuestion questionCur)
                 {         
-                    Word.Application application = new Word.Application();
-                    Word.Document anwser = application.Documents.Open(questionCur.File.Path);
+
+                    Word.Application application = new Word.Application();                    
+                    Word.Document anwser = application.Documents.Open(question.File.Path);
                     Word.Document correctAnwser = application.Documents.Open(pair.CorrectAnswer.File.Path);
                     ABIW_Document document1 = new ABIW_Document(anwser);
                     ABIW_Document document2 = new ABIW_Document(correctAnwser);
@@ -139,14 +149,22 @@ namespace ABI
                         case 9 : case 10 : case 11 : case 12 : case 13 : case 14:
                             CompareWFont compare = new CompareWFont();
                             pair.Result = compare.Compare(document1, document2);
-                            if (pair.Result is ComparisonResult comparisonResult)
-                                if (comparisonResult.Result == ComparisonResultIndicate.equal)
+                            if (pair.Result is ComparisonResult comparisonFont)
+                                if (comparisonFont.Result == ComparisonResultIndicate.equal)
                                    exam.Score.Score++;
                             break;
-                        //case 16 : case 17 : case 18 :  case 19 : case 21:
+                        case 16: case 17: case 18:  case 19: case 21:
+                            CompareWParagraph compareWParagraph = new CompareWParagraph();
+                            pair.Result = compareWParagraph.Compare(document1, document2);
+                            if (pair.Result is ComparisonResult comparisonParagraph)
+                            {                                
+                                if(comparisonParagraph.Result == ComparisonResultIndicate.equal)
+                                    exam.Score.Score++;
+                            }
+                            break;                   
                     }
-                        // call to CompareWFont.Compare()
                 }
+                //else if (question is )
             }
             // implement total result here
             MessageBox.Show("Score: " + exam.Score.Score);
