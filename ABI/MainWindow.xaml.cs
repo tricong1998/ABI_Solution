@@ -82,8 +82,9 @@ namespace ABI
             var _new = e.AddedItems[0] as QuestionVisual;
             web_question.NavigateToString(UTF8_HEADER + _new.Question.HtmlContent);
             int index = question_selection.SelectedIndex;
-            string path = exam.QAPairs[index].Question.Question;
+            string path = exam.QAPairs[index].Question.File.Path;
 
+            // Not necessary to store @Document 
             //if (word_uc.Document is null)
             //{
             //    word_uc.OpenDocument(path);
@@ -92,6 +93,7 @@ namespace ABI
             //{
                 //word_uc.Save();
                 //word_uc.Close();
+                if (path != null)
                 word_uc.OpenDocument(path);
             //}
         }
