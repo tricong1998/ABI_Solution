@@ -29,7 +29,7 @@ namespace ABI
         #region attributes
         ABIExam exam;
         System.Windows.Forms.Screen screen;
-        
+
         #endregion
 
         public MainWindow()
@@ -37,8 +37,7 @@ namespace ABI
             log4net.Config.XmlConfigurator.Configure();
             InitializeComponent();
             web_question.NavigateToString("<h1>Question 1</h1>");
-            InitAnExam();
-            
+
         }
 
         #region util function
@@ -72,12 +71,14 @@ namespace ABI
             int w = (int)word_uc.ActualWidth;
             int h = (int)word_uc.ActualHeight;
             Thickness x = word_uc.Margin;
+            InitAnExam();
+
             //foreach (ABIQAPair qa in exam.QAPairs)
             //{
             //    word_uc.OpenDocument(qa.Question.Question);
             //}
             //word_uc.OpenDocument(exam.QAPairs[question_selection.SelectedIndex].Question.Question);
-            
+
             //word_uc.word.Visible = false;
             //new OpenDocument().Open(
             //    @"G:\abi\word_module\Word_Table\doc1.docx",
@@ -86,8 +87,8 @@ namespace ABI
 
         private void Window_Deactivated(object sender, EventArgs e)
         {
-            this.Topmost = true;
-            this.Activate();
+            //this.Topmost = true;
+            //this.Activate();
         }
         #endregion
 
@@ -117,8 +118,8 @@ namespace ABI
             }
             else
             {
-                word_uc.Save();
-                word_uc.Close();
+                //word_uc.Save(exam.QAPairs[index].Question.Question.File.Path);
+                //word_uc.Close(exam.QAPairs[index].Question.Question.File.Path);
                 word_uc.OpenDocument(exam.QAPairs[index].Question.Question);
             }
 
@@ -205,11 +206,10 @@ namespace ABI
 
         private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
         {
-           
-                word_uc.Save();
-                word_uc.Close();
-           
-                word_uc.Quit();
+            //word_uc.Save();
+            //word_uc.Close();
+            word_uc.Quit();
+            //MessageBox.Show("abc");
         }
     }
 }
