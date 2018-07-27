@@ -35,6 +35,8 @@ namespace ABI
         {
             log4net.Config.XmlConfigurator.Configure();
             InitializeComponent();
+            web_question.NavigateToString("<h1>Question 1</h1>");
+            InitAnExam();
         }
 
         #region util function
@@ -56,19 +58,6 @@ namespace ABI
         {
             screen = System.Windows.Forms.Screen.FromHandle(
             new System.Windows.Interop.WindowInteropHelper(this).Handle);
-            //this.Left = 0;
-            //this.Width = screen.Bounds.Width;
-            //this.Top = screen.Bounds.Height - this.Height;
-            //int w = (int)word_uc.ActualWidth;
-            //int h = (int)word_uc.ActualHeight;
-            //Thickness x = word_uc.Margin;
-            //word_uc.OpenDocument(@"G:\abi\word_module\Word_Table\doc1.docx");
-
-            //new OpenDocument().Open(
-            //    @"G:\abi\word_module\Word_Table\doc1.docx",
-            //    new Rect(new Point(0, 0), new Size(screen.Bounds.Width, screen.Bounds.Height - this.Height)));
-            //word_uc.OpenDocument()
-            InitAnExam();
         }
 
         private void Window_Deactivated(object sender, EventArgs e)
@@ -80,7 +69,6 @@ namespace ABI
 
         private void Button_Submit_Click(object sender, RoutedEventArgs e)
         {
-            // submit answer here
             int index = question_selection.SelectedIndex; //index of current question
             UpdateAnswer(exam.QAPairs[index]);
             CheckFinishToSubmitAll();
@@ -90,8 +78,19 @@ namespace ABI
         {
             var _new = e.AddedItems[0] as QuestionVisual;
             web_question.NavigateToString(UTF8_HEADER + _new.Question.HtmlContent);
-            word_uc.OpenDocument(_new.Question.File.Path);
-            // update ui here
+            int index = question_selection.SelectedIndex;
+            string path = exam.QAPairs[index].Question.Question;
+
+            if (word_uc.document is null)
+            {
+                word_uc.OpenDocument(path);
+            }
+            else
+            {
+                word_uc.Save();
+                word_uc.Close();
+                word_uc.OpenDocument(path);
+            }
         }
 
         #region common actions
@@ -173,11 +172,9 @@ namespace ABI
 
         private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
         {
-
-            word_uc.Save();
-            word_uc.Close();
-
-            word_uc.Quit();
+                word_uc.Save();
+                word_uc.Close();
+                word_uc.Quit();
         }
     }
 }
