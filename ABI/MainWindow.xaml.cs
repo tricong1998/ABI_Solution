@@ -54,9 +54,7 @@ namespace ABI
             var itemSource = Utils.ConvertListQuestions(questions);
             //itemSource[0].IsSelected = true;
             DataContext = itemSource;
-
             question_selection.SelectedIndex = 0;
-            
         }
         #endregion
 
@@ -65,24 +63,8 @@ namespace ABI
         {
             screen = System.Windows.Forms.Screen.FromHandle(
             new System.Windows.Interop.WindowInteropHelper(this).Handle);
-            //this.Left = 0;
-            //this.Width = screen.Bounds.Width;
-            //this.Top = screen.Bounds.Height - this.Height;
-            int w = (int)word_uc.ActualWidth;
-            int h = (int)word_uc.ActualHeight;
-            Thickness x = word_uc.Margin;
+
             InitAnExam();
-
-            //foreach (ABIQAPair qa in exam.QAPairs)
-            //{
-            //    word_uc.OpenDocument(qa.Question.Question);
-            //}
-            //word_uc.OpenDocument(exam.QAPairs[question_selection.SelectedIndex].Question.Question);
-
-            //word_uc.word.Visible = false;
-            //new OpenDocument().Open(
-            //    @"G:\abi\word_module\Word_Table\doc1.docx",
-            //    new Rect(new Point(0, 0), new Size(screen.Bounds.Width, screen.Bounds.Height - this.Height)));
         }
 
         private void Window_Deactivated(object sender, EventArgs e)
@@ -108,16 +90,16 @@ namespace ABI
             int index = question_selection.SelectedIndex;
             string path = exam.QAPairs[index].Question.Question;
 
-            if (word_uc.document is null)
-            {
+            //if (word_uc.Document is null)
+            //{
+            //    word_uc.OpenDocument(path);
+            //}
+            //else
+            //{
+                //word_uc.Save();
+                //word_uc.Close();
                 word_uc.OpenDocument(path);
-            }
-            else
-            {
-                word_uc.Save();
-                word_uc.Close();
-                word_uc.OpenDocument(path);
-            }
+            //}
         }
 
         #region common actions

@@ -125,11 +125,6 @@ namespace ABI.MyUserControl
             //SetLocation();
         }
 
-        public void SetLocation()
-        {
-            //System.Windows.Point location = this.TranslatePoint(new System.Windows.Point(0, 0), (UIElement)VisualTreeHelper.GetParent(this));
-        }
-
         private void UserControl_SizeChanged(object sender, SizeChangedEventArgs e)
         {
             MoveWindow(wordWnd, (int)this.Margin.Left, (int)this.Margin.Top, (int)this.ActualWidth, (int)this.ActualHeight, true);
