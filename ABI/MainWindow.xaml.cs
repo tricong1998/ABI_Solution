@@ -54,6 +54,7 @@ namespace ABI
             var itemSource = Utils.ConvertListQuestions(questions);
             //itemSource[0].IsSelected = true;
             DataContext = itemSource;
+
             question_selection.SelectedIndex = 0;
         }
         #endregion
@@ -77,9 +78,7 @@ namespace ABI
         private void Button_Submit_Click(object sender, RoutedEventArgs e)
         {
             int index = question_selection.SelectedIndex; //index of current question
-            IAnswer answer = PackageAnswer(exam.QAPairs[index].Question);
-            exam.QAPairs[index].Answer = answer;
-
+            UpdateAnswer(exam.QAPairs[index]);
             CheckFinishToSubmitAll();
         }
 
@@ -103,33 +102,13 @@ namespace ABI
         }
 
         #region common actions
-        /// <summary>
-        /// return appropriate answer (type) based-on question type (lưu lại những câu hỏi đã submit)
-        /// </summary>
-        /// <param name="question"></param>
-        /// <returns></returns>
-        public IAnswer PackageAnswer(IQuestion question)
+        // update answer here
+        public void UpdateAnswer(IQAPair qaPair)
         {
-            // @Cong implement here
-            // e.g., if (question is CompareWFileQuestion) return new CompareWFileAnswer
-            IAnswer re = null;
-            if (question is CompareWFileQuestion)
-            {
-                re = new CompareWFileAnswer();
-                ((CompareWFileAnswer)re).CorrectAnswer.Path = question.Answer;
-                // save path to file answer here
-            }
-            //else if (question is OpenWFileQuestion)
-            //{
-            //    re = new OpenWFileAnswer();
-            //    ((OpenWFileAnswer)re).file_to_open = "";
-            //}
-            // .. so on
-            return re;
-            //throw new NotImplementedException();
+            
         }
 
-        public void CheckFinishToSubmitAll() 
+        public void CheckFinishToSubmitAll()
         {
             bool done = true;
             foreach (IQAPair pair in exam.QAPairs)
@@ -148,35 +127,54 @@ namespace ABI
 
         public void SubmitAll()
         {
-            int score = 0;
+            if (exam.Score == null)
+            {
+                exam.Score = new ScoreResult(0);
+            }        
             foreach (IQAPair pair in exam.QAPairs)
             {
                 IQuestion question = pair.Question;
-                if (question is OpenFileQuestion)
+                if (question is OpenWFileQuestion)
                 {
+                    OpenWFile openWFile = new OpenWFile();
+                    pair.Result = openWFile.CheckOpened(question.File.Path);
+                    if (pair.Result is ComparisonResult comparisonFont)
+                        if (comparisonFont.Result == ComparisonResultIndicate.equal)
+                            exam.Score.Score++;
                     // call to OpenWFile.CheckOpened(question.file_to_open);
                 }
-                if (question is CompareWFileQuestion questionCur)
+                else if (question is CompareWFileQuestion questionCur)
                 {         
-                    Word.Application application = new Word.Application();
-                    Word.Document anwser = application.Documents.Open(questionCur.Question);
-                    Word.Document correctAnwser = application.Documents.Open(questionCur.Answer);
+
+                    Word.Application application = new Word.Application();                    
+                    Word.Document anwser = application.Documents.Open(question.File.Path);
+                    Word.Document correctAnwser = application.Documents.Open(pair.CorrectAnswer.File.Path);
                     ABIW_Document document1 = new ABIW_Document(anwser);
-                    ABIW_Document document2 = new ABIW_Document(correctAnwser);                    
+                    ABIW_Document document2 = new ABIW_Document(correctAnwser);
                     switch (questionCur.Type_l2)
                     {
                         case 9 : case 10 : case 11 : case 12 : case 13 : case 14:
                             CompareWFont compare = new CompareWFont();
-                            ComparisonResultIndicate resultIndicate = new ComparisonResultIndicate();
-                            compare.Compare(document1, document2);
+                            pair.Result = compare.Compare(document1, document2);
+                            if (pair.Result is ComparisonResult comparisonFont)
+                                if (comparisonFont.Result == ComparisonResultIndicate.equal)
+                                   exam.Score.Score++;
                             break;
-                        default:
-                            break;
+                        case 16: case 17: case 18:  case 19: case 21:
+                            CompareWParagraph compareWParagraph = new CompareWParagraph();
+                            pair.Result = compareWParagraph.Compare(document1, document2);
+                            if (pair.Result is ComparisonResult comparisonParagraph)
+                            {                                
+                                if(comparisonParagraph.Result == ComparisonResultIndicate.equal)
+                                    exam.Score.Score++;
+                            }
+                            break;                   
                     }
-                        // call to CompareWFont.Compare()
                 }
+                //else if (question is )
             }
             // implement total result here
+            MessageBox.Show("Score: " + exam.Score.Score);
         }
         #endregion
 

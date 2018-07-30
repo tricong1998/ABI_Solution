@@ -18,5 +18,10 @@ namespace ABI
             this.question = question;
             this.answer = answer;
         }
+
+        public ABIQAPair(IQuestion question, IAnswer answer, IAnswer correctAnswer) : this(question, answer)
+        {
+            this.CorrectAnswer = correctAnswer;
+        }
     }
 }

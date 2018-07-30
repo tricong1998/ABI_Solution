@@ -9,7 +9,10 @@ using System.Threading.Tasks;
 
 namespace ABI
 {
-    public abstract class AbstractPowerPointFile : AbstractFile, IPowerPointFile
+    public class PowerPointFile : ABIFile, IPowerPointFile
     {
+        public PowerPointFile(string path) : base(path)
+        {
+        }
     }
 }

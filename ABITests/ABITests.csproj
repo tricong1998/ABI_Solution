@@ -67,9 +67,10 @@
     <Otherwise />
   </Choose>
   <ItemGroup>
-    <Compile Include="Model\Word\ABIW_EndnotesTests.cs" />
-    <Compile Include="Model\Word\ABIW_FontTests.cs" />
-    <Compile Include="Model\Word\ABIW_FootNotesTests.cs" />
+    <Compile Include="Controller\Word\CompareWFontTests.cs" />
+    <Compile Include="Model\Excel\ABIE_ParagraphTests.cs" />
+    <Compile Include="Model\Excel\ABIE_RangeTests.cs" />
+    <Compile Include="Model\Excel\ABIE_WorkBookTests.cs" />
     <Compile Include="Model\Word\ABIW_TableTests.cs" />
     <Compile Include="Model\Word\ABIW_ParagraphTests.cs" />
     <Compile Include="Model\Word\ABIW_TextRangeProTests.cs" />
@@ -87,9 +88,7 @@
       <Name>ABI</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Model\Excel\" />
-  </ItemGroup>
+  <ItemGroup />
   <Choose>
     <When Condition="'$(VisualStudioVersion)' == '10.0' And '$(IsCodedUITest)' == 'True'">
       <ItemGroup>

@@ -12,7 +12,7 @@ namespace ABI
     public class ABIExam : IExam
     {
         protected List<IQAPair> _QAPairs;
-
+        protected ScoreResult score;
         public List<IQAPair> QAPairs
         {
             get
@@ -25,5 +25,7 @@ namespace ABI
                 _QAPairs = value;
             }
         }
+
+        public ScoreResult Score { get => score; set => score = value; }
     }
 }

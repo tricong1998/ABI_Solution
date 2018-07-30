@@ -1,6 +1,6 @@
 ﻿// Copyright (c) 2018 fit.uet.vnu.edu.vn
 // author @duongtd
-// created on 10:01 AM 2018/7/11
+// created on 12:19 PM 2018/7/25
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,8 +9,7 @@ using System.Threading.Tasks;
 
 namespace ABI
 {
-    public class CompareWFileAnswer : ABIAnswer
+    public class ABIAnswer : AbstractAnswer
     {
-        // $file in $AbstractAnswer is user submit
     }
 }

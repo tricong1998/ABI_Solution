@@ -105,11 +105,11 @@ namespace ABI
             return new ObservableCollection<T>(input);
         }
 
-        public static ObservableCollection<QuestionVisual> ConvertListQuestions(List<IQuestion> input)
+        public static ObservableCollection<QuestionVisual> ConvertListQuestions(List<IQAPair> input)
         {
             ObservableCollection<QuestionVisual> re = new ObservableCollection<QuestionVisual>();
-            foreach (var question in input)
-                re.Add(new QuestionVisual(question));
+            foreach (var qa in input)
+                re.Add(new QuestionVisual(qa.Question));
             return re;
         }
     }

@@ -14,13 +14,16 @@ namespace ABI
     /// </summary>
     public interface IQuestion
     {
-        string Question { get; set ; }
-        string Answer { get ; set ; }              
+        //string Question { get; set ; }
+        //string Answer { get ; set ; }
         IResult Submit(IAnswer answer);
         int Index { get; set; }
-        string TextContent { get; set; }
+        string RawContent { get; set; }
+        string MarkdownContent { get; set; }
         string HtmlContent { get; set; }
         int Type_l2 { get; set; }
-        bool Correct { get; set; }
+        IFile File { get; set; }
+        string Description { get; set; }
+        //bool Correct { get; set; }
     }
 }

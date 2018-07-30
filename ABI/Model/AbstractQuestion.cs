@@ -14,18 +14,18 @@ namespace ABI
     /// </summary>
     public abstract class AbstractQuestion : IQuestion
     {
-        protected string textContent;
+        protected string rawContent;
 
-        public string TextContent
+        public string RawContent
         {
             get
             {
-                return textContent;
+                return rawContent;
             }
 
             set
             {
-                textContent = value;
+                rawContent = value;
             }
         }
 
@@ -58,26 +58,60 @@ namespace ABI
         {
             get
             {
-                return htmlsContent;
+                return htmlContent;
             }
 
             set
             {
-                htmlsContent = value;
+                htmlContent = value;
             }
         }
 
-        public string Question { get => question; set => question = value; }
-        public string Answer { get => answer; set => answer = value; }
-        public bool Correct { get => correct; set => correct = value; }
+        public string MarkdownContent
+        {
+            get
+            {
+                return markdownContent;
+            }
 
-        private bool correct = false;
-        protected string question;
-        protected string answer;
+            set
+            {
+                markdownContent = value;
+            }
+        }
+
+        public IFile File
+        {
+            get
+            {
+                return file;
+            }
+
+            set
+            {
+                file = value;
+            }
+        }
+
+        public string Description
+        {
+            get
+            {
+                return description;
+            }
+
+            set
+            {
+                description = value;
+            }
+        }
+
         protected int index;
         protected int type_l2;
         protected string htmlContent;
+        protected string markdownContent;
+        protected IFile file;
+        protected string description;
         public abstract IResult Submit(IAnswer answer);
-        protected string htmlsContent;
     }
 }
