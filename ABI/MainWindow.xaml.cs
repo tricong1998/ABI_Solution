@@ -43,19 +43,14 @@ namespace ABI
         #region util function
         private void InitAnExam()
         {
-            exam = new ABIExam();
-            var questions = new LoadWordQuestions().Load();
-            var _QAPairs = new List<IQAPair>();
-            foreach (var question in questions)
+            exam = new ABIExam
             {
-                _QAPairs.Add(new ABIQAPair(question, null));
-            }
-            exam.QAPairs = _QAPairs;
-            var itemSource = Utils.ConvertListQuestions(questions);
-            //itemSource[0].IsSelected = true;
+                QAPairs = new LoadWordQuestions().Load()
+            };
+            var itemSource = Utils.ConvertListQuestions(exam.QAPairs);
             DataContext = itemSource;
-
             question_selection.SelectedIndex = 0;
+
         }
         #endregion
 
@@ -87,7 +82,7 @@ namespace ABI
             var _new = e.AddedItems[0] as QuestionVisual;
             web_question.NavigateToString(UTF8_HEADER + _new.Question.HtmlContent);
             int index = question_selection.SelectedIndex;
-            string path = exam.QAPairs[index].Question.Question;
+            string path = exam.QAPairs[index].Question.File.Path;
 
             //if (word_uc.Document is null)
             //{
@@ -127,6 +122,7 @@ namespace ABI
 
         public void SubmitAll()
         {
+            word_uc.SaveCloseAllDocuments();
             if (exam.Score == null)
             {
                 exam.Score = new ScoreResult(0);
@@ -144,8 +140,7 @@ namespace ABI
                     // call to OpenWFile.CheckOpened(question.file_to_open);
                 }
                 else if (question is CompareWFileQuestion questionCur)
-                {         
-
+                {
                     Word.Application application = new Word.Application();                    
                     Word.Document anwser = application.Documents.Open(question.File.Path);
                     Word.Document correctAnwser = application.Documents.Open(pair.CorrectAnswer.File.Path);

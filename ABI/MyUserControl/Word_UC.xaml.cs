@@ -139,14 +139,23 @@ namespace ABI
 
         public void Quit()
         {
-            word.Quit();
+                word.Quit();
         }
-
         // save file
         public void Save(string path)
         {
             if (mapPathDocuments != null && mapPathDocuments.ContainsKey(path))
                 mapPathDocuments[path].Save();
+        }
+
+        // save - close all document
+        public void SaveCloseAllDocuments()
+        {
+            foreach (var pair in mapPathDocuments)
+            {
+                Save(pair.Key);
+                Close(pair.Key);
+            }
         }
     }
 }
