@@ -79,7 +79,7 @@ namespace ABI
             var _new = e.AddedItems[0] as QuestionVisual;
             web_question.NavigateToString(UTF8_HEADER + _new.Question.HtmlContent);
             int index = question_selection.SelectedIndex;
-            string path = exam.QAPairs[index].Question.Question;
+            string path = exam.QAPairs[index].Question.File.Path;
 
             if (word_uc.document is null)
             {
@@ -136,15 +136,17 @@ namespace ABI
                     // call to OpenWFile.CheckOpened(question.file_to_open);
                 }
                 else if (question is CompareWFileQuestion questionCur)
-                {         
-
+                {
+                    word_uc.Save();
+                    word_uc.Close();
+                    word_uc.Quit();
                     Word.Application application = new Word.Application();                    
                     Word.Document anwser = application.Documents.Open(question.File.Path);
                     Word.Document correctAnwser = application.Documents.Open(pair.CorrectAnswer.File.Path);
                     ABIW_Document document1 = new ABIW_Document(anwser);
-                    ABIW_Document document2 = new ABIW_Document(correctAnwser);
+                    ABIW_Document document2 = new ABIW_Document(correctAnwser);  
                     switch (questionCur.Type_l2)
-                    {
+                    {                       
                         case 9 : case 10 : case 11 : case 12 : case 13 : case 14:
                             CompareWFont compare = new CompareWFont();
                             pair.Result = compare.Compare(document1, document2);
@@ -162,6 +164,9 @@ namespace ABI
                             }
                             break;                   
                     }
+                    anwser.Close();
+                    correctAnwser.Close();
+                    application.Quit();
                 }
                 //else if (question is )
             }

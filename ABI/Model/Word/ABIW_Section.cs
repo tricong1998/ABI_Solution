@@ -50,7 +50,28 @@ namespace ABI
             else
                 return new ComparisonResult(ComparisonResultIndicate.not_equal);
         }
-        public bool checkEqualBorders(Borders border1, Borders border2)
+        public IComparisonResult CompareSection(object other)
+        {
+            if (other is ABIW_Section otherSec)
+            {
+                if (checkEqualPageSetup(section.PageSetup, otherSec.section.PageSetup)
+                    && checkEqualBorders(section.Borders, otherSec.section.Borders)
+                    )
+                {
+                    return new ComparisonResult(ComparisonResultIndicate.equal);
+                }
+                else
+                {
+                    return new ComparisonResult(ComparisonResultIndicate.not_equal);
+                }
+                // compare $this vs $otherPara
+                // and replace the below exception with a return statement
+                throw new NotImplementedException();
+            }
+            else
+                return new ComparisonResult(ComparisonResultIndicate.not_equal);
+        }
+            public bool checkEqualBorders(Borders border1, Borders border2)
         {
             ABIW_Borders aBIW_Borders1 = new ABIW_Borders(border1);
             ABIW_Borders aBIW_Borders2 = new ABIW_Borders(border2);
