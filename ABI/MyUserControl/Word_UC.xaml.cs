@@ -25,6 +25,8 @@ namespace ABI
     /// </summary>
     public partial class Word_UC : UserControl
     {
+        public static log4net.ILog logger = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
+
         #region "API Calling"
 
         /// <summary>
@@ -81,32 +83,46 @@ namespace ABI
         #endregion
 
         public Word.Application word = null;
-        public Document document;
         public static int wordWnd;
+        // to store documents opened
+        Dictionary<string, Document> mapPathDocuments;
 
         public Word_UC()
         {
             InitializeComponent();
-            word = new Word.Application();
-            word.Visible = true;
+            mapPathDocuments = new Dictionary<string, Document>();
+            word = new Word.Application
+            {
+                Visible = true
+            };
         }
 
         public void OpenDocument(string path)
-        {   
-            wordWnd = FindWindow("Opusapp", null);
-
+        {
             if (word != null && word.Documents != null)
             {
-                document = word.Documents.Open(path);    
+                // if not open yet
+                if (!mapPathDocuments.ContainsKey(path))
+                {
+                    var doc = word.Documents.Open(path);
+                    mapPathDocuments.Add(path, doc);
+                }
+                else
+                {
+                    word.Activate();
+                    mapPathDocuments[path].Activate();
+                }
             }
 
+            // set parent
+            wordWnd = word.ActiveWindow.Hwnd;
             HwndSource source = (HwndSource)HwndSource.FromVisual(this);
             IntPtr hWnd = source.Handle;
             int handle = hWnd.ToInt32();
-            
+            //System.Windows.Point location = this.TranslatePoint(new System.Windows.Point(0, 0), (UIElement)VisualTreeHelper.GetParent(this));
             SetParent(wordWnd, handle);
-
-            MoveWindow(wordWnd, (int) this.Margin.Left, (int) this.Margin.Top, (int)this.ActualWidth, (int) this.ActualHeight, true);
+            MoveWindow(wordWnd, (int)this.Margin.Left, (int)this.Margin.Top, (int)this.ActualWidth, (int)this.ActualHeight, true);
+            //SetLocation();
         }
 
         private void UserControl_SizeChanged(object sender, SizeChangedEventArgs e)
@@ -115,70 +131,30 @@ namespace ABI
         }
 
         // close file
-        public void Close()
+        public void Close(string path)
         {
-            try
-            {
-                if (document != null)
-                {
-                    try
-                    {
-                        document.Close();
-                    }
-                    catch (Exception ex)
-                    {
-                        Debug.WriteLine(ex);
-                    }
-                }
-            }
-            catch (Exception ex)
-            {
-                Debug.WriteLine(ex);
-            }
+            if (mapPathDocuments != null && mapPathDocuments.ContainsKey(path))
+                mapPathDocuments[path].Close();
         }
 
         public void Quit()
         {
-            try
-            {
-                if (word != null)
-                {
-                    try
-                    {
-                        word.Quit();
-                    }
-                    catch (Exception ex)
-                    {
-                        Debug.WriteLine(ex);
-                    }
-                }
-            }
-            catch (Exception ex)
-            {
-                Debug.WriteLine(ex);
-            }
+                word.Quit();
+        }
+        // save file
+        public void Save(string path)
+        {
+            if (mapPathDocuments != null && mapPathDocuments.ContainsKey(path))
+                mapPathDocuments[path].Save();
         }
 
-        // save file
-        public void Save()
+        // save - close all document
+        public void SaveCloseAllDocuments()
         {
-            try
+            foreach (var pair in mapPathDocuments)
             {
-                if (document != null)
-                {
-                    try
-                    {
-                        document.Save();
-                    }
-                    catch (Exception ex)
-                    {
-                        Debug.WriteLine(ex);
-                    }
-                }
-            }
-            catch (Exception ex)
-            {
-                Debug.WriteLine(ex);
+                Save(pair.Key);
+                Close(pair.Key);
             }
         }
     }

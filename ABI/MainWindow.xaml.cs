@@ -29,6 +29,7 @@ namespace ABI
         #region attributes
         ABIExam exam;
         System.Windows.Forms.Screen screen;
+
         #endregion
 
         public MainWindow()
@@ -36,7 +37,7 @@ namespace ABI
             log4net.Config.XmlConfigurator.Configure();
             InitializeComponent();
             web_question.NavigateToString("<h1>Question 1</h1>");
-            InitAnExam();
+
         }
 
         #region util function
@@ -49,7 +50,7 @@ namespace ABI
             var itemSource = Utils.ConvertListQuestions(exam.QAPairs);
             DataContext = itemSource;
             question_selection.SelectedIndex = 0;
-            
+
         }
         #endregion
 
@@ -58,12 +59,14 @@ namespace ABI
         {
             screen = System.Windows.Forms.Screen.FromHandle(
             new System.Windows.Interop.WindowInteropHelper(this).Handle);
+
+            InitAnExam();
         }
 
         private void Window_Deactivated(object sender, EventArgs e)
         {
-            this.Topmost = true;
-            this.Activate();
+            //this.Topmost = true;
+            //this.Activate();
         }
         #endregion
 
@@ -81,16 +84,16 @@ namespace ABI
             int index = question_selection.SelectedIndex;
             string path = exam.QAPairs[index].Question.File.Path;
 
-            if (word_uc.document is null)
-            {
+            //if (word_uc.Document is null)
+            //{
+            //    word_uc.OpenDocument(path);
+            //}
+            //else
+            //{
+                //word_uc.Save();
+                //word_uc.Close();
                 word_uc.OpenDocument(path);
-            }
-            else
-            {
-                word_uc.Save();
-                word_uc.Close();
-                word_uc.OpenDocument(path);
-            }
+            //}
         }
 
         #region common actions
@@ -119,6 +122,7 @@ namespace ABI
 
         public void SubmitAll()
         {
+            word_uc.SaveCloseAllDocuments();
             if (exam.Score == null)
             {
                 exam.Score = new ScoreResult(0);
@@ -136,10 +140,8 @@ namespace ABI
                     // call to OpenWFile.CheckOpened(question.file_to_open);
                 }
                 else if (question is CompareWFileQuestion questionCur)
-                {
-                    word_uc.Save();
-                    word_uc.Close();
-                    word_uc.Quit();
+                {         
+
                     Word.Application application = new Word.Application();                    
                     Word.Document anwser = application.Documents.Open(question.File.Path);
                     Word.Document correctAnwser = application.Documents.Open(pair.CorrectAnswer.File.Path);
@@ -177,9 +179,10 @@ namespace ABI
 
         private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
         {
-                word_uc.Save();
-                word_uc.Close();
-                word_uc.Quit();
+            //word_uc.Save();
+            //word_uc.Close();
+            word_uc.Quit();
+            //MessageBox.Show("abc");
         }
     }
 }
