@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Microsoft.Office.Interop.Word;
 
 namespace ABI
 {
@@ -25,7 +26,52 @@ namespace ABI
                 _QAPairs = value;
             }
         }
-
+        
         public ScoreResult Score { get => score; set => score = value; }
+
+        public string ClientWorkspace
+        {
+            get
+            {
+                return clientWorkspace;
+            }
+
+            set
+            {
+                clientWorkspace = value;
+            }
+        }
+
+        public Application WordApplication
+        {
+            get
+            {
+                return wordApplication;
+            }
+
+            set
+            {
+                wordApplication = value;
+            }
+        }
+
+        public Dictionary<int, Document> MapIndexDocuments
+        {
+            get
+            {
+                return mapIndexDocuments;
+            }
+
+            set
+            {
+                mapIndexDocuments = value;
+            }
+        }
+
+        protected string clientWorkspace;
+
+        private Application wordApplication = null;
+
+        private Dictionary<int, Document> mapIndexDocuments;
     }
 }

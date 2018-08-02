@@ -14,15 +14,17 @@ namespace ABI
     public abstract class LoadQuestions
     {
         public const string CONNECTION_STRING = @"Data Source=DESKTOP-R7EB7OG\SQLEXPRESS;Initial Catalog=abi_db;Integrated Security=True";
-        public const string CONNECTION_STRING_C = @"Data Source=DESKTOP-O33GLSQ\SQLEXPRESS;Initial Catalog=abi_db;Integrated Security=True";        
+        public const string CONNECTION_STRING_C = @"Data Source=DESKTOP-O33GLSQ\SQLEXPRESS;Initial Catalog=abi_db;Integrated Security=True";
+        public const string CONNECTION_STRING_SERVER = @"Data Source=35.198.229.219;Initial Catalog=abi_db;User ID=SA;Password=Abi_rd320";
         SqlConnection conn;
 
         public SqlConnection Initialize()
         {
             conn = new SqlConnection();
             conn.ConnectionString =
-                CONNECTION_STRING;
+                //CONNECTION_STRING;
                 //GetConnectionString();
+                CONNECTION_STRING_SERVER;
             conn.Open();
             return conn;
         }

@@ -1,6 +1,7 @@
 ﻿// Copyright (c) 2018 fit.uet.vnu.edu.vn
 // author @duongtd
 // created on 12:03 PM 2018/6/26
+using Microsoft.Office.Interop.Word;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -111,6 +112,32 @@ namespace ABI
             foreach (var qa in input)
                 re.Add(new QuestionVisual(qa.Question));
             return re;
+        }
+
+        // close file
+        public static void Close(int index, Dictionary<int, Document> mapIdDocuments)
+        {
+            if (mapIdDocuments != null && mapIdDocuments.ContainsKey(index))
+                mapIdDocuments[index].Close();
+        }
+
+        // save file
+        public static void Save(int index, Dictionary<int, Document> mapIdDocuments)
+        {
+            if (mapIdDocuments != null && mapIdDocuments.ContainsKey(index))
+                mapIdDocuments[index].Save();
+        }
+
+        public static void SaveAll(Dictionary<int, Document> mapIdDocuments)
+        {
+            foreach (KeyValuePair<int, Document> pair in mapIdDocuments)
+                pair.Value.Save();
+        }
+
+        public static void CloseAll(Dictionary<int, Document> mapIdDocuments)
+        {
+            foreach (KeyValuePair<int, Document> pair in mapIdDocuments)
+                pair.Value.Close();
         }
     }
 }
