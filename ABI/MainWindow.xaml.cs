@@ -56,6 +56,7 @@ namespace ABI
             exam.MapIndexDocuments = new Dictionary<int, Word.Document>();
             OpenAllFiles(exam.QAPairs, exam.MapIndexDocuments, exam.WordApplication);
             exam.WordApplication.DocumentOpen += OpenDocumentEvent;
+            exam.Score = new ScoreResult(10);
             var itemSource = Utils.ConvertListQuestions(exam.QAPairs);
             DataContext = itemSource;
             question_selection.SelectedIndex = 0;
@@ -188,6 +189,8 @@ namespace ABI
 
         public void SubmitAll()
         {
+            Utils.SaveAll(exam.MapIndexDocuments);
+            Utils.CloseAll(exam.MapIndexDocuments);
             exam.Score.Score = 0;
             foreach (IQAPair pair in exam.QAPairs)
             {
