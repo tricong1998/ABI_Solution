@@ -151,5 +151,15 @@ namespace ABI
         {
             MoveWindow(wordWnd, (int)this.Margin.Left, (int)this.Margin.Top, (int)this.ActualWidth, (int)this.ActualHeight, true);
         }
+
+        // save - close all document
+        public void SaveCloseAllDocuments()
+        {
+            foreach (var pair in mapPathDocuments)
+            {
+                Save(pair.Key);
+                Close(pair.Key);
+            }
+        }
     }
 }
