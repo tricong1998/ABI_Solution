@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
+using System.Threading;
 using System.Windows.Controls;
 using System.Windows.Data;
 using System.Windows.Documents;
@@ -226,18 +227,22 @@ namespace ABI
                 {
                     OpenWFile openWFile = new OpenWFile();
                     pair.Result = openWFile.CheckOpened(question.File.Path);
-                    if (pair.Result is ComparisonResult comparisonFont)
-                        if (comparisonFont.Result == ComparisonResultIndicate.equal)
+                    if (pair.Result is ComparisonResult comparisonOpenFile)
+                    {
+                        if (comparisonOpenFile.Result == ComparisonResultIndicate.equal)
                             exam.Score.Score++;
+                        logger.Debug("question " + question.Index + ": " + comparisonOpenFile.Result);
+                    }
                     // call to OpenWFile.CheckOpened(question.file_to_open);
+                    //Console.WriteLine(exam.Score.Score);
                 }
                 else if (question is CompareWFileQuestion questionCur)
                 {         
 
                     Word.Application application = new Word.Application();                    
-                    Word.Document anwser = application.Documents.Open(question.File.Path);
+                    Word.Document answer = application.Documents.Open(question.File.Path);
                     Word.Document correctAnwser = application.Documents.Open(pair.CorrectAnswer.File.Path);
-                    ABIW_Document document1 = new ABIW_Document(anwser);
+                    ABIW_Document document1 = new ABIW_Document(answer);
                     ABIW_Document document2 = new ABIW_Document(correctAnwser);  
                     switch (questionCur.Type_l2)
                     {                       
@@ -245,8 +250,11 @@ namespace ABI
                             CompareWFont compare = new CompareWFont();
                             pair.Result = compare.Compare(document1, document2);
                             if (pair.Result is ComparisonResult comparisonFont)
+                            {
                                 if (comparisonFont.Result == ComparisonResultIndicate.equal)
-                                   exam.Score.Score++;
+                                    exam.Score.Score++;
+                                logger.Debug("question " + question.Index + ": " + comparisonFont.Result);
+                            }
                             break;
                         case 16: case 17: case 18:  case 19: case 21:
                             CompareWParagraph compareWParagraph = new CompareWParagraph();
@@ -255,10 +263,12 @@ namespace ABI
                             {                                
                                 if(comparisonParagraph.Result == ComparisonResultIndicate.equal)
                                     exam.Score.Score++;
+                                logger.Debug("question " + question.Index + ": " + comparisonParagraph.Result);
                             }
-                            break;                   
+                            break;
+
                     }
-                    anwser.Close();
+                    answer.Close();
                     correctAnwser.Close();
                     application.Quit();
                 }

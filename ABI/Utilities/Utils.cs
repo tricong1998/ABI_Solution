@@ -141,7 +141,11 @@ namespace ABI
         public static void CloseAll(Dictionary<int, Document> mapIdDocuments)
         {
             foreach (KeyValuePair<int, Document> pair in mapIdDocuments)
-                pair.Value.Close();
+                try
+                {
+                    pair.Value.Close();
+                }
+                catch (Exception) { }
         }
     }
 }
