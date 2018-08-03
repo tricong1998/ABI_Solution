@@ -29,21 +29,24 @@ namespace ABI
         #region attributes
         ABIExam exam;
         System.Windows.Forms.Screen screen;
-<<<<<<<<< Temporary merge branch 1
+/**<<<<<<<<< Temporary merge branch 1
 =========
 
 >>>>>>>>> Temporary merge branch 2
+    **/
         #endregion
 
         public MainWindow()
         {
             log4net.Config.XmlConfigurator.Configure();
             InitializeComponent();
-<<<<<<<<< Temporary merge branch 1
+/**<<<<<<<<< Temporary merge branch 1
 =========
+    **/
             web_question.NavigateToString("<h1>Question 1</h1>");
-
+/**
 >>>>>>>>> Temporary merge branch 2
+   **/
         }
 
         #region util function
@@ -100,7 +103,7 @@ namespace ABI
         {
             screen = System.Windows.Forms.Screen.FromHandle(
             new System.Windows.Interop.WindowInteropHelper(this).Handle);
-<<<<<<<<< Temporary merge branch 1
+//<<<<<<<<< Temporary merge branch 1
             //this.Left = 0;
             //this.Width = screen.Bounds.Width;
             //this.Top = screen.Bounds.Height - this.Height;
@@ -112,8 +115,8 @@ namespace ABI
             //new OpenDocument().Open(
             //    @"G:\abi\word_module\Word_Table\doc1.docx",
             //    new Rect(new Point(0, 0), new Size(screen.Bounds.Width, screen.Bounds.Height - this.Height)));
-=========
->>>>>>>>> Temporary merge branch 2
+//=========
+//>>>>>>>>> Temporary merge branch 2
 
             InitAnExam();
         }
@@ -266,20 +269,20 @@ namespace ABI
         }
         #endregion
 
-        private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
-        {
-<<<<<<<<< Temporary merge branch 1
+//        private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
+//        {
+////<<<<<<<<< Temporary merge branch 1
 
-            word_uc.Save();
-            word_uc.Close();
+//            word_uc.Save();
+//            word_uc.Close();
 
-            word_uc.Quit();
-=========
-            //word_uc.Save();
-            //word_uc.Close();
-            word_uc.Quit();
-            //MessageBox.Show("abc");
->>>>>>>>> Temporary merge branch 2
-        }
+//            word_uc.Quit();
+////=========
+//            //word_uc.Save();
+//            //word_uc.Close();
+//            word_uc.Quit();
+//            //MessageBox.Show("abc");
+////>>>>>>>>> Temporary merge branch 2
+//        }
     }
 }

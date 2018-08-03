@@ -153,13 +153,13 @@ namespace ABI
         }
 
         // save - close all document
-        public void SaveCloseAllDocuments()
-        {
-            foreach (var pair in mapPathDocuments)
-            {
-                Save(pair.Key);
-                Close(pair.Key);
-            }
-        }
+        //public void SaveCloseAllDocuments()
+        //{
+        //    foreach (var pair in mapPathDocuments)
+        //    {
+        //        Save(pair.Key);
+        //        Close(pair.Key);
+        //    }
+        //}
     }
 }
