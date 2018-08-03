@@ -13,7 +13,15 @@ namespace ABI
     {
         public IResult CheckOpened(string path)
         {
-            throw new NotImplementedException();
+            ABIW_CheckOpen checkOpen = new ABIW_CheckOpen();
+            if (checkOpen.CheckOpen(path).Equals(ComparisonResultIndicate.equal))
+            {
+                return new ComparisonResult(ComparisonResultIndicate.equal);
+            }
+            else
+            {
+                return new ComparisonResult(ComparisonResultIndicate.not_equal);
+            }
         }
     }
 }
