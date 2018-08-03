@@ -5,7 +5,10 @@ using System;
 using System.Collections.Generic;
 using System.Configuration;
 using System.Data.SqlClient;
+using System.IO;
+using System.IO.Compression;
 using System.Linq;
+using System.Net;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -25,10 +28,12 @@ namespace ABI
 
         /// <summary>
         /// current load all questions from db, handle later
+        /// long task
         /// </summary>
         /// <returns></returns>
-        public List<IQAPair> Load()
+        public List<IQAPair> Load(out string workspace)
         {
+            workspace = GetWorkSpaceFolder();
             SqlConnection conn = Initialize();
             SqlCommand command = new SqlCommand("SELECT * FROM question", conn);
             List<IQAPair> re = new List<IQAPair>();
@@ -47,7 +52,7 @@ namespace ABI
                     string answer_file = reader[ANSWER_FILE_COLUMN] as string;
                     string description = reader[DESCRIPTION_COLUMN] as string;
                     var pair = Convert(id, raw_content, html_content, markdown_content, type_l2,
-                        question_file, answer_file, description, index);
+                        question_file, answer_file, description, index, workspace);
                     index++;
                     re.Add(pair);
                 }
@@ -63,7 +68,7 @@ namespace ABI
         /// <param name="type_l2"></param>
         /// <returns></returns>
         public IQAPair Convert(int id, string raw_content, string html_content, string markdown_content, 
-            int type_l2, string question_file, string answer_file, string description, int index)
+            int type_l2, string question_file, string answer_file, string description, int index, string workspace)
         {
             IQuestion question = null;
             IAnswer answer = null;
@@ -73,8 +78,10 @@ namespace ABI
                 case 1:
                 case 2:
                 case 3:
+                case 22:
                     question = new OpenWFileQuestion();
                     answer = new OpenWFileAnswer();
+                    ((OpenWFileQuestion)question).EmptyFilePath = Path.Combine(workspace, "empty.docx");
                     break;
                 case 24:
                     question = new CloseWFileQuestion();
@@ -96,11 +103,11 @@ namespace ABI
                     question = new CompareWFileQuestion();
                     answer = new CompareWFileAnswer();
                     if (answer_file != null)
-                        ((ABIAnswer)correctAnswer).File = new WordFile(answer_file);
-                    break;  
+                        ((ABIAnswer)correctAnswer).File = new WordFile(Path.Combine(workspace, answer_file));
+                    break;
             }
             if (question_file != null)
-                question.File = new WordFile(question_file);
+                question.File = new WordFile(Path.Combine(workspace, question_file));
             if (question != null)
             {
                 question.Index = index;
@@ -109,8 +116,34 @@ namespace ABI
                 question.MarkdownContent = markdown_content;
                 question.Description = description;
                 question.Type_l2 = type_l2;
+
+                if (question is OpenWFileQuestion)
+                {
+                    if (question.HtmlContent != null)
+                        ((OpenWFileQuestion)question).HtmlContent += ": <b>" + Path.Combine(workspace, question_file) + "</b>";
+                    if (question.MarkdownContent != null)
+                        ((OpenWFileQuestion)question).MarkdownContent += ": **" + Path.Combine(workspace, question_file) + "**";
+                }
             }
             return new ABIQAPair(question, answer, correctAnswer);
+        }
+
+        // change to your 
+        public static string WORKSPACE = @"D:\temp\abi\";
+        private string GetWorkSpaceFolder()
+        {
+            var re = WORKSPACE;
+            if (!Directory.Exists(re))
+            {
+                Directory.CreateDirectory(re);
+                string path = Path.Combine(re, "my.zip");
+                using (var client = new WebClient())
+                {
+                    client.DownloadFile("http://35.198.229.219/my.zip", path);
+                    ZipFile.ExtractToDirectory(path, re);
+                }
+            }
+            return WORKSPACE;
         }
     }
 }

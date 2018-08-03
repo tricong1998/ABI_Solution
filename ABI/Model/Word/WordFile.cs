@@ -13,6 +13,7 @@ namespace ABI
     {
         public WordFile(string path) : base(path)
         {
+
         }
     }
 }

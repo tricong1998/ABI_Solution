@@ -1,0 +1,1 @@
+DBCC CHECKIDENT (question, RESEED, 1)

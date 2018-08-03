@@ -13,5 +13,7 @@ namespace ABI
     public interface IExam
     {
         List<IQAPair> QAPairs { get; set; }
+
+        string ClientWorkspace { get; set; }
     }
 }

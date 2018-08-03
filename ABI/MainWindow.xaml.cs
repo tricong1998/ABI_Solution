@@ -23,34 +23,75 @@ namespace ABI
     {
         #region static, const var
         public static log4net.ILog logger = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
+        public const string UTF8_HEADER = "<meta http-equiv='Content-Type' content='text/html;charset=UTF-8'>";
         #endregion
 
-        public const string UTF8_HEADER = "<meta http-equiv='Content-Type' content='text/html;charset=UTF-8'>";
         #region attributes
         ABIExam exam;
         System.Windows.Forms.Screen screen;
+<<<<<<<<< Temporary merge branch 1
+=========
 
+>>>>>>>>> Temporary merge branch 2
         #endregion
 
         public MainWindow()
         {
             log4net.Config.XmlConfigurator.Configure();
             InitializeComponent();
+<<<<<<<<< Temporary merge branch 1
+=========
             web_question.NavigateToString("<h1>Question 1</h1>");
 
+>>>>>>>>> Temporary merge branch 2
         }
 
         #region util function
+        /// <summary>
+        /// init new exam
+        /// </summary>
         private void InitAnExam()
         {
             exam = new ABIExam
             {
-                QAPairs = new LoadWordQuestions().Load()
+                // long task
+                QAPairs = new LoadWordQuestions().Load(out string workspace)
             };
+            exam.ClientWorkspace = workspace;
+            exam.WordApplication = new Word.Application
+            {
+                Visible = true
+            };
+            exam.MapIndexDocuments = new Dictionary<int, Word.Document>();
+            OpenAllFiles(exam.QAPairs, exam.MapIndexDocuments, exam.WordApplication);
+            exam.WordApplication.DocumentOpen += OpenDocumentEvent;
+            exam.Score = new ScoreResult(10);
             var itemSource = Utils.ConvertListQuestions(exam.QAPairs);
             DataContext = itemSource;
             question_selection.SelectedIndex = 0;
 
+        }
+
+        /// <summary>
+        /// open all files require for questions
+        /// </summary>
+        /// <param name="pairs"></param>
+        /// <param name="mapIndexDocuments"></param>
+        /// <param name="wordApplication"></param>
+        private void OpenAllFiles(List<IQAPair> pairs, Dictionary<int, Word.Document> mapIndexDocuments, Word.Application wordApplication)
+        {
+            foreach (var pair in pairs)
+            {
+                IQuestion question = pair.Question;
+                string path = question.File.Path;
+                // if open question, not open it :D
+                if (question is OpenWFileQuestion openQuestion)
+                {
+                    word_uc.HandleOpenQuestion(openQuestion, mapIndexDocuments, wordApplication);
+                }
+                else
+                    word_uc.OpenDocument(question, mapIndexDocuments, wordApplication);
+            }
         }
         #endregion
 
@@ -59,8 +100,29 @@ namespace ABI
         {
             screen = System.Windows.Forms.Screen.FromHandle(
             new System.Windows.Interop.WindowInteropHelper(this).Handle);
+<<<<<<<<< Temporary merge branch 1
+            //this.Left = 0;
+            //this.Width = screen.Bounds.Width;
+            //this.Top = screen.Bounds.Height - this.Height;
+            //int w = (int)word_uc.ActualWidth;
+            //int h = (int)word_uc.ActualHeight;
+            //Thickness x = word_uc.Margin;
+            //word_uc.OpenDocument(@"G:\abi\word_module\Word_Table\doc1.docx");
+
+            //new OpenDocument().Open(
+            //    @"G:\abi\word_module\Word_Table\doc1.docx",
+            //    new Rect(new Point(0, 0), new Size(screen.Bounds.Width, screen.Bounds.Height - this.Height)));
+=========
+>>>>>>>>> Temporary merge branch 2
 
             InitAnExam();
+        }
+
+        private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
+        {
+            Utils.SaveAll(exam.MapIndexDocuments);
+            Utils.CloseAll(exam.MapIndexDocuments);
+            exam.WordApplication.Quit();
         }
 
         private void Window_Deactivated(object sender, EventArgs e)
@@ -68,10 +130,28 @@ namespace ABI
             //this.Topmost = true;
             //this.Activate();
         }
-        #endregion
+
+        /// <summary>
+        /// when user open a document (open file question)
+        /// </summary>
+        /// <param name="doc"></param>
+        private void OpenDocumentEvent(Word.Document doc)
+        {
+            logger.Debug(doc.FullName);
+            if (doc == null)
+                return;
+            Application.Current.Dispatcher.BeginInvoke(
+                new Action(() =>
+                {
+                    int index = question_selection.SelectedIndex;
+                    exam.MapIndexDocuments[exam.QAPairs[index].Question.Index] = doc;
+                    word_uc.FitIntoArea(exam.WordApplication);
+                }));
+        }
 
         private void Button_Submit_Click(object sender, RoutedEventArgs e)
         {
+            // submit answer here
             int index = question_selection.SelectedIndex; //index of current question
             UpdateAnswer(exam.QAPairs[index]);
             CheckFinishToSubmitAll();
@@ -79,28 +159,39 @@ namespace ABI
 
         private void question_selection_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
+            if (e.RemovedItems != null && e.RemovedItems.Count > 0)
+            {
+                var _old = e.RemovedItems[0];
+                if (_old is QuestionVisual oldQV)
+                {
+                    var oldQuestion = oldQV.Question;
+                    SaveUserTask(oldQuestion);
+                }
+            }
             var _new = e.AddedItems[0] as QuestionVisual;
             web_question.NavigateToString(UTF8_HEADER + _new.Question.HtmlContent);
             int index = question_selection.SelectedIndex;
-            string path = exam.QAPairs[index].Question.File.Path;
-
-            //if (word_uc.Document is null)
-            //{
-            //    word_uc.OpenDocument(path);
-            //}
-            //else
-            //{
-                //word_uc.Save();
-                //word_uc.Close();
-                word_uc.OpenDocument(path);
-            //}
+            IQuestion question = exam.QAPairs[index].Question;
+            string path = question.File.Path;
+            if (question is OpenWFileQuestion openQuestion)
+            {
+                word_uc.HandleOpenQuestion(openQuestion, exam.MapIndexDocuments, exam.WordApplication);
+            }
+            else
+                word_uc.OpenDocument(question, exam.MapIndexDocuments, exam.WordApplication);
         }
+        #endregion
 
         #region common actions
         // update answer here
         public void UpdateAnswer(IQAPair qaPair)
         {
             
+        }
+
+        private void SaveUserTask(IQuestion question)
+        {
+            Utils.Save(question.Index, exam.MapIndexDocuments);
         }
 
         public void CheckFinishToSubmitAll()
@@ -122,11 +213,9 @@ namespace ABI
 
         public void SubmitAll()
         {
-            word_uc.SaveCloseAllDocuments();
-            if (exam.Score == null)
-            {
-                exam.Score = new ScoreResult(0);
-            }        
+            Utils.SaveAll(exam.MapIndexDocuments);
+            Utils.CloseAll(exam.MapIndexDocuments);
+            exam.Score.Score = 0;
             foreach (IQAPair pair in exam.QAPairs)
             {
                 IQuestion question = pair.Question;
@@ -179,10 +268,18 @@ namespace ABI
 
         private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
         {
+<<<<<<<<< Temporary merge branch 1
+
+            word_uc.Save();
+            word_uc.Close();
+
+            word_uc.Quit();
+=========
             //word_uc.Save();
             //word_uc.Close();
             word_uc.Quit();
             //MessageBox.Show("abc");
+>>>>>>>>> Temporary merge branch 2
         }
     }
 }

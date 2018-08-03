@@ -1,0 +1,4 @@
+INSERT INTO question (title, raw_content, html_content, markdown_content, type_l2, file_question, file_correct_answer, description, image)
+VALUES (N'Định dạng', NULL, N'Thay đổi font chữ trong đoạn văn thành <b>Arial</b>, cỡ chữ <b>14pt</b>', NULL, 9, 'qfile_2.docx', 'afile_2.docx', NULL, NULL),
+(N'Định dạng', NULL, N'Với bullet trong văn bản, thay đổi thụt đầu dòng (indent) của item <b>2</b>, <b>3</b>, <b>5</b> thành <b>2</b> level; các item còn lại thành 3 level', NULL, 16, 'qfile_3.docx', 'afile_3.docx', NULL, NULL),
+(N'Định dạng', NULL, N'Thiết lập giãn dòng cho toàn bộ văn bản là <b>1.3</b>, khoảng cách giữa đoạn văn <b>1</b> và đoạn văn <b>2</b> là <b>8pt</b>, khoảng cách giữa đoạn văn <b>2</b> và đoạn văn <b>3</b> là <b>12pt</b>', NULL, 18, 'qfile_4.docx', 'afile_4.docx', NULL, NULL);

@@ -16,6 +16,7 @@ namespace ABI
 
         IAnswer CorrectAnswer { get; set; }
 
+        // store user result of an answer
         IResult Result { get; set; }
     }
 }

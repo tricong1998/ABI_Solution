@@ -15,7 +15,6 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
-using Microsoft.Office.Interop.Word;
 using System.Diagnostics;
 
 namespace ABI
@@ -82,40 +81,42 @@ namespace ABI
        );
         #endregion
 
-        public Word.Application word = null;
         public static int wordWnd;
         // to store documents opened
-        Dictionary<string, Document> mapPathDocuments;
 
         public Word_UC()
         {
             InitializeComponent();
-            mapPathDocuments = new Dictionary<string, Document>();
-            word = new Word.Application
-            {
-                Visible = true
-            };
         }
 
-        public void OpenDocument(string path)
+        // open a document and fit into area
+        public void OpenDocument(IQuestion question, Dictionary<int, Word.Document> mapIdDocuments, Word.Application wordApplication)
         {
-            if (word != null && word.Documents != null)
+            int index = question.Index;
+            if (question.File != null && question.File.Path != null)
             {
-                // if not open yet
-                if (!mapPathDocuments.ContainsKey(path))
+                if (wordApplication != null && wordApplication.Documents != null)
                 {
-                    var doc = word.Documents.Open(path);
-                    mapPathDocuments.Add(path, doc);
+                    // if not open yet
+                    if (!mapIdDocuments.ContainsKey(index))
+                    {
+                        var doc = wordApplication.Documents.Open(question.File.Path);
+                        mapIdDocuments.Add(index, doc);
+                    }
+                    else
+                    {
+                        wordApplication.Activate();
+                        mapIdDocuments[index].Activate();
+                    }
                 }
-                else
-                {
-                    word.Activate();
-                    mapPathDocuments[path].Activate();
-                }
+                FitIntoArea(wordApplication);
             }
+        }
 
+        public void FitIntoArea(Word.Application wordApplication)
+        {
             // set parent
-            wordWnd = word.ActiveWindow.Hwnd;
+            wordWnd = wordApplication.ActiveWindow.Hwnd;
             HwndSource source = (HwndSource)HwndSource.FromVisual(this);
             IntPtr hWnd = source.Handle;
             int handle = hWnd.ToInt32();
@@ -125,37 +126,30 @@ namespace ABI
             //SetLocation();
         }
 
+        public void HandleOpenQuestion(OpenWFileQuestion question, Dictionary<int, Word.Document> mapIdDocuments, Word.Application wordApplication)
+        {
+            int index = question.Index;
+            string emptyFilePath = question.EmptyFilePath;
+            if (wordApplication != null && wordApplication.Documents != null)
+            {
+                // if not open yet
+                if (!mapIdDocuments.ContainsKey(index))
+                {
+                    var doc = wordApplication.Documents.Open(emptyFilePath);
+                    mapIdDocuments.Add(index, doc);
+                }
+                else
+                {
+                    wordApplication.Activate();
+                    mapIdDocuments[index].Activate();
+                }
+            }
+            FitIntoArea(wordApplication);
+        }
+
         private void UserControl_SizeChanged(object sender, SizeChangedEventArgs e)
         {
             MoveWindow(wordWnd, (int)this.Margin.Left, (int)this.Margin.Top, (int)this.ActualWidth, (int)this.ActualHeight, true);
-        }
-
-        // close file
-        public void Close(string path)
-        {
-            if (mapPathDocuments != null && mapPathDocuments.ContainsKey(path))
-                mapPathDocuments[path].Close();
-        }
-
-        public void Quit()
-        {
-                word.Quit();
-        }
-        // save file
-        public void Save(string path)
-        {
-            if (mapPathDocuments != null && mapPathDocuments.ContainsKey(path))
-                mapPathDocuments[path].Save();
-        }
-
-        // save - close all document
-        public void SaveCloseAllDocuments()
-        {
-            foreach (var pair in mapPathDocuments)
-            {
-                Save(pair.Key);
-                Close(pair.Key);
-            }
         }
     }
 }
