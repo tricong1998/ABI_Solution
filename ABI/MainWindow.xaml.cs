@@ -225,10 +225,11 @@ namespace ABI
                 {
                     OpenWFile openWFile = new OpenWFile();
                     pair2.Result = openWFile.CheckOpened(question2.File.Path);
-                    if (pair2.Result is ComparisonResult comparisonFont)
-                        if (comparisonFont.Result == ComparisonResultIndicate.equal)
+                    if (pair2.Result is ComparisonResult comparisonOpenFile)
+                    { 
+                        if (comparisonOpenFile.Result == ComparisonResultIndicate.equal)
                             exam.Score.Score++;
-                        logger.Debug("question " + question.Index + ": " + comparisonOpenFile.Result);
+                        logger.Debug("question " + question2.Index + ": " + comparisonOpenFile.Result);
                     }
                     // call to OpenWFile.CheckOpened(question.file_to_open);
                     //Console.WriteLine(exam.Score.Score);
