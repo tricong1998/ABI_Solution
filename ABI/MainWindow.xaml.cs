@@ -216,22 +216,26 @@ namespace ABI
 
         public void SubmitAll()
         {
-            Utils.SaveAll(exam.MapIndexDocuments);
-            Utils.CloseAll(exam.MapIndexDocuments);
             exam.Score.Score = 0;
-            foreach (IQAPair pair in exam.QAPairs)
+            foreach (IQAPair pair2 in exam.QAPairs)
             {
-                IQuestion question = pair.Question;
-                if (question is OpenWFileQuestion)
+                IQuestion question2 = pair2.Question;
+                if (question2 is OpenWFileQuestion)
                 {
                     OpenWFile openWFile = new OpenWFile();
-                    pair.Result = openWFile.CheckOpened(question.File.Path);
-                    if (pair.Result is ComparisonResult comparisonFont)
+                    pair2.Result = openWFile.CheckOpened(question2.File.Path);
+                    if (pair2.Result is ComparisonResult comparisonFont)
                         if (comparisonFont.Result == ComparisonResultIndicate.equal)
                             exam.Score.Score++;
                     // call to OpenWFile.CheckOpened(question.file_to_open);
                 }
-                else if (question is CompareWFileQuestion questionCur)
+            }
+            Utils.SaveAll(exam.MapIndexDocuments);
+            Utils.CloseAll(exam.MapIndexDocuments);            
+            foreach (IQAPair pair in exam.QAPairs)
+            {
+                IQuestion question = pair.Question;                
+                if (question is CompareWFileQuestion questionCur)
                 {         
 
                     Word.Application application = new Word.Application();                    
