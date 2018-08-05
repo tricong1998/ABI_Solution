@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="09da7b7d70104a51beca82a1aa4edd29" Name="Diagram1">
+        <EntityTypeShape EntityType="abiexam_dbModel.answer" Width="1.5" PointX="3.75" PointY="18.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="abiexam_dbModel.chairman" Width="1.5" PointX="0.75" PointY="13.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="abiexam_dbModel.exam" Width="1.5" PointX="0.75" PointY="8.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="abiexam_dbModel.exam_chairman" Width="1.5" PointX="3" PointY="9.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="abiexam_dbModel.exam_examinee" Width="1.5" PointX="6" PointY="9.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="abiexam_dbModel.exam_practice_type" Width="1.5" PointX="3" PointY="6.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="abiexam_dbModel.exam_question" Width="1.5" PointX="3" PointY="12.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="abiexam_dbModel.exam_version" Width="1.5" PointX="6" PointY="5.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="abiexam_dbModel.examinee" Width="1.5" PointX="3.75" PointY="15.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="abiexam_dbModel.examinee_answer" Width="1.5" PointX="6" PointY="13.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="abiexam_dbModel.off_question_map_t2" Width="1.5" PointX="3" PointY="21.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="abiexam_dbModel.off_question_type_l1" Width="1.5" PointX="1.5" PointY="28.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="abiexam_dbModel.off_question_type_l2" Width="1.5" PointX="0.75" PointY="24.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="abiexam_dbModel.off_question_version" Width="1.5" PointX="9" PointY="12.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="abiexam_dbModel.office_question" Width="1.5" PointX="0.75" PointY="19.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="abiexam_dbModel.office_version" Width="1.5" PointX="3.75" PointY="3.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="abiexam_dbModel.practice_type" Width="1.5" PointX="0.75" PointY="5.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="abiexam_dbModel.user" Width="1.5" PointX="1.5" PointY="16.5" IsExpanded="true" />
+        <AssociationConnector Association="abiexam_dbModel.FK_examinee_answer_answer" ManuallyRouted="false" />
+        <AssociationConnector Association="abiexam_dbModel.FK_chairman_user" ManuallyRouted="false" />
+        <AssociationConnector Association="abiexam_dbModel.FK_exam_chairman_chairman" ManuallyRouted="false" />
+        <AssociationConnector Association="abiexam_dbModel.FK_exam_chairman_exam" ManuallyRouted="false" />
+        <AssociationConnector Association="abiexam_dbModel.FK_exam_practice_type_exam" ManuallyRouted="false" />
+        <AssociationConnector Association="abiexam_dbModel.FK_exam_question_exam" ManuallyRouted="false" />
+        <AssociationConnector Association="abiexam_dbModel.FK_exam_version_exam" ManuallyRouted="false" />
+        <AssociationConnector Association="abiexam_dbModel.FK_examinee_answer_exam" ManuallyRouted="false" />
+        <AssociationConnector Association="abiexam_dbModel.FK_user_exam_exam" ManuallyRouted="false" />
+        <AssociationConnector Association="abiexam_dbModel.FK_exam_examinee_examinee" ManuallyRouted="false" />
+        <AssociationConnector Association="abiexam_dbModel.FK_exam_practice_type_practice_type" ManuallyRouted="false" />
+        <AssociationConnector Association="abiexam_dbModel.FK_exam_question_office_question" ManuallyRouted="false" />
+        <AssociationConnector Association="abiexam_dbModel.FK_exam_version_office_version" ManuallyRouted="false" />
+        <AssociationConnector Association="abiexam_dbModel.FK_examinee_answer_examinee" ManuallyRouted="false" />
+        <AssociationConnector Association="abiexam_dbModel.FK_examinee_user" ManuallyRouted="false" />
+        <AssociationConnector Association="abiexam_dbModel.FK_examinee_answer_office_question" ManuallyRouted="false" />
+        <AssociationConnector Association="abiexam_dbModel.FK_off_question_map_t2_off_question_type_l2" ManuallyRouted="false" />
+        <AssociationConnector Association="abiexam_dbModel.FK_off_question_map_t2_office_question" ManuallyRouted="false" />
+        <AssociationConnector Association="abiexam_dbModel.FK_off_question_type_l1_practice_type" ManuallyRouted="false" />
+        <AssociationConnector Association="abiexam_dbModel.FK_off_question_type_l2_off_question_type_l1" ManuallyRouted="false" />
+        <AssociationConnector Association="abiexam_dbModel.FK_off_question_version_office_question" ManuallyRouted="false" />
+        <AssociationConnector Association="abiexam_dbModel.FK_off_question_version_office_version" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

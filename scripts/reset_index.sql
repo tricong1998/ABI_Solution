@@ -1,1 +1,2 @@
-DBCC CHECKIDENT (question, RESEED, 1)
+USE [abiexam_db]
+DBCC CHECKIDENT (office_question, RESEED, 0)

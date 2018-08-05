@@ -1,0 +1,1385 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="abiexam_dbModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="answer">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="answer_file" Type="nvarchar" MaxLength="255" />
+          <Property Name="score" Type="int" Nullable="false" />
+          <Property Name="description" Type="nvarchar" MaxLength="255" />
+          <Property Name="create_at" Type="datetime2" Precision="3" Nullable="false" />
+        </EntityType>
+        <EntityType Name="chairman">
+          <Key>
+            <PropertyRef Name="user_id" />
+          </Key>
+          <Property Name="user_id" Type="int" Nullable="false" />
+          <Property Name="create_at" Type="datetime2" Precision="3" Nullable="false" />
+        </EntityType>
+        <EntityType Name="exam">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="name" Type="nvarchar" MaxLength="255" Nullable="false" />
+          <Property Name="description" Type="nvarchar" MaxLength="255" />
+          <Property Name="customer" Type="nvarchar" MaxLength="255" />
+          <Property Name="time_start" Type="datetime" Nullable="false" />
+          <Property Name="duration" Type="int" Nullable="false" />
+          <Property Name="number_question" Type="int" Nullable="false" />
+          <Property Name="active" Type="tinyint" Nullable="false" />
+          <Property Name="create_at" Type="datetime2" Precision="3" Nullable="false" />
+        </EntityType>
+        <EntityType Name="exam_chairman">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" Nullable="false" />
+          <Property Name="chairman_id" Type="int" Nullable="false" />
+          <Property Name="exam_id" Type="int" Nullable="false" />
+          <Property Name="active" Type="tinyint" />
+          <Property Name="create_at" Type="datetime2" Precision="3" Nullable="false" />
+        </EntityType>
+        <EntityType Name="exam_examinee">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="examinee_id" Type="int" Nullable="false" />
+          <Property Name="exam_id" Type="int" Nullable="false" />
+          <Property Name="joined" Type="tinyint" />
+          <Property Name="active" Type="tinyint" />
+          <Property Name="create_at" Type="datetime2" Precision="3" Nullable="false" />
+        </EntityType>
+        <EntityType Name="exam_practice_type">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="exam_id" Type="int" Nullable="false" />
+          <Property Name="type_id" Type="int" Nullable="false" />
+          <Property Name="create_at" Type="datetime2" Precision="3" Nullable="false" />
+        </EntityType>
+        <EntityType Name="exam_question">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="exam_id" Type="int" Nullable="false" />
+          <Property Name="question_id" Type="int" Nullable="false" />
+          <Property Name="create_at" Type="datetime2" Precision="3" Nullable="false" />
+        </EntityType>
+        <EntityType Name="exam_version">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="exam_id" Type="int" Nullable="false" />
+          <Property Name="office_id" Type="int" Nullable="false" />
+          <Property Name="create_at" Type="datetime2" Precision="3" Nullable="false" />
+        </EntityType>
+        <EntityType Name="examinee">
+          <Key>
+            <PropertyRef Name="user_id" />
+          </Key>
+          <Property Name="user_id" Type="int" Nullable="false" />
+          <Property Name="create_at" Type="datetime2" Precision="3" Nullable="false" />
+        </EntityType>
+        <EntityType Name="examinee_answer">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="examinee_id" Type="int" Nullable="false" />
+          <Property Name="question_id" Type="int" Nullable="false" />
+          <Property Name="answer_id" Type="int" Nullable="false" />
+          <Property Name="exam_id" Type="int" Nullable="false" />
+          <Property Name="create_at" Type="datetime2" Precision="3" Nullable="false" />
+        </EntityType>
+        <EntityType Name="off_question_map_t2">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="question_id" Type="int" Nullable="false" />
+          <Property Name="type_l2_id" Type="int" Nullable="false" />
+          <Property Name="create_at" Type="datetime2" Precision="3" Nullable="false" />
+        </EntityType>
+        <EntityType Name="off_question_type_l1">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="name" Type="nvarchar" MaxLength="255" Nullable="false" />
+          <Property Name="practice_id" Type="int" Nullable="false" />
+          <Property Name="description" Type="nvarchar" MaxLength="255" />
+          <Property Name="create_at" Type="datetime2" Precision="3" Nullable="false" />
+        </EntityType>
+        <EntityType Name="off_question_type_l2">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="name" Type="nvarchar" MaxLength="255" Nullable="false" />
+          <Property Name="type_l1" Type="int" Nullable="false" />
+          <Property Name="description" Type="nvarchar" MaxLength="255" />
+          <Property Name="create_at" Type="datetime2" Precision="3" Nullable="false" />
+        </EntityType>
+        <EntityType Name="off_question_version">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="question_id" Type="int" Nullable="false" />
+          <Property Name="office_id" Type="int" Nullable="false" />
+          <Property Name="create_at" Type="datetime2" Precision="3" Nullable="false" />
+        </EntityType>
+        <EntityType Name="office_question">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="title" Type="nvarchar" MaxLength="255" />
+          <Property Name="html_content" Type="nvarchar" MaxLength="1024" />
+          <Property Name="markdown_content" Type="nvarchar" MaxLength="1024" />
+          <Property Name="file_question" Type="nvarchar" MaxLength="255" />
+          <Property Name="file_correct_answer" Type="nvarchar" MaxLength="255" />
+          <Property Name="active" Type="tinyint" />
+          <Property Name="description" Type="nvarchar" MaxLength="255" />
+          <Property Name="image" Type="nvarchar" MaxLength="255" />
+          <Property Name="request" Type="tinyint" />
+          <Property Name="create_at" Type="datetime2" Precision="3" Nullable="false" />
+        </EntityType>
+        <EntityType Name="office_version">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="name" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="description" Type="nvarchar" MaxLength="255" />
+          <Property Name="create_at" Type="datetime2" Precision="3" Nullable="false" />
+        </EntityType>
+        <EntityType Name="practice_type">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="name" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="create_at" Type="datetime2" Precision="3" Nullable="false" />
+        </EntityType>
+        <EntityType Name="user">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="name" Type="nvarchar" MaxLength="255" Nullable="false" />
+          <Property Name="email" Type="nvarchar" MaxLength="255" Nullable="false" />
+          <Property Name="password" Type="nvarchar" MaxLength="255" Nullable="false" />
+          <Property Name="active" Type="tinyint" />
+          <Property Name="create_at" Type="datetime2" Precision="3" />
+        </EntityType>
+        <Association Name="FK_chairman_user">
+          <End Role="user" Type="Self.user" Multiplicity="1" />
+          <End Role="chairman" Type="Self.chairman" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="user">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="chairman">
+              <PropertyRef Name="user_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_exam_chairman_chairman">
+          <End Role="chairman" Type="Self.chairman" Multiplicity="1" />
+          <End Role="exam_chairman" Type="Self.exam_chairman" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="chairman">
+              <PropertyRef Name="user_id" />
+            </Principal>
+            <Dependent Role="exam_chairman">
+              <PropertyRef Name="chairman_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_exam_chairman_exam">
+          <End Role="exam" Type="Self.exam" Multiplicity="1" />
+          <End Role="exam_chairman" Type="Self.exam_chairman" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="exam">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="exam_chairman">
+              <PropertyRef Name="exam_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_exam_examinee_examinee">
+          <End Role="examinee" Type="Self.examinee" Multiplicity="1" />
+          <End Role="exam_examinee" Type="Self.exam_examinee" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="examinee">
+              <PropertyRef Name="user_id" />
+            </Principal>
+            <Dependent Role="exam_examinee">
+              <PropertyRef Name="examinee_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_exam_practice_type_exam">
+          <End Role="exam" Type="Self.exam" Multiplicity="1" />
+          <End Role="exam_practice_type" Type="Self.exam_practice_type" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="exam">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="exam_practice_type">
+              <PropertyRef Name="exam_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_exam_practice_type_practice_type">
+          <End Role="practice_type" Type="Self.practice_type" Multiplicity="1" />
+          <End Role="exam_practice_type" Type="Self.exam_practice_type" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="practice_type">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="exam_practice_type">
+              <PropertyRef Name="type_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_exam_question_exam">
+          <End Role="exam" Type="Self.exam" Multiplicity="1" />
+          <End Role="exam_question" Type="Self.exam_question" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="exam">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="exam_question">
+              <PropertyRef Name="exam_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_exam_question_office_question">
+          <End Role="office_question" Type="Self.office_question" Multiplicity="1" />
+          <End Role="exam_question" Type="Self.exam_question" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="office_question">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="exam_question">
+              <PropertyRef Name="question_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_exam_version_exam">
+          <End Role="exam" Type="Self.exam" Multiplicity="1" />
+          <End Role="exam_version" Type="Self.exam_version" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="exam">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="exam_version">
+              <PropertyRef Name="exam_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_exam_version_office_version">
+          <End Role="office_version" Type="Self.office_version" Multiplicity="1" />
+          <End Role="exam_version" Type="Self.exam_version" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="office_version">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="exam_version">
+              <PropertyRef Name="office_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_examinee_answer_answer">
+          <End Role="answer" Type="Self.answer" Multiplicity="1" />
+          <End Role="examinee_answer" Type="Self.examinee_answer" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="answer">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="examinee_answer">
+              <PropertyRef Name="answer_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_examinee_answer_exam">
+          <End Role="exam" Type="Self.exam" Multiplicity="1" />
+          <End Role="examinee_answer" Type="Self.examinee_answer" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="exam">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="examinee_answer">
+              <PropertyRef Name="exam_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_examinee_answer_examinee">
+          <End Role="examinee" Type="Self.examinee" Multiplicity="1" />
+          <End Role="examinee_answer" Type="Self.examinee_answer" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="examinee">
+              <PropertyRef Name="user_id" />
+            </Principal>
+            <Dependent Role="examinee_answer">
+              <PropertyRef Name="examinee_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_examinee_answer_office_question">
+          <End Role="office_question" Type="Self.office_question" Multiplicity="1" />
+          <End Role="examinee_answer" Type="Self.examinee_answer" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="office_question">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="examinee_answer">
+              <PropertyRef Name="question_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_examinee_user">
+          <End Role="user" Type="Self.user" Multiplicity="1" />
+          <End Role="examinee" Type="Self.examinee" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="user">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="examinee">
+              <PropertyRef Name="user_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_off_question_map_t2_off_question_type_l2">
+          <End Role="off_question_type_l2" Type="Self.off_question_type_l2" Multiplicity="1" />
+          <End Role="off_question_map_t2" Type="Self.off_question_map_t2" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="off_question_type_l2">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="off_question_map_t2">
+              <PropertyRef Name="type_l2_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_off_question_map_t2_office_question">
+          <End Role="office_question" Type="Self.office_question" Multiplicity="1" />
+          <End Role="off_question_map_t2" Type="Self.off_question_map_t2" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="office_question">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="off_question_map_t2">
+              <PropertyRef Name="question_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_off_question_type_l1_practice_type">
+          <End Role="practice_type" Type="Self.practice_type" Multiplicity="1" />
+          <End Role="off_question_type_l1" Type="Self.off_question_type_l1" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="practice_type">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="off_question_type_l1">
+              <PropertyRef Name="practice_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_off_question_type_l2_off_question_type_l1">
+          <End Role="off_question_type_l1" Type="Self.off_question_type_l1" Multiplicity="1" />
+          <End Role="off_question_type_l2" Type="Self.off_question_type_l2" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="off_question_type_l1">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="off_question_type_l2">
+              <PropertyRef Name="type_l1" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_off_question_version_office_question">
+          <End Role="office_question" Type="Self.office_question" Multiplicity="1" />
+          <End Role="off_question_version" Type="Self.off_question_version" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="office_question">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="off_question_version">
+              <PropertyRef Name="question_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_off_question_version_office_version">
+          <End Role="office_version" Type="Self.office_version" Multiplicity="1" />
+          <End Role="off_question_version" Type="Self.off_question_version" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="office_version">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="off_question_version">
+              <PropertyRef Name="office_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_user_exam_exam">
+          <End Role="exam" Type="Self.exam" Multiplicity="1" />
+          <End Role="exam_examinee" Type="Self.exam_examinee" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="exam">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="exam_examinee">
+              <PropertyRef Name="exam_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="abiexam_dbModelStoreContainer">
+          <EntitySet Name="answer" EntityType="Self.answer" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="chairman" EntityType="Self.chairman" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="exam" EntityType="Self.exam" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="exam_chairman" EntityType="Self.exam_chairman" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="exam_examinee" EntityType="Self.exam_examinee" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="exam_practice_type" EntityType="Self.exam_practice_type" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="exam_question" EntityType="Self.exam_question" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="exam_version" EntityType="Self.exam_version" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="examinee" EntityType="Self.examinee" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="examinee_answer" EntityType="Self.examinee_answer" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="off_question_map_t2" EntityType="Self.off_question_map_t2" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="off_question_type_l1" EntityType="Self.off_question_type_l1" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="off_question_type_l2" EntityType="Self.off_question_type_l2" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="off_question_version" EntityType="Self.off_question_version" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="office_question" EntityType="Self.office_question" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="office_version" EntityType="Self.office_version" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="practice_type" EntityType="Self.practice_type" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="user" EntityType="Self.user" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_chairman_user" Association="Self.FK_chairman_user">
+            <End Role="user" EntitySet="user" />
+            <End Role="chairman" EntitySet="chairman" />
+          </AssociationSet>
+          <AssociationSet Name="FK_exam_chairman_chairman" Association="Self.FK_exam_chairman_chairman">
+            <End Role="chairman" EntitySet="chairman" />
+            <End Role="exam_chairman" EntitySet="exam_chairman" />
+          </AssociationSet>
+          <AssociationSet Name="FK_exam_chairman_exam" Association="Self.FK_exam_chairman_exam">
+            <End Role="exam" EntitySet="exam" />
+            <End Role="exam_chairman" EntitySet="exam_chairman" />
+          </AssociationSet>
+          <AssociationSet Name="FK_exam_examinee_examinee" Association="Self.FK_exam_examinee_examinee">
+            <End Role="examinee" EntitySet="examinee" />
+            <End Role="exam_examinee" EntitySet="exam_examinee" />
+          </AssociationSet>
+          <AssociationSet Name="FK_exam_practice_type_exam" Association="Self.FK_exam_practice_type_exam">
+            <End Role="exam" EntitySet="exam" />
+            <End Role="exam_practice_type" EntitySet="exam_practice_type" />
+          </AssociationSet>
+          <AssociationSet Name="FK_exam_practice_type_practice_type" Association="Self.FK_exam_practice_type_practice_type">
+            <End Role="practice_type" EntitySet="practice_type" />
+            <End Role="exam_practice_type" EntitySet="exam_practice_type" />
+          </AssociationSet>
+          <AssociationSet Name="FK_exam_question_exam" Association="Self.FK_exam_question_exam">
+            <End Role="exam" EntitySet="exam" />
+            <End Role="exam_question" EntitySet="exam_question" />
+          </AssociationSet>
+          <AssociationSet Name="FK_exam_question_office_question" Association="Self.FK_exam_question_office_question">
+            <End Role="office_question" EntitySet="office_question" />
+            <End Role="exam_question" EntitySet="exam_question" />
+          </AssociationSet>
+          <AssociationSet Name="FK_exam_version_exam" Association="Self.FK_exam_version_exam">
+            <End Role="exam" EntitySet="exam" />
+            <End Role="exam_version" EntitySet="exam_version" />
+          </AssociationSet>
+          <AssociationSet Name="FK_exam_version_office_version" Association="Self.FK_exam_version_office_version">
+            <End Role="office_version" EntitySet="office_version" />
+            <End Role="exam_version" EntitySet="exam_version" />
+          </AssociationSet>
+          <AssociationSet Name="FK_examinee_answer_answer" Association="Self.FK_examinee_answer_answer">
+            <End Role="answer" EntitySet="answer" />
+            <End Role="examinee_answer" EntitySet="examinee_answer" />
+          </AssociationSet>
+          <AssociationSet Name="FK_examinee_answer_exam" Association="Self.FK_examinee_answer_exam">
+            <End Role="exam" EntitySet="exam" />
+            <End Role="examinee_answer" EntitySet="examinee_answer" />
+          </AssociationSet>
+          <AssociationSet Name="FK_examinee_answer_examinee" Association="Self.FK_examinee_answer_examinee">
+            <End Role="examinee" EntitySet="examinee" />
+            <End Role="examinee_answer" EntitySet="examinee_answer" />
+          </AssociationSet>
+          <AssociationSet Name="FK_examinee_answer_office_question" Association="Self.FK_examinee_answer_office_question">
+            <End Role="office_question" EntitySet="office_question" />
+            <End Role="examinee_answer" EntitySet="examinee_answer" />
+          </AssociationSet>
+          <AssociationSet Name="FK_examinee_user" Association="Self.FK_examinee_user">
+            <End Role="user" EntitySet="user" />
+            <End Role="examinee" EntitySet="examinee" />
+          </AssociationSet>
+          <AssociationSet Name="FK_off_question_map_t2_off_question_type_l2" Association="Self.FK_off_question_map_t2_off_question_type_l2">
+            <End Role="off_question_type_l2" EntitySet="off_question_type_l2" />
+            <End Role="off_question_map_t2" EntitySet="off_question_map_t2" />
+          </AssociationSet>
+          <AssociationSet Name="FK_off_question_map_t2_office_question" Association="Self.FK_off_question_map_t2_office_question">
+            <End Role="office_question" EntitySet="office_question" />
+            <End Role="off_question_map_t2" EntitySet="off_question_map_t2" />
+          </AssociationSet>
+          <AssociationSet Name="FK_off_question_type_l1_practice_type" Association="Self.FK_off_question_type_l1_practice_type">
+            <End Role="practice_type" EntitySet="practice_type" />
+            <End Role="off_question_type_l1" EntitySet="off_question_type_l1" />
+          </AssociationSet>
+          <AssociationSet Name="FK_off_question_type_l2_off_question_type_l1" Association="Self.FK_off_question_type_l2_off_question_type_l1">
+            <End Role="off_question_type_l1" EntitySet="off_question_type_l1" />
+            <End Role="off_question_type_l2" EntitySet="off_question_type_l2" />
+          </AssociationSet>
+          <AssociationSet Name="FK_off_question_version_office_question" Association="Self.FK_off_question_version_office_question">
+            <End Role="office_question" EntitySet="office_question" />
+            <End Role="off_question_version" EntitySet="off_question_version" />
+          </AssociationSet>
+          <AssociationSet Name="FK_off_question_version_office_version" Association="Self.FK_off_question_version_office_version">
+            <End Role="office_version" EntitySet="office_version" />
+            <End Role="off_question_version" EntitySet="off_question_version" />
+          </AssociationSet>
+          <AssociationSet Name="FK_user_exam_exam" Association="Self.FK_user_exam_exam">
+            <End Role="exam" EntitySet="exam" />
+            <End Role="exam_examinee" EntitySet="exam_examinee" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="abiexam_dbModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="answer">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="answer_file" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="score" Type="Int32" Nullable="false" />
+          <Property Name="description" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="create_at" Type="DateTime" Nullable="false" Precision="3" />
+          <NavigationProperty Name="examinee_answer" Relationship="Self.FK_examinee_answer_answer" FromRole="answer" ToRole="examinee_answer" />
+        </EntityType>
+        <EntityType Name="chairman">
+          <Key>
+            <PropertyRef Name="user_id" />
+          </Key>
+          <Property Name="user_id" Type="Int32" Nullable="false" />
+          <Property Name="create_at" Type="DateTime" Nullable="false" Precision="3" />
+          <NavigationProperty Name="user" Relationship="Self.FK_chairman_user" FromRole="chairman" ToRole="user" />
+          <NavigationProperty Name="exam_chairman" Relationship="Self.FK_exam_chairman_chairman" FromRole="chairman" ToRole="exam_chairman" />
+        </EntityType>
+        <EntityType Name="exam">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="name" Type="String" MaxLength="255" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="description" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="customer" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="time_start" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="duration" Type="Int32" Nullable="false" />
+          <Property Name="number_question" Type="Int32" Nullable="false" />
+          <Property Name="active" Type="Byte" Nullable="false" />
+          <Property Name="create_at" Type="DateTime" Nullable="false" Precision="3" />
+          <NavigationProperty Name="exam_chairman" Relationship="Self.FK_exam_chairman_exam" FromRole="exam" ToRole="exam_chairman" />
+          <NavigationProperty Name="exam_practice_type" Relationship="Self.FK_exam_practice_type_exam" FromRole="exam" ToRole="exam_practice_type" />
+          <NavigationProperty Name="exam_question" Relationship="Self.FK_exam_question_exam" FromRole="exam" ToRole="exam_question" />
+          <NavigationProperty Name="exam_version" Relationship="Self.FK_exam_version_exam" FromRole="exam" ToRole="exam_version" />
+          <NavigationProperty Name="examinee_answer" Relationship="Self.FK_examinee_answer_exam" FromRole="exam" ToRole="examinee_answer" />
+          <NavigationProperty Name="exam_examinee" Relationship="Self.FK_user_exam_exam" FromRole="exam" ToRole="exam_examinee" />
+        </EntityType>
+        <EntityType Name="exam_chairman">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" />
+          <Property Name="chairman_id" Type="Int32" Nullable="false" />
+          <Property Name="exam_id" Type="Int32" Nullable="false" />
+          <Property Name="active" Type="Byte" />
+          <Property Name="create_at" Type="DateTime" Nullable="false" Precision="3" />
+          <NavigationProperty Name="chairman" Relationship="Self.FK_exam_chairman_chairman" FromRole="exam_chairman" ToRole="chairman" />
+          <NavigationProperty Name="exam" Relationship="Self.FK_exam_chairman_exam" FromRole="exam_chairman" ToRole="exam" />
+        </EntityType>
+        <EntityType Name="exam_examinee">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="examinee_id" Type="Int32" Nullable="false" />
+          <Property Name="exam_id" Type="Int32" Nullable="false" />
+          <Property Name="joined" Type="Byte" />
+          <Property Name="active" Type="Byte" />
+          <Property Name="create_at" Type="DateTime" Nullable="false" Precision="3" />
+          <NavigationProperty Name="exam" Relationship="Self.FK_user_exam_exam" FromRole="exam_examinee" ToRole="exam" />
+          <NavigationProperty Name="examinee" Relationship="Self.FK_exam_examinee_examinee" FromRole="exam_examinee" ToRole="examinee" />
+        </EntityType>
+        <EntityType Name="exam_practice_type">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="exam_id" Type="Int32" Nullable="false" />
+          <Property Name="type_id" Type="Int32" Nullable="false" />
+          <Property Name="create_at" Type="DateTime" Nullable="false" Precision="3" />
+          <NavigationProperty Name="exam" Relationship="Self.FK_exam_practice_type_exam" FromRole="exam_practice_type" ToRole="exam" />
+          <NavigationProperty Name="practice_type" Relationship="Self.FK_exam_practice_type_practice_type" FromRole="exam_practice_type" ToRole="practice_type" />
+        </EntityType>
+        <EntityType Name="exam_question">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="exam_id" Type="Int32" Nullable="false" />
+          <Property Name="question_id" Type="Int32" Nullable="false" />
+          <Property Name="create_at" Type="DateTime" Nullable="false" Precision="3" />
+          <NavigationProperty Name="exam" Relationship="Self.FK_exam_question_exam" FromRole="exam_question" ToRole="exam" />
+          <NavigationProperty Name="office_question" Relationship="Self.FK_exam_question_office_question" FromRole="exam_question" ToRole="office_question" />
+        </EntityType>
+        <EntityType Name="exam_version">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="exam_id" Type="Int32" Nullable="false" />
+          <Property Name="office_id" Type="Int32" Nullable="false" />
+          <Property Name="create_at" Type="DateTime" Nullable="false" Precision="3" />
+          <NavigationProperty Name="exam" Relationship="Self.FK_exam_version_exam" FromRole="exam_version" ToRole="exam" />
+          <NavigationProperty Name="office_version" Relationship="Self.FK_exam_version_office_version" FromRole="exam_version" ToRole="office_version" />
+        </EntityType>
+        <EntityType Name="examinee">
+          <Key>
+            <PropertyRef Name="user_id" />
+          </Key>
+          <Property Name="user_id" Type="Int32" Nullable="false" />
+          <Property Name="create_at" Type="DateTime" Nullable="false" Precision="3" />
+          <NavigationProperty Name="exam_examinee" Relationship="Self.FK_exam_examinee_examinee" FromRole="examinee" ToRole="exam_examinee" />
+          <NavigationProperty Name="examinee_answer" Relationship="Self.FK_examinee_answer_examinee" FromRole="examinee" ToRole="examinee_answer" />
+          <NavigationProperty Name="user" Relationship="Self.FK_examinee_user" FromRole="examinee" ToRole="user" />
+        </EntityType>
+        <EntityType Name="examinee_answer">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="examinee_id" Type="Int32" Nullable="false" />
+          <Property Name="question_id" Type="Int32" Nullable="false" />
+          <Property Name="answer_id" Type="Int32" Nullable="false" />
+          <Property Name="exam_id" Type="Int32" Nullable="false" />
+          <Property Name="create_at" Type="DateTime" Nullable="false" Precision="3" />
+          <NavigationProperty Name="answer" Relationship="Self.FK_examinee_answer_answer" FromRole="examinee_answer" ToRole="answer" />
+          <NavigationProperty Name="exam" Relationship="Self.FK_examinee_answer_exam" FromRole="examinee_answer" ToRole="exam" />
+          <NavigationProperty Name="examinee" Relationship="Self.FK_examinee_answer_examinee" FromRole="examinee_answer" ToRole="examinee" />
+          <NavigationProperty Name="office_question" Relationship="Self.FK_examinee_answer_office_question" FromRole="examinee_answer" ToRole="office_question" />
+        </EntityType>
+        <EntityType Name="off_question_map_t2">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="question_id" Type="Int32" Nullable="false" />
+          <Property Name="type_l2_id" Type="Int32" Nullable="false" />
+          <Property Name="create_at" Type="DateTime" Nullable="false" Precision="3" />
+          <NavigationProperty Name="off_question_type_l2" Relationship="Self.FK_off_question_map_t2_off_question_type_l2" FromRole="off_question_map_t2" ToRole="off_question_type_l2" />
+          <NavigationProperty Name="office_question" Relationship="Self.FK_off_question_map_t2_office_question" FromRole="off_question_map_t2" ToRole="office_question" />
+        </EntityType>
+        <EntityType Name="off_question_type_l1">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="name" Type="String" MaxLength="255" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="practice_id" Type="Int32" Nullable="false" />
+          <Property Name="description" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="create_at" Type="DateTime" Nullable="false" Precision="3" />
+          <NavigationProperty Name="practice_type" Relationship="Self.FK_off_question_type_l1_practice_type" FromRole="off_question_type_l1" ToRole="practice_type" />
+          <NavigationProperty Name="off_question_type_l2" Relationship="Self.FK_off_question_type_l2_off_question_type_l1" FromRole="off_question_type_l1" ToRole="off_question_type_l2" />
+        </EntityType>
+        <EntityType Name="off_question_type_l2">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="name" Type="String" MaxLength="255" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="type_l1" Type="Int32" Nullable="false" />
+          <Property Name="description" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="create_at" Type="DateTime" Nullable="false" Precision="3" />
+          <NavigationProperty Name="off_question_map_t2" Relationship="Self.FK_off_question_map_t2_off_question_type_l2" FromRole="off_question_type_l2" ToRole="off_question_map_t2" />
+          <NavigationProperty Name="off_question_type_l1" Relationship="Self.FK_off_question_type_l2_off_question_type_l1" FromRole="off_question_type_l2" ToRole="off_question_type_l1" />
+        </EntityType>
+        <EntityType Name="off_question_version">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="question_id" Type="Int32" Nullable="false" />
+          <Property Name="office_id" Type="Int32" Nullable="false" />
+          <Property Name="create_at" Type="DateTime" Nullable="false" Precision="3" />
+          <NavigationProperty Name="office_question" Relationship="Self.FK_off_question_version_office_question" FromRole="off_question_version" ToRole="office_question" />
+          <NavigationProperty Name="office_version" Relationship="Self.FK_off_question_version_office_version" FromRole="off_question_version" ToRole="office_version" />
+        </EntityType>
+        <EntityType Name="office_question">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="title" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="html_content" Type="String" MaxLength="1024" FixedLength="false" Unicode="true" />
+          <Property Name="markdown_content" Type="String" MaxLength="1024" FixedLength="false" Unicode="true" />
+          <Property Name="file_question" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="file_correct_answer" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="active" Type="Byte" />
+          <Property Name="description" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="image" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="request" Type="Byte" />
+          <Property Name="create_at" Type="DateTime" Nullable="false" Precision="3" />
+          <NavigationProperty Name="exam_question" Relationship="Self.FK_exam_question_office_question" FromRole="office_question" ToRole="exam_question" />
+          <NavigationProperty Name="examinee_answer" Relationship="Self.FK_examinee_answer_office_question" FromRole="office_question" ToRole="examinee_answer" />
+          <NavigationProperty Name="off_question_map_t2" Relationship="Self.FK_off_question_map_t2_office_question" FromRole="office_question" ToRole="off_question_map_t2" />
+          <NavigationProperty Name="off_question_version" Relationship="Self.FK_off_question_version_office_question" FromRole="office_question" ToRole="off_question_version" />
+        </EntityType>
+        <EntityType Name="office_version">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="description" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="create_at" Type="DateTime" Nullable="false" Precision="3" />
+          <NavigationProperty Name="exam_version" Relationship="Self.FK_exam_version_office_version" FromRole="office_version" ToRole="exam_version" />
+          <NavigationProperty Name="off_question_version" Relationship="Self.FK_off_question_version_office_version" FromRole="office_version" ToRole="off_question_version" />
+        </EntityType>
+        <EntityType Name="practice_type">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="create_at" Type="DateTime" Nullable="false" Precision="3" />
+          <NavigationProperty Name="exam_practice_type" Relationship="Self.FK_exam_practice_type_practice_type" FromRole="practice_type" ToRole="exam_practice_type" />
+          <NavigationProperty Name="off_question_type_l1" Relationship="Self.FK_off_question_type_l1_practice_type" FromRole="practice_type" ToRole="off_question_type_l1" />
+        </EntityType>
+        <EntityType Name="user">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="name" Type="String" MaxLength="255" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="email" Type="String" MaxLength="255" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="password" Type="String" MaxLength="255" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="active" Type="Byte" />
+          <Property Name="create_at" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="chairman" Relationship="Self.FK_chairman_user" FromRole="user" ToRole="chairman" />
+          <NavigationProperty Name="examinee" Relationship="Self.FK_examinee_user" FromRole="user" ToRole="examinee" />
+        </EntityType>
+        <Association Name="FK_examinee_answer_answer">
+          <End Role="answer" Type="Self.answer" Multiplicity="1" />
+          <End Role="examinee_answer" Type="Self.examinee_answer" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="answer">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="examinee_answer">
+              <PropertyRef Name="answer_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_chairman_user">
+          <End Role="user" Type="Self.user" Multiplicity="1" />
+          <End Role="chairman" Type="Self.chairman" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="user">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="chairman">
+              <PropertyRef Name="user_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_exam_chairman_chairman">
+          <End Role="chairman" Type="Self.chairman" Multiplicity="1" />
+          <End Role="exam_chairman" Type="Self.exam_chairman" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="chairman">
+              <PropertyRef Name="user_id" />
+            </Principal>
+            <Dependent Role="exam_chairman">
+              <PropertyRef Name="chairman_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_exam_chairman_exam">
+          <End Role="exam" Type="Self.exam" Multiplicity="1" />
+          <End Role="exam_chairman" Type="Self.exam_chairman" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="exam">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="exam_chairman">
+              <PropertyRef Name="exam_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_exam_practice_type_exam">
+          <End Role="exam" Type="Self.exam" Multiplicity="1" />
+          <End Role="exam_practice_type" Type="Self.exam_practice_type" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="exam">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="exam_practice_type">
+              <PropertyRef Name="exam_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_exam_question_exam">
+          <End Role="exam" Type="Self.exam" Multiplicity="1" />
+          <End Role="exam_question" Type="Self.exam_question" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="exam">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="exam_question">
+              <PropertyRef Name="exam_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_exam_version_exam">
+          <End Role="exam" Type="Self.exam" Multiplicity="1" />
+          <End Role="exam_version" Type="Self.exam_version" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="exam">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="exam_version">
+              <PropertyRef Name="exam_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_examinee_answer_exam">
+          <End Role="exam" Type="Self.exam" Multiplicity="1" />
+          <End Role="examinee_answer" Type="Self.examinee_answer" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="exam">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="examinee_answer">
+              <PropertyRef Name="exam_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_user_exam_exam">
+          <End Role="exam" Type="Self.exam" Multiplicity="1" />
+          <End Role="exam_examinee" Type="Self.exam_examinee" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="exam">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="exam_examinee">
+              <PropertyRef Name="exam_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_exam_examinee_examinee">
+          <End Role="examinee" Type="Self.examinee" Multiplicity="1" />
+          <End Role="exam_examinee" Type="Self.exam_examinee" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="examinee">
+              <PropertyRef Name="user_id" />
+            </Principal>
+            <Dependent Role="exam_examinee">
+              <PropertyRef Name="examinee_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_exam_practice_type_practice_type">
+          <End Role="practice_type" Type="Self.practice_type" Multiplicity="1" />
+          <End Role="exam_practice_type" Type="Self.exam_practice_type" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="practice_type">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="exam_practice_type">
+              <PropertyRef Name="type_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_exam_question_office_question">
+          <End Role="office_question" Type="Self.office_question" Multiplicity="1" />
+          <End Role="exam_question" Type="Self.exam_question" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="office_question">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="exam_question">
+              <PropertyRef Name="question_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_exam_version_office_version">
+          <End Role="office_version" Type="Self.office_version" Multiplicity="1" />
+          <End Role="exam_version" Type="Self.exam_version" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="office_version">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="exam_version">
+              <PropertyRef Name="office_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_examinee_answer_examinee">
+          <End Role="examinee" Type="Self.examinee" Multiplicity="1" />
+          <End Role="examinee_answer" Type="Self.examinee_answer" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="examinee">
+              <PropertyRef Name="user_id" />
+            </Principal>
+            <Dependent Role="examinee_answer">
+              <PropertyRef Name="examinee_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_examinee_user">
+          <End Role="user" Type="Self.user" Multiplicity="1" />
+          <End Role="examinee" Type="Self.examinee" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="user">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="examinee">
+              <PropertyRef Name="user_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_examinee_answer_office_question">
+          <End Role="office_question" Type="Self.office_question" Multiplicity="1" />
+          <End Role="examinee_answer" Type="Self.examinee_answer" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="office_question">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="examinee_answer">
+              <PropertyRef Name="question_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_off_question_map_t2_off_question_type_l2">
+          <End Role="off_question_type_l2" Type="Self.off_question_type_l2" Multiplicity="1" />
+          <End Role="off_question_map_t2" Type="Self.off_question_map_t2" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="off_question_type_l2">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="off_question_map_t2">
+              <PropertyRef Name="type_l2_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_off_question_map_t2_office_question">
+          <End Role="office_question" Type="Self.office_question" Multiplicity="1" />
+          <End Role="off_question_map_t2" Type="Self.off_question_map_t2" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="office_question">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="off_question_map_t2">
+              <PropertyRef Name="question_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_off_question_type_l1_practice_type">
+          <End Role="practice_type" Type="Self.practice_type" Multiplicity="1" />
+          <End Role="off_question_type_l1" Type="Self.off_question_type_l1" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="practice_type">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="off_question_type_l1">
+              <PropertyRef Name="practice_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_off_question_type_l2_off_question_type_l1">
+          <End Role="off_question_type_l1" Type="Self.off_question_type_l1" Multiplicity="1" />
+          <End Role="off_question_type_l2" Type="Self.off_question_type_l2" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="off_question_type_l1">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="off_question_type_l2">
+              <PropertyRef Name="type_l1" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_off_question_version_office_question">
+          <End Role="office_question" Type="Self.office_question" Multiplicity="1" />
+          <End Role="off_question_version" Type="Self.off_question_version" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="office_question">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="off_question_version">
+              <PropertyRef Name="question_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_off_question_version_office_version">
+          <End Role="office_version" Type="Self.office_version" Multiplicity="1" />
+          <End Role="off_question_version" Type="Self.off_question_version" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="office_version">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="off_question_version">
+              <PropertyRef Name="office_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="abiexam_dbEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="answers" EntityType="Self.answer" />
+          <EntitySet Name="chairmen" EntityType="Self.chairman" />
+          <EntitySet Name="exams" EntityType="Self.exam" />
+          <EntitySet Name="exam_chairman" EntityType="Self.exam_chairman" />
+          <EntitySet Name="exam_examinee" EntityType="Self.exam_examinee" />
+          <EntitySet Name="exam_practice_type" EntityType="Self.exam_practice_type" />
+          <EntitySet Name="exam_question" EntityType="Self.exam_question" />
+          <EntitySet Name="exam_version" EntityType="Self.exam_version" />
+          <EntitySet Name="examinees" EntityType="Self.examinee" />
+          <EntitySet Name="examinee_answer" EntityType="Self.examinee_answer" />
+          <EntitySet Name="off_question_map_t2" EntityType="Self.off_question_map_t2" />
+          <EntitySet Name="off_question_type_l1" EntityType="Self.off_question_type_l1" />
+          <EntitySet Name="off_question_type_l2" EntityType="Self.off_question_type_l2" />
+          <EntitySet Name="off_question_version" EntityType="Self.off_question_version" />
+          <EntitySet Name="office_question" EntityType="Self.office_question" />
+          <EntitySet Name="office_version" EntityType="Self.office_version" />
+          <EntitySet Name="practice_type" EntityType="Self.practice_type" />
+          <EntitySet Name="users" EntityType="Self.user" />
+          <AssociationSet Name="FK_examinee_answer_answer" Association="Self.FK_examinee_answer_answer">
+            <End Role="answer" EntitySet="answers" />
+            <End Role="examinee_answer" EntitySet="examinee_answer" />
+          </AssociationSet>
+          <AssociationSet Name="FK_chairman_user" Association="Self.FK_chairman_user">
+            <End Role="user" EntitySet="users" />
+            <End Role="chairman" EntitySet="chairmen" />
+          </AssociationSet>
+          <AssociationSet Name="FK_exam_chairman_chairman" Association="Self.FK_exam_chairman_chairman">
+            <End Role="chairman" EntitySet="chairmen" />
+            <End Role="exam_chairman" EntitySet="exam_chairman" />
+          </AssociationSet>
+          <AssociationSet Name="FK_exam_chairman_exam" Association="Self.FK_exam_chairman_exam">
+            <End Role="exam" EntitySet="exams" />
+            <End Role="exam_chairman" EntitySet="exam_chairman" />
+          </AssociationSet>
+          <AssociationSet Name="FK_exam_practice_type_exam" Association="Self.FK_exam_practice_type_exam">
+            <End Role="exam" EntitySet="exams" />
+            <End Role="exam_practice_type" EntitySet="exam_practice_type" />
+          </AssociationSet>
+          <AssociationSet Name="FK_exam_question_exam" Association="Self.FK_exam_question_exam">
+            <End Role="exam" EntitySet="exams" />
+            <End Role="exam_question" EntitySet="exam_question" />
+          </AssociationSet>
+          <AssociationSet Name="FK_exam_version_exam" Association="Self.FK_exam_version_exam">
+            <End Role="exam" EntitySet="exams" />
+            <End Role="exam_version" EntitySet="exam_version" />
+          </AssociationSet>
+          <AssociationSet Name="FK_examinee_answer_exam" Association="Self.FK_examinee_answer_exam">
+            <End Role="exam" EntitySet="exams" />
+            <End Role="examinee_answer" EntitySet="examinee_answer" />
+          </AssociationSet>
+          <AssociationSet Name="FK_user_exam_exam" Association="Self.FK_user_exam_exam">
+            <End Role="exam" EntitySet="exams" />
+            <End Role="exam_examinee" EntitySet="exam_examinee" />
+          </AssociationSet>
+          <AssociationSet Name="FK_exam_examinee_examinee" Association="Self.FK_exam_examinee_examinee">
+            <End Role="examinee" EntitySet="examinees" />
+            <End Role="exam_examinee" EntitySet="exam_examinee" />
+          </AssociationSet>
+          <AssociationSet Name="FK_exam_practice_type_practice_type" Association="Self.FK_exam_practice_type_practice_type">
+            <End Role="practice_type" EntitySet="practice_type" />
+            <End Role="exam_practice_type" EntitySet="exam_practice_type" />
+          </AssociationSet>
+          <AssociationSet Name="FK_exam_question_office_question" Association="Self.FK_exam_question_office_question">
+            <End Role="office_question" EntitySet="office_question" />
+            <End Role="exam_question" EntitySet="exam_question" />
+          </AssociationSet>
+          <AssociationSet Name="FK_exam_version_office_version" Association="Self.FK_exam_version_office_version">
+            <End Role="office_version" EntitySet="office_version" />
+            <End Role="exam_version" EntitySet="exam_version" />
+          </AssociationSet>
+          <AssociationSet Name="FK_examinee_answer_examinee" Association="Self.FK_examinee_answer_examinee">
+            <End Role="examinee" EntitySet="examinees" />
+            <End Role="examinee_answer" EntitySet="examinee_answer" />
+          </AssociationSet>
+          <AssociationSet Name="FK_examinee_user" Association="Self.FK_examinee_user">
+            <End Role="user" EntitySet="users" />
+            <End Role="examinee" EntitySet="examinees" />
+          </AssociationSet>
+          <AssociationSet Name="FK_examinee_answer_office_question" Association="Self.FK_examinee_answer_office_question">
+            <End Role="office_question" EntitySet="office_question" />
+            <End Role="examinee_answer" EntitySet="examinee_answer" />
+          </AssociationSet>
+          <AssociationSet Name="FK_off_question_map_t2_off_question_type_l2" Association="Self.FK_off_question_map_t2_off_question_type_l2">
+            <End Role="off_question_type_l2" EntitySet="off_question_type_l2" />
+            <End Role="off_question_map_t2" EntitySet="off_question_map_t2" />
+          </AssociationSet>
+          <AssociationSet Name="FK_off_question_map_t2_office_question" Association="Self.FK_off_question_map_t2_office_question">
+            <End Role="office_question" EntitySet="office_question" />
+            <End Role="off_question_map_t2" EntitySet="off_question_map_t2" />
+          </AssociationSet>
+          <AssociationSet Name="FK_off_question_type_l1_practice_type" Association="Self.FK_off_question_type_l1_practice_type">
+            <End Role="practice_type" EntitySet="practice_type" />
+            <End Role="off_question_type_l1" EntitySet="off_question_type_l1" />
+          </AssociationSet>
+          <AssociationSet Name="FK_off_question_type_l2_off_question_type_l1" Association="Self.FK_off_question_type_l2_off_question_type_l1">
+            <End Role="off_question_type_l1" EntitySet="off_question_type_l1" />
+            <End Role="off_question_type_l2" EntitySet="off_question_type_l2" />
+          </AssociationSet>
+          <AssociationSet Name="FK_off_question_version_office_question" Association="Self.FK_off_question_version_office_question">
+            <End Role="office_question" EntitySet="office_question" />
+            <End Role="off_question_version" EntitySet="off_question_version" />
+          </AssociationSet>
+          <AssociationSet Name="FK_off_question_version_office_version" Association="Self.FK_off_question_version_office_version">
+            <End Role="office_version" EntitySet="office_version" />
+            <End Role="off_question_version" EntitySet="off_question_version" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="abiexam_dbModelStoreContainer" CdmEntityContainer="abiexam_dbEntities">
+          <EntitySetMapping Name="answers">
+            <EntityTypeMapping TypeName="abiexam_dbModel.answer">
+              <MappingFragment StoreEntitySet="answer">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="answer_file" ColumnName="answer_file" />
+                <ScalarProperty Name="score" ColumnName="score" />
+                <ScalarProperty Name="description" ColumnName="description" />
+                <ScalarProperty Name="create_at" ColumnName="create_at" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="chairmen">
+            <EntityTypeMapping TypeName="abiexam_dbModel.chairman">
+              <MappingFragment StoreEntitySet="chairman">
+                <ScalarProperty Name="user_id" ColumnName="user_id" />
+                <ScalarProperty Name="create_at" ColumnName="create_at" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="exams">
+            <EntityTypeMapping TypeName="abiexam_dbModel.exam">
+              <MappingFragment StoreEntitySet="exam">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="description" ColumnName="description" />
+                <ScalarProperty Name="customer" ColumnName="customer" />
+                <ScalarProperty Name="time_start" ColumnName="time_start" />
+                <ScalarProperty Name="duration" ColumnName="duration" />
+                <ScalarProperty Name="number_question" ColumnName="number_question" />
+                <ScalarProperty Name="active" ColumnName="active" />
+                <ScalarProperty Name="create_at" ColumnName="create_at" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="exam_chairman">
+            <EntityTypeMapping TypeName="abiexam_dbModel.exam_chairman">
+              <MappingFragment StoreEntitySet="exam_chairman">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="chairman_id" ColumnName="chairman_id" />
+                <ScalarProperty Name="exam_id" ColumnName="exam_id" />
+                <ScalarProperty Name="active" ColumnName="active" />
+                <ScalarProperty Name="create_at" ColumnName="create_at" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="exam_examinee">
+            <EntityTypeMapping TypeName="abiexam_dbModel.exam_examinee">
+              <MappingFragment StoreEntitySet="exam_examinee">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="examinee_id" ColumnName="examinee_id" />
+                <ScalarProperty Name="exam_id" ColumnName="exam_id" />
+                <ScalarProperty Name="joined" ColumnName="joined" />
+                <ScalarProperty Name="active" ColumnName="active" />
+                <ScalarProperty Name="create_at" ColumnName="create_at" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="exam_practice_type">
+            <EntityTypeMapping TypeName="abiexam_dbModel.exam_practice_type">
+              <MappingFragment StoreEntitySet="exam_practice_type">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="exam_id" ColumnName="exam_id" />
+                <ScalarProperty Name="type_id" ColumnName="type_id" />
+                <ScalarProperty Name="create_at" ColumnName="create_at" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="exam_question">
+            <EntityTypeMapping TypeName="abiexam_dbModel.exam_question">
+              <MappingFragment StoreEntitySet="exam_question">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="exam_id" ColumnName="exam_id" />
+                <ScalarProperty Name="question_id" ColumnName="question_id" />
+                <ScalarProperty Name="create_at" ColumnName="create_at" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="exam_version">
+            <EntityTypeMapping TypeName="abiexam_dbModel.exam_version">
+              <MappingFragment StoreEntitySet="exam_version">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="exam_id" ColumnName="exam_id" />
+                <ScalarProperty Name="office_id" ColumnName="office_id" />
+                <ScalarProperty Name="create_at" ColumnName="create_at" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="examinees">
+            <EntityTypeMapping TypeName="abiexam_dbModel.examinee">
+              <MappingFragment StoreEntitySet="examinee">
+                <ScalarProperty Name="user_id" ColumnName="user_id" />
+                <ScalarProperty Name="create_at" ColumnName="create_at" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="examinee_answer">
+            <EntityTypeMapping TypeName="abiexam_dbModel.examinee_answer">
+              <MappingFragment StoreEntitySet="examinee_answer">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="examinee_id" ColumnName="examinee_id" />
+                <ScalarProperty Name="question_id" ColumnName="question_id" />
+                <ScalarProperty Name="answer_id" ColumnName="answer_id" />
+                <ScalarProperty Name="exam_id" ColumnName="exam_id" />
+                <ScalarProperty Name="create_at" ColumnName="create_at" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="off_question_map_t2">
+            <EntityTypeMapping TypeName="abiexam_dbModel.off_question_map_t2">
+              <MappingFragment StoreEntitySet="off_question_map_t2">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="question_id" ColumnName="question_id" />
+                <ScalarProperty Name="type_l2_id" ColumnName="type_l2_id" />
+                <ScalarProperty Name="create_at" ColumnName="create_at" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="off_question_type_l1">
+            <EntityTypeMapping TypeName="abiexam_dbModel.off_question_type_l1">
+              <MappingFragment StoreEntitySet="off_question_type_l1">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="practice_id" ColumnName="practice_id" />
+                <ScalarProperty Name="description" ColumnName="description" />
+                <ScalarProperty Name="create_at" ColumnName="create_at" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="off_question_type_l2">
+            <EntityTypeMapping TypeName="abiexam_dbModel.off_question_type_l2">
+              <MappingFragment StoreEntitySet="off_question_type_l2">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="type_l1" ColumnName="type_l1" />
+                <ScalarProperty Name="description" ColumnName="description" />
+                <ScalarProperty Name="create_at" ColumnName="create_at" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="off_question_version">
+            <EntityTypeMapping TypeName="abiexam_dbModel.off_question_version">
+              <MappingFragment StoreEntitySet="off_question_version">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="question_id" ColumnName="question_id" />
+                <ScalarProperty Name="office_id" ColumnName="office_id" />
+                <ScalarProperty Name="create_at" ColumnName="create_at" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="office_question">
+            <EntityTypeMapping TypeName="abiexam_dbModel.office_question">
+              <MappingFragment StoreEntitySet="office_question">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="title" ColumnName="title" />
+                <ScalarProperty Name="html_content" ColumnName="html_content" />
+                <ScalarProperty Name="markdown_content" ColumnName="markdown_content" />
+                <ScalarProperty Name="file_question" ColumnName="file_question" />
+                <ScalarProperty Name="file_correct_answer" ColumnName="file_correct_answer" />
+                <ScalarProperty Name="active" ColumnName="active" />
+                <ScalarProperty Name="description" ColumnName="description" />
+                <ScalarProperty Name="image" ColumnName="image" />
+                <ScalarProperty Name="request" ColumnName="request" />
+                <ScalarProperty Name="create_at" ColumnName="create_at" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="office_version">
+            <EntityTypeMapping TypeName="abiexam_dbModel.office_version">
+              <MappingFragment StoreEntitySet="office_version">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="description" ColumnName="description" />
+                <ScalarProperty Name="create_at" ColumnName="create_at" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="practice_type">
+            <EntityTypeMapping TypeName="abiexam_dbModel.practice_type">
+              <MappingFragment StoreEntitySet="practice_type">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="create_at" ColumnName="create_at" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="users">
+            <EntityTypeMapping TypeName="abiexam_dbModel.user">
+              <MappingFragment StoreEntitySet="user">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="email" ColumnName="email" />
+                <ScalarProperty Name="password" ColumnName="password" />
+                <ScalarProperty Name="active" ColumnName="active" />
+                <ScalarProperty Name="create_at" ColumnName="create_at" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
