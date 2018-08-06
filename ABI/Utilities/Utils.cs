@@ -125,7 +125,11 @@ namespace ABI
         public static void Save(int index, Dictionary<int, Document> mapIdDocuments)
         {
             if (mapIdDocuments != null && mapIdDocuments.ContainsKey(index))
-                mapIdDocuments[index].Save();
+                try
+                {
+                    mapIdDocuments[index].Save();
+                }
+                catch(Exception) { }
         }
 
         public static void SaveAll(Dictionary<int, Document> mapIdDocuments)

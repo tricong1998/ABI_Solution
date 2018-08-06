@@ -126,7 +126,10 @@ namespace ABI
         {
             Utils.SaveAll(exam.MapIndexDocuments);
             Utils.CloseAll(exam.MapIndexDocuments);
-            exam.WordApplication.Quit();
+            if(exam.WordApplication!= null)
+            {
+                exam.WordApplication.Quit();
+            }
         }
 
         private void Window_Deactivated(object sender, EventArgs e)
@@ -236,7 +239,11 @@ namespace ABI
                 }
             }
             Utils.SaveAll(exam.MapIndexDocuments);
-            Utils.CloseAll(exam.MapIndexDocuments);            
+            Utils.CloseAll(exam.MapIndexDocuments);
+            if (exam.WordApplication != null)
+            {
+                exam.WordApplication.Quit();
+            }
             foreach (IQAPair pair in exam.QAPairs)
             {
                 IQuestion question = pair.Question;                
