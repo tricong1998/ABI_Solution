@@ -35,6 +35,7 @@ namespace ABI_Server.Models
         public string zip_files { get; set; }
         public byte active { get; set; }
         public System.DateTime create_at { get; set; }
+        public string question_content { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<exam_chairman> exam_chairman { get; set; }

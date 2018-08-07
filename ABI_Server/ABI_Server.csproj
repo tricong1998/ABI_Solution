@@ -242,6 +242,7 @@
     <Compile Include="Areas\HelpPage\SampleGeneration\SampleDirection.cs" />
     <Compile Include="Areas\HelpPage\SampleGeneration\TextSample.cs" />
     <Compile Include="Areas\HelpPage\XmlDocumentationProvider.cs" />
+    <Compile Include="Business\Analyzer\QuestionAnalyzer.cs" />
     <Compile Include="Business\Comparison\Word\CompareTextRange.cs" />
     <Compile Include="Business\Comparison\Word\CompareWFont.cs" />
     <Compile Include="Business\Comparison\Word\CompareWParagraph.cs" />
@@ -265,7 +266,6 @@
     <Compile Include="Business\Models\Word\ABIW_Table.cs" />
     <Compile Include="Business\Models\Word\ABIW_TextRange.cs" />
     <Compile Include="Business\Models\Word\ABIW_TextRangePro.cs" />
-    <Compile Include="Business\QuestionAnalyzer.cs" />
     <Compile Include="Controllers\ExamController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\PracticeTypeController.cs" />
