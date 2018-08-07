@@ -1,6 +1,6 @@
 ﻿// Copyright (c) 2018 fit.uet.vnu.edu.vn
 // author @duongtd
-// created on 2:40 PM 2018/7/25
+// created on 4:45 PM 2018/6/15
 using ABI_DCH.Common;
 using System;
 using System.Collections.Generic;
@@ -8,13 +8,12 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ABI
+namespace ABI_DCH.PowerPoint
 {
-    public class OpenWFile
+    public class PowerPointFile : ABIFile, IPowerPointFile
     {
-        public IResult CheckOpened(string path)
+        public PowerPointFile(string path) : base(path)
         {
-            throw new NotImplementedException();
         }
     }
 }

@@ -19,9 +19,12 @@
     <UseIISExpress>true</UseIISExpress>
     <Use64BitIISExpress />
     <IISExpressSSLPort>44379</IISExpressSSLPort>
-    <IISExpressAnonymousAuthentication>enabled</IISExpressAnonymousAuthentication>
-    <IISExpressWindowsAuthentication>disabled</IISExpressWindowsAuthentication>
-    <IISExpressUseClassicPipelineMode>false</IISExpressUseClassicPipelineMode>
+    <IISExpressAnonymousAuthentication>
+    </IISExpressAnonymousAuthentication>
+    <IISExpressWindowsAuthentication>
+    </IISExpressWindowsAuthentication>
+    <IISExpressUseClassicPipelineMode>
+    </IISExpressUseClassicPipelineMode>
     <UseGlobalApplicationHostFile />
     <NuGetPackageImportStamp>
     </NuGetPackageImportStamp>
@@ -239,7 +242,30 @@
     <Compile Include="Areas\HelpPage\SampleGeneration\SampleDirection.cs" />
     <Compile Include="Areas\HelpPage\SampleGeneration\TextSample.cs" />
     <Compile Include="Areas\HelpPage\XmlDocumentationProvider.cs" />
+    <Compile Include="Business\Comparison\Word\CompareTextRange.cs" />
+    <Compile Include="Business\Comparison\Word\CompareWFont.cs" />
+    <Compile Include="Business\Comparison\Word\CompareWParagraph.cs" />
     <Compile Include="Business\ExamInitial.cs" />
+    <Compile Include="Business\ExamSubmission.cs" />
+    <Compile Include="Business\Models\Excel\ABIE_Font.cs" />
+    <Compile Include="Business\Models\Excel\ABIE_Paragraph.cs" />
+    <Compile Include="Business\Models\Excel\ABIE_Range.cs" />
+    <Compile Include="Business\Models\Excel\ABIE_WorkSheet.cs" />
+    <Compile Include="Business\Models\Excel\ABIE_WorkBook.cs" />
+    <Compile Include="Business\Models\Word\ABIW_Border.cs" />
+    <Compile Include="Business\Models\Word\ABIW_Borders.cs" />
+    <Compile Include="Business\Models\Word\ABIW_Cell.cs" />
+    <Compile Include="Business\Models\Word\ABIW_Document.cs" />
+    <Compile Include="Business\Models\Word\ABIW_Endnotes.cs" />
+    <Compile Include="Business\Models\Word\ABIW_Font.cs" />
+    <Compile Include="Business\Models\Word\ABIW_FootNotes.cs" />
+    <Compile Include="Business\Models\Word\ABIW_Paragraph.cs" />
+    <Compile Include="Business\Models\Word\ABIW_Range.cs" />
+    <Compile Include="Business\Models\Word\ABIW_Section.cs" />
+    <Compile Include="Business\Models\Word\ABIW_Table.cs" />
+    <Compile Include="Business\Models\Word\ABIW_TextRange.cs" />
+    <Compile Include="Business\Models\Word\ABIW_TextRangePro.cs" />
+    <Compile Include="Business\QuestionAnalyzer.cs" />
     <Compile Include="Controllers\ExamController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\PracticeTypeController.cs" />
@@ -440,6 +466,50 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resource1.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <COMReference Include="Microsoft.Office.Core">
+      <Guid>{2DF8D04C-5BFA-101B-BDE5-00AA0044DE52}</Guid>
+      <VersionMajor>2</VersionMajor>
+      <VersionMinor>7</VersionMinor>
+      <Lcid>0</Lcid>
+      <WrapperTool>primary</WrapperTool>
+      <Isolated>False</Isolated>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </COMReference>
+    <COMReference Include="Microsoft.Office.Interop.Excel">
+      <Guid>{00020813-0000-0000-C000-000000000046}</Guid>
+      <VersionMajor>1</VersionMajor>
+      <VersionMinor>8</VersionMinor>
+      <Lcid>0</Lcid>
+      <WrapperTool>primary</WrapperTool>
+      <Isolated>False</Isolated>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </COMReference>
+    <COMReference Include="Microsoft.Office.Interop.Word">
+      <Guid>{00020905-0000-0000-C000-000000000046}</Guid>
+      <VersionMajor>8</VersionMajor>
+      <VersionMinor>6</VersionMinor>
+      <Lcid>0</Lcid>
+      <WrapperTool>primary</WrapperTool>
+      <Isolated>False</Isolated>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </COMReference>
+    <COMReference Include="VBIDE">
+      <Guid>{0002E157-0000-0000-C000-000000000046}</Guid>
+      <VersionMajor>5</VersionMajor>
+      <VersionMinor>3</VersionMinor>
+      <Lcid>0</Lcid>
+      <WrapperTool>primary</WrapperTool>
+      <Isolated>False</Isolated>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </COMReference>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\ABI_DCH\ABI_DCH.csproj">
+      <Project>{ec8b37d5-36d2-453f-a52c-226770ec0a51}</Project>
+      <Name>ABI_DCH</Name>
+    </ProjectReference>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

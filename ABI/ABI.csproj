@@ -57,16 +57,6 @@
     <Reference Include="log4net, Version=2.0.8.0, Culture=neutral, PublicKeyToken=669e0ddf0bb1aa2a, processorArchitecture=MSIL">
       <HintPath>..\packages\log4net.2.0.8\lib\net45-full\log4net.dll</HintPath>
     </Reference>
-    <Reference Include="Microsoft.Office.Interop.Excel, Version=15.0.0.0, Culture=neutral, PublicKeyToken=71e9bce111e9429c, processorArchitecture=MSIL">
-      <EmbedInteropTypes>True</EmbedInteropTypes>
-      <HintPath>..\packages\Microsoft.Office.Interop.Excel.15.0.4795.1000\lib\net20\Microsoft.Office.Interop.Excel.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="Microsoft.Office.Interop.Word, Version=15.0.0.0, Culture=neutral, PublicKeyToken=71e9bce111e9429c, processorArchitecture=MSIL">
-      <EmbedInteropTypes>True</EmbedInteropTypes>
-      <HintPath>..\packages\Microsoft.Office.Interop.Word.15.0.4797.1003\lib\net20\Microsoft.Office.Interop.Word.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Configuration" />
     <Reference Include="System.Data" />
@@ -95,52 +85,9 @@
     <Compile Include="Analyzer\LoadQuestions.cs" />
     <Compile Include="Analyzer\LoadWordQuestions.cs" />
     <Compile Include="Controller\OpenDocument.cs" />
-    <Compile Include="Controller\Word\CompareTextRange.cs" />
-    <Compile Include="Controller\Word\CompareWFont.cs" />
-    <Compile Include="Controller\Word\CompareWParagraph.cs" />
     <Compile Include="Controller\Word\OpenWFile.cs" />
     <Compile Include="Controller\Word\SaveAsWFile.cs" />
-    <Compile Include="Model\ABIAnswer.cs" />
-    <Compile Include="Model\ABIExam.cs" />
-    <Compile Include="Model\ABIFile.cs" />
-    <Compile Include="Model\ABIQAPair.cs" />
-    <Compile Include="Model\AbstractAnswer.cs" />
-    <Compile Include="Model\AbstractQAPair.cs" />
-    <Compile Include="Model\AbstractQuestion.cs" />
-    <Compile Include="Model\AbstractResult.cs" />
-    <Compile Include="Model\Answer\Word\CloseWFileAnswer.cs" />
-    <Compile Include="Model\Answer\Word\CompareWFileAnswer.cs" />
-    <Compile Include="Model\Answer\Word\CreateWFileAnswer.cs" />
-    <Compile Include="Model\Answer\Word\DeleteWFileAnswer.cs" />
-    <Compile Include="Model\Answer\Word\OpenWFileAnswer.cs" />
-    <Compile Include="Model\Answer\Word\SaveAsWFileAnswer.cs" />
-    <Compile Include="Model\BinResult.cs" />
-    <Compile Include="Model\CompareObject.cs" />
-    <Compile Include="Model\Excel\ABIE_Font.cs" />
-    <Compile Include="Model\Excel\ABIE_Paragraph.cs" />
-    <Compile Include="Model\Excel\ABIE_Range.cs" />
-    <Compile Include="Model\Excel\ABIE_WorkBook.cs" />
-    <Compile Include="Model\Excel\ABIE_WorkSheet.cs" />
-    <Compile Include="Model\IAnswer.cs" />
-    <Compile Include="Model\IComparisonResult.cs" />
-    <Compile Include="Model\IExam.cs" />
-    <Compile Include="Model\IQAPair.cs" />
-    <Compile Include="Model\IQuestion.cs" />
-    <Compile Include="Model\IResult.cs" />
-    <Compile Include="Model\Question\Word\CloseWFileQuestion.cs" />
-    <Compile Include="Model\Question\Word\CompareWFileQuestion.cs" />
-    <Compile Include="Model\Question\Word\OpenWFileQuestion.cs" />
-    <Compile Include="Model\ScoreResult.cs" />
-    <Compile Include="Model\View\QuestionVisual.cs" />
-    <Compile Include="Model\Word\ABIW_Border.cs" />
-    <Compile Include="Model\Word\ABIW_Cell.cs" />
-    <Compile Include="Model\Word\ABIW_Endnotes.cs" />
-    <Compile Include="Model\Word\ABIW_FootNotes.cs" />
-    <Compile Include="Model\Word\ABIW_Section.cs" />
-    <Compile Include="Model\Word\ABIW_Table.cs" />
-    <Compile Include="Model\Word\ABIW_Borders.cs" />
-    <Compile Include="Model\Word\ABIW_TextRange.cs" />
-    <Compile Include="Model\Word\ABIW_TextRangePro.cs" />
+    <Compile Include="Model\QuestionVisual.cs" />
     <Compile Include="MyUserControl\Word_UC.xaml.cs">
       <DependentUpon>Word_UC.xaml</DependentUpon>
     </Compile>
@@ -163,20 +110,6 @@
     </Page>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Model\ComparisonResult.cs" />
-    <Compile Include="Model\AbstractFile.cs" />
-    <Compile Include="Model\Word\ABIW_Document.cs" />
-    <Compile Include="Model\Word\ABIW_Font.cs" />
-    <Compile Include="Model\Word\ABIW_Paragraph.cs" />
-    <Compile Include="Model\Excel\ExcelFile.cs" />
-    <Compile Include="Model\Excel\IExcelFile.cs" />
-    <Compile Include="Model\IComparison.cs" />
-    <Compile Include="Model\IFile.cs" />
-    <Compile Include="Model\PowerPoint\PowerPointFile.cs" />
-    <Compile Include="Model\PowerPoint\IPowerPointFile.cs" />
-    <Compile Include="Model\Word\ABIW_Range.cs" />
-    <Compile Include="Model\Word\WordFile.cs" />
-    <Compile Include="Model\Word\IWordFile.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -209,6 +142,50 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Logs\" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\ABI_DCH\ABI_DCH.csproj">
+      <Project>{ec8b37d5-36d2-453f-a52c-226770ec0a51}</Project>
+      <Name>ABI_DCH</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <COMReference Include="Microsoft.Office.Core">
+      <Guid>{2DF8D04C-5BFA-101B-BDE5-00AA0044DE52}</Guid>
+      <VersionMajor>2</VersionMajor>
+      <VersionMinor>7</VersionMinor>
+      <Lcid>0</Lcid>
+      <WrapperTool>primary</WrapperTool>
+      <Isolated>False</Isolated>
+      <EmbedInteropTypes>False</EmbedInteropTypes>
+    </COMReference>
+    <COMReference Include="Microsoft.Office.Interop.Excel">
+      <Guid>{00020813-0000-0000-C000-000000000046}</Guid>
+      <VersionMajor>1</VersionMajor>
+      <VersionMinor>8</VersionMinor>
+      <Lcid>0</Lcid>
+      <WrapperTool>primary</WrapperTool>
+      <Isolated>False</Isolated>
+      <EmbedInteropTypes>False</EmbedInteropTypes>
+    </COMReference>
+    <COMReference Include="Microsoft.Office.Interop.Word">
+      <Guid>{00020905-0000-0000-C000-000000000046}</Guid>
+      <VersionMajor>8</VersionMajor>
+      <VersionMinor>6</VersionMinor>
+      <Lcid>0</Lcid>
+      <WrapperTool>primary</WrapperTool>
+      <Isolated>False</Isolated>
+      <EmbedInteropTypes>False</EmbedInteropTypes>
+    </COMReference>
+    <COMReference Include="VBIDE">
+      <Guid>{0002E157-0000-0000-C000-000000000046}</Guid>
+      <VersionMajor>5</VersionMajor>
+      <VersionMinor>3</VersionMinor>
+      <Lcid>0</Lcid>
+      <WrapperTool>primary</WrapperTool>
+      <Isolated>False</Isolated>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </COMReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

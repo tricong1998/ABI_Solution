@@ -24,6 +24,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "ICDL", "ICDL", "{6961E081-6
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ABI_Server", "ABI_Server\ABI_Server.csproj", "{BB4B4019-9AC3-4E20-ACE3-0E013DE37936}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ABI_DCH", "ABI_DCH\ABI_DCH.csproj", "{EC8B37D5-36D2-453F-A52C-226770EC0A51}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -56,6 +58,14 @@ Global
 		{BB4B4019-9AC3-4E20-ACE3-0E013DE37936}.Release|Any CPU.Build.0 = Release|Any CPU
 		{BB4B4019-9AC3-4E20-ACE3-0E013DE37936}.Release|x64.ActiveCfg = Release|Any CPU
 		{BB4B4019-9AC3-4E20-ACE3-0E013DE37936}.Release|x64.Build.0 = Release|Any CPU
+		{EC8B37D5-36D2-453F-A52C-226770EC0A51}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EC8B37D5-36D2-453F-A52C-226770EC0A51}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EC8B37D5-36D2-453F-A52C-226770EC0A51}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{EC8B37D5-36D2-453F-A52C-226770EC0A51}.Debug|x64.Build.0 = Debug|Any CPU
+		{EC8B37D5-36D2-453F-A52C-226770EC0A51}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EC8B37D5-36D2-453F-A52C-226770EC0A51}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EC8B37D5-36D2-453F-A52C-226770EC0A51}.Release|x64.ActiveCfg = Release|Any CPU
+		{EC8B37D5-36D2-453F-A52C-226770EC0A51}.Release|x64.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

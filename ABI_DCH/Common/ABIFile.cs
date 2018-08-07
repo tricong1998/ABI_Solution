@@ -1,20 +1,18 @@
 ﻿// Copyright (c) 2018 fit.uet.vnu.edu.vn
 // author @duongtd
-// created on 2:40 PM 2018/7/25
-using ABI_DCH.Common;
+// created on 1:53 PM 2018/7/25
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ABI
+namespace ABI_DCH.Common
 {
-    public class OpenWFile
+    public class ABIFile : AbstractFile
     {
-        public IResult CheckOpened(string path)
+        public ABIFile(string path) : base(path)
         {
-            throw new NotImplementedException();
         }
     }
 }

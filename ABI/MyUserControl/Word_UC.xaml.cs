@@ -16,6 +16,8 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using System.Diagnostics;
+using ABI_DCH.Word;
+using ABI_DCH.Common;
 
 namespace ABI
 {

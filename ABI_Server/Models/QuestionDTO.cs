@@ -16,5 +16,6 @@ namespace ABI_Server.Models
         public List<int> listTypeL2 { get; set; }
         public string description { get; set; }
         public string image { get; set; }
+        public string typeClass { get; set; }
     }
 }

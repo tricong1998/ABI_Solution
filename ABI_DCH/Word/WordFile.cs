@@ -1,6 +1,6 @@
 ﻿// Copyright (c) 2018 fit.uet.vnu.edu.vn
 // author @duongtd
-// created on 2:40 PM 2018/7/25
+// created on 4:46 PM 2018/6/15
 using ABI_DCH.Common;
 using System;
 using System.Collections.Generic;
@@ -8,13 +8,12 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ABI
+namespace ABI_DCH.Word
 {
-    public class OpenWFile
+    public class WordFile : ABIFile, IWordFile
     {
-        public IResult CheckOpened(string path)
+        public WordFile(string path) : base(path)
         {
-            throw new NotImplementedException();
         }
     }
 }

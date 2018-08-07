@@ -1,6 +1,7 @@
 ﻿// Copyright (c) 2018 fit.uet.vnu.edu.vn
 // author @duongtd
 // created on 12:03 PM 2018/6/26
+using ABI_DCH.Common;
 using Microsoft.Office.Interop.Word;
 using System;
 using System.Collections.Generic;
@@ -140,4 +141,6 @@ namespace ABI
                 pair.Value.Close();
         }
     }
+
+    
 }

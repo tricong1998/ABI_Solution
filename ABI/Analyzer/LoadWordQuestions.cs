@@ -1,6 +1,8 @@
 ﻿// Copyright (c) 2018 fit.uet.vnu.edu.vn
 // author @duongtd
 // created on 5:36 PM 2018/7/10
+using ABI_DCH.Common;
+using ABI_DCH.Word;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
