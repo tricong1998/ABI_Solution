@@ -32,6 +32,7 @@ namespace ABI_Server.Models
         public System.DateTime time_start { get; set; }
         public int duration { get; set; }
         public int number_question { get; set; }
+        public string zip_files { get; set; }
         public byte active { get; set; }
         public System.DateTime create_at { get; set; }
     

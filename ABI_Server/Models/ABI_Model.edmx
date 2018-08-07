@@ -33,6 +33,7 @@
           <Property Name="time_start" Type="datetime" Nullable="false" />
           <Property Name="duration" Type="int" Nullable="false" />
           <Property Name="number_question" Type="int" Nullable="false" />
+          <Property Name="zip_files" Type="nvarchar" MaxLength="255" />
           <Property Name="active" Type="tinyint" Nullable="false" />
           <Property Name="create_at" Type="datetime2" Precision="3" Nullable="false" />
         </EntityType>
@@ -592,6 +593,7 @@
           <Property Name="time_start" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="duration" Type="Int32" Nullable="false" />
           <Property Name="number_question" Type="Int32" Nullable="false" />
+          <Property Name="zip_files" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
           <Property Name="active" Type="Byte" Nullable="false" />
           <Property Name="create_at" Type="DateTime" Nullable="false" Precision="3" />
           <NavigationProperty Name="exam_chairman" Relationship="Self.FK_exam_chairman_exam" FromRole="exam" ToRole="exam_chairman" />
@@ -1191,6 +1193,7 @@
                 <ScalarProperty Name="time_start" ColumnName="time_start" />
                 <ScalarProperty Name="duration" ColumnName="duration" />
                 <ScalarProperty Name="number_question" ColumnName="number_question" />
+                <ScalarProperty Name="zip_files" ColumnName="zip_files" />
                 <ScalarProperty Name="active" ColumnName="active" />
                 <ScalarProperty Name="create_at" ColumnName="create_at" />
               </MappingFragment>

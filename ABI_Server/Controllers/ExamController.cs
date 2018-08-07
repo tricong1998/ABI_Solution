@@ -1,4 +1,5 @@
-﻿using ABI_Server.Models;
+﻿using ABI_Server.Business;
+using ABI_Server.Models;
 using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
@@ -45,6 +46,12 @@ namespace ABI_Server.Controllers
                             listTypeL2 = re.Select(m => m.z.type_l2_id).ToList(),
                             title = re.FirstOrDefault().y.title,
                         };
+            var zipQuestionsZipFilePath = from m in ctx.exams
+                                          where m.id.Equals(examId)
+                                          select m;
+            var l = zipQuestionsZipFilePath.ToList();
+            if (l[0].zip_files == null)
+                new ExamInitial().PackageQuestions(query.ToList(), "path");
             return query.ToList();
         }
 
@@ -52,6 +59,10 @@ namespace ABI_Server.Controllers
         [ActionName("questions")]
         public HttpResponseMessage Files([FromBody] ListQuestionDTO listQuestion)
         {
+            // check zip_files field, if null, call to  new ExamInitial().PackageQuestions(query.ToList(), "path");
+            // else return this field's value
+
+            // hard code
             string workspace = Properties.Resource1.WORK_SPACE;
             string fileName = "exam1.zip";
             string filePath = Path.Combine(workspace, @"questions", @"office", fileName);
