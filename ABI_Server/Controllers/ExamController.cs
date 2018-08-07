@@ -1,6 +1,8 @@
 ﻿using ABI_Server.Models;
+using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
@@ -18,8 +20,13 @@ namespace ABI_Server.Controllers
         }
 
         [ResponseType(typeof(office_question))]
-        public IEnumerable<QuestionDTO> GetExams(int examId)
+        public IEnumerable<QuestionDTO> Exams([FromBody] object _params)
         {
+            JObject examOb = _params as JObject;
+            JProperty first = examOb.First as JProperty;
+            int examId = 1;
+            if (first.Name.Equals("exam_id"))
+                examId = Int32.Parse((first.Value as JValue).Value.ToString());
             var ctx = new abiexam_dbEntities();
             var query = from x in ctx.exam_question
                         join y in ctx.office_question on x.question_id equals y.id
@@ -39,6 +46,24 @@ namespace ABI_Server.Controllers
                             title = re.FirstOrDefault().y.title,
                         };
             return query.ToList();
+        }
+
+        [HttpPost]
+        [ActionName("questions")]
+        public HttpResponseMessage Files([FromBody] ListQuestionDTO listQuestion)
+        {
+            string workspace = Properties.Resource1.WORK_SPACE;
+            string fileName = "exam1.zip";
+            string filePath = Path.Combine(workspace, @"questions", @"office", fileName);
+            var dataBytes = File.ReadAllBytes(filePath);
+            //adding bytes to memory stream   
+            var dataStream = new MemoryStream(dataBytes);
+            HttpResponseMessage httpResponseMessage = Request.CreateResponse(HttpStatusCode.OK);
+            httpResponseMessage.Content = new StreamContent(dataStream);
+            httpResponseMessage.Content.Headers.ContentDisposition = new System.Net.Http.Headers.ContentDispositionHeaderValue("attachment");
+            httpResponseMessage.Content.Headers.ContentDisposition.FileName = fileName;
+            httpResponseMessage.Content.Headers.ContentType = new System.Net.Http.Headers.MediaTypeHeaderValue("application/octet-stream");
+            return httpResponseMessage;
         }
     }
 }

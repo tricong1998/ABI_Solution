@@ -42,7 +42,8 @@ namespace ABI_Server.Provider
                 HandleError(context);
                 return;
             }
-            if (data["exam_id"] == null || data["secret_code"] == null)
+            if (data["exam_id"] == null || data["secret_code"] == null || 
+                !data["secret_code"].Equals(Properties.Resource1.SECRET_CODE))
             {
                 HandleError(context);
                 return;

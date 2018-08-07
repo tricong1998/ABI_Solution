@@ -27,9 +27,16 @@ namespace ABI_Server
             config.Routes.MapHttpRoute(
                 name: "DefaultApi",
                 routeTemplate: "api/{controller}/{id}",
-                defaults: new { id = RouteParameter.Optional }
+                defaults: new { id = RouteParameter.Optional },
+                constraints: new { id = @"^\d+$" } // Only integers 
             );
-            
+            // Controllers with Actions
+            // To handle routes like `/api/VTRouting/route`
+            config.Routes.MapHttpRoute(
+                name: "ControllerAndAction",
+                routeTemplate: "api/{controller}/{action}"
+            );
+
             // WebAPI when dealing with JSON & JavaScript!  
             // Setup json serialization to serialize classes to camel (std. Json format)  
             var formatter = GlobalConfiguration.Configuration.Formatters.JsonFormatter;
