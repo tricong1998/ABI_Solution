@@ -32,5 +32,17 @@ namespace ABI.Properties {
                 return ((string)(this["abi_dbConnectionString"]));
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("abc")]
+        public string pa2 {
+            get {
+                return ((string)(this["pa2"]));
+            }
+            set {
+                this["pa2"] = value;
+            }
+        }
     }
 }

@@ -37,6 +37,9 @@ namespace ABI
             SqlConnection conn = Initialize();
             SqlCommand command = new SqlCommand("SELECT * FROM question", conn);
             List<IQAPair> re = new List<IQAPair>();
+            //Properties.Settings.Default.pa2 = "abc";
+            //Properties.Settings.Default.Save();
+
             // Create new SqlDataReader object and read data from the command.
             using (SqlDataReader reader = command.ExecuteReader())
             {

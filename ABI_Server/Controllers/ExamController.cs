@@ -12,7 +12,7 @@ using System.Web.Http.Description;
 
 namespace ABI_Server.Controllers
 {
-    //[Authorize]
+    [Authorize]
     public class ExamController : ApiController
     {
         public IEnumerable<string> Get()
@@ -61,7 +61,11 @@ namespace ABI_Server.Controllers
         {
             // check zip_files field, if null, call to  new ExamInitial().PackageQuestions(query.ToList(), "path");
             // else return this field's value
-
+            exam exam = new exam();
+            if(exam.zip_files == null)
+            {
+                //new ExamInitial().PackageQuestions(Exams(), "path");
+            }
             // hard code
             string workspace = Properties.Resource1.WORK_SPACE;
             string fileName = "exam1.zip";

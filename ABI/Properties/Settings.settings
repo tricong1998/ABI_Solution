@@ -10,5 +10,8 @@
 &lt;/SerializableConnectionString&gt;</DesignTimeValue>
       <Value Profile="(Default)">Data Source=localhost\SQLEXPRESS;Initial Catalog=abi_db;Integrated Security=True</Value>
     </Setting>
+    <Setting Name="pa2" Type="System.String" Scope="User">
+      <Value Profile="(Default)">abc</Value>
+    </Setting>
   </Settings>
 </SettingsFile>
