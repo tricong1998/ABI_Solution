@@ -4,6 +4,7 @@ using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.IO.Compression;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
@@ -46,12 +47,12 @@ namespace ABI_Server.Controllers
                             listTypeL2 = re.Select(m => m.z.type_l2_id).ToList(),
                             title = re.FirstOrDefault().y.title,
                         };
-            var zipQuestionsZipFilePath = from m in ctx.exams
-                                          where m.id.Equals(examId)
-                                          select m;
-            var l = zipQuestionsZipFilePath.ToList();
-            if (l[0].zip_files == null)
-                new ExamInitial().PackageQuestions(query.ToList(), "path");
+            //var zipQuestionsZipFilePath = from m in ctx.exams
+            //                              where m.id.Equals(examId)
+            //                              select m;
+            //var l = zipQuestionsZipFilePath.ToList();
+            //if (l[0].zip_files == null)
+            //    new ExamInitial().PackageQuestions(query.ToList(), @"D:\temp\abi\");
             return query.ToList();
         }
 
@@ -61,17 +62,33 @@ namespace ABI_Server.Controllers
         {
             // check zip_files field, if null, call to  new ExamInitial().PackageQuestions(query.ToList(), "path");
             // else return this field's value
-            exam exam = new exam();
-            if(exam.zip_files == null)
-            {
-                //new ExamInitial().PackageQuestions(Exams(), "path");
-            }
-            // hard code
             string workspace = Properties.Resource1.WORK_SPACE;
-            string fileName = "exam1.zip";
-            string filePath = Path.Combine(workspace, @"questions", @"office", fileName);
+            string fileName = "exam_" + DateTime.Now.ToString("yyMMdd" + "_" + "hhMMss") + ".zip"; // output
+            string filePath = Path.Combine(workspace, fileName); // output
+
+            int examId = listQuestion.exam_id;
+            var ctx = new abiexam_dbEntities();
+            exam exam = ctx.exams.Where(i => i.id.Equals(examId)).FirstOrDefault();
+            if (exam == null)
+                return Request.CreateResponse(HttpStatusCode.NotAcceptable);
+            if (exam.zip_files == null)
+            {
+                using (var archive = ZipFile.Open(filePath, ZipArchiveMode.Create))
+                {
+                    foreach (var questionDto in listQuestion.questions)
+                    {
+                        string fpath = Path.Combine(workspace, questionDto.file_question);
+                        archive.CreateEntryFromFile(fpath, Path.GetFileName(fpath));
+                    }
+                }
+                //new ExamInitial().PackageQuestions(listQuestion.questions, filePath);
+                // update db
+                exam.zip_files = filePath;
+                ctx.SaveChanges();
+            }
+            else
+                filePath = exam.zip_files;
             var dataBytes = File.ReadAllBytes(filePath);
-            //adding bytes to memory stream   
             var dataStream = new MemoryStream(dataBytes);
             HttpResponseMessage httpResponseMessage = Request.CreateResponse(HttpStatusCode.OK);
             httpResponseMessage.Content = new StreamContent(dataStream);

@@ -67,6 +67,7 @@
     <Otherwise />
   </Choose>
   <ItemGroup>
+    <Compile Include="Business\ExamInitialTests.cs" />
     <Compile Include="Controller\Word\CompareWFontTests.cs" />
     <Compile Include="Model\Excel\ABIE_ParagraphTests.cs" />
     <Compile Include="Model\Excel\ABIE_RangeTests.cs" />
@@ -78,6 +79,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="app.config" />
     <None Include="packages.config">
       <SubType>Designer</SubType>
     </None>
@@ -87,10 +89,12 @@
       <Project>{A0F92923-CDFD-45FE-B43F-2296BCDDA8F2}</Project>
       <Name>ABI</Name>
     </ProjectReference>
+    <ProjectReference Include="..\ABI_Server\ABI_Server.csproj">
+      <Project>{BB4B4019-9AC3-4E20-ACE3-0E013DE37936}</Project>
+      <Name>ABI_Server</Name>
+    </ProjectReference>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Model\Excel\" />
-  </ItemGroup>
+  <ItemGroup />
   <Choose>
     <When Condition="'$(VisualStudioVersion)' == '10.0' And '$(IsCodedUITest)' == 'True'">
       <ItemGroup>
